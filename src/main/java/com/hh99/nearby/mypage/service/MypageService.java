@@ -32,9 +32,6 @@ public class MypageService {
     private final MemberChallengeRepository memberChallengeRepository;
 
 
-
-//    private final ChallengeRepo
-
     @Transactional
     public ResponseEntity<?> myPage(@AuthenticationPrincipal UserDetails user) {
         Member member = memberRepository.findByEmail(user.getUsername()).get();
