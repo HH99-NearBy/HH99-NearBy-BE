@@ -1,4 +1,4 @@
-package com.hh99.nearby.chat;
+package com.hh99.nearby.chat.entity;
 
 import lombok.*;
 
