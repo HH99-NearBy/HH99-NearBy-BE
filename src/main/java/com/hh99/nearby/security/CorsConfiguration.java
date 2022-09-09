@@ -11,8 +11,8 @@ public class CorsConfiguration implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedMethods("*")
                 .allowedHeaders("*")
-                .allowedOrigins("http://localhost:3000","https://clone-fe-three.vercel.app","https://clone-l9oboc2et-ericagong.vercel.app")
-                .exposedHeaders("authorization","Access-Token-Expire-Time","authentication")
+                .allowedOrigins("http://localhost:63342","http://localhost:3000","https://clone-fe-three.vercel.app","https://clone-l9oboc2et-ericagong.vercel.app")
+                .exposedHeaders("Set-Cookie","loggedUser","authorization","Access-Token-Expire-Time","authentication")
                .allowCredentials(true);
     }
 }

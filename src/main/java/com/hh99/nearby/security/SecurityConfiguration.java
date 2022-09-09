@@ -33,7 +33,10 @@ public class SecurityConfiguration {
             "/h2-console/**",
             "/api/kakaologin",
             "/api/email",
-            "/api/**"
+            "/api/**",
+            "/**",
+            "/*",
+            "/api-login/**"
     };
     @Bean
     public PasswordEncoder passwordEncoder() {

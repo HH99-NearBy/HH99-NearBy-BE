@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RequiredArgsConstructor
 @RestController
-public class LoginController {
+public class OrginLoginController {
 
     private final LoginService loginService;
     private final KakaoLoginService kakaoLoginService;
