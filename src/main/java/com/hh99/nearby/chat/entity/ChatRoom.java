@@ -17,6 +17,11 @@ public class ChatRoom extends Timestamped {
     @Column(name = "chat_room_id")
     private Long id;
 
+    @Column
+    private String chatRoomName;
+
+    @Column
+    private Long challengeId;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "chatRoom",fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -16,6 +16,6 @@ public class ChatMessageController {
     private final ChatMessageService chatMessageService;
     private final MemberRepository memberRepository;
 
-    @MessageMapping("/api/chat/message")
-    public ResponseEntity<?> message(@RequestBody ChatMessageRequestDto chatMessageRequestDto,)
+//    @MessageMapping("/api/chat/message")
+//    public ResponseEntity<?> message(@RequestBody ChatMessageRequestDto chatMessageRequestDto,)
 }
