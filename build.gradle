@@ -42,6 +42,16 @@ dependencies {
     // json
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
 
+    //websocket,sockjs,stomp
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.webjars:sockjs-client:1.1.2'
+    implementation 'org.webjars:stomp-websocket:2.3.3-1'
+
+    //redis
+    implementation 'it.ozimov:embedded-redis:0.7.2'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+
     // swagger
     implementation "io.springfox:springfox-swagger2:2.9.2"
     implementation "io.springfox:springfox-swagger-ui:2.9.2"
