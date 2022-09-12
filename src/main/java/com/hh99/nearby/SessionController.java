@@ -41,21 +41,22 @@ public class SessionController {
 	}
 
 	@RequestMapping(value = "/get-token", method = RequestMethod.POST)
-	public ResponseEntity<JSONObject> getToken(@RequestBody String sessionNameParam, HttpSession httpSession)
+//	public ResponseEntity<JSONObject> getToken(@RequestBody String sessionNameParam, HttpSession httpSession)
+	public ResponseEntity<JSONObject> getToken(@RequestBody String sessionNameParam)
 			throws ParseException {
 
-		try {
-			checkUserLogged(httpSession);
-		} catch (Exception e) {
-			return getErrorResponse(e);
-		}
+//		try {
+//			checkUserLogged(httpSession);
+//		} catch (Exception e) {
+//			return getErrorResponse(e);
+//		}
 		System.out.println("Getting a token from OpenVidu Server | {sessionName}=" + sessionNameParam);
 
-		JSONObject sessionJSON = (JSONObject) new JSONParser().parse(sessionNameParam);
-
-		// The video-call to connect
-		String sessionName = (String) sessionJSON.get("sessionName");
-
+//		JSONObject sessionJSON = (JSONObject) new JSONParser().parse(sessionNameParam);
+//
+//		// The video-call to connect
+//		String sessionName = (String) sessionJSON.get("sessionName");
+		String sessionName = "챌린지 방";
 		// Role associated to this user
 //		OpenViduRole role = LoginController.users.get(httpSession.getAttribute("loggedUser")).role;
 		OpenViduRole role = OpenViduRole.PUBLISHER;
@@ -63,7 +64,8 @@ public class SessionController {
 		// Optional data to be passed to other users when this user connects to the
 		// video-call. In this case, a JSON with the value we stored in the HttpSession
 		// object on login
-		String serverData = "{\"serverData\": \"" + httpSession.getAttribute("loggedUser") + "\"}";
+//		String serverData = "{\"serverData\": \"" + httpSession.getAttribute("loggedUser") + "\"}";
+		String serverData = "{\"serverData\": \"" + "유저" + "\"}";
 
 		// Build connectionProperties object with the serverData and the role
 		ConnectionProperties connectionProperties = new ConnectionProperties.Builder().type(ConnectionType.WEBRTC).data(serverData).role(role).build();

@@ -23,8 +23,8 @@ public class OrginLoginController {
 
     //로그인
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
-    public ResponseEntity<?> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse response, HttpSession httpSession,@AuthenticationPrincipal UserDetails user) {
-        return  loginService.login(requestDto, response,httpSession,user);
+    public ResponseEntity<?> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse response, HttpSession httpSession) {
+        return  loginService.login(requestDto, response,httpSession);
     }
 
     //로그아웃
