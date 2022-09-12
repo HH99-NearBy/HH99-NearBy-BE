@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,8 +23,8 @@ public class OrginLoginController {
 
     //로그인
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
-    public ResponseEntity<?> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse response) {
-        return  loginService.login(requestDto, response);
+    public ResponseEntity<?> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse response, HttpSession httpSession,@AuthenticationPrincipal UserDetails user) {
+        return  loginService.login(requestDto, response,httpSession,user);
     }
 
     //로그아웃

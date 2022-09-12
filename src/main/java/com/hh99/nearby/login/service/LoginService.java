@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.Optional;
 
@@ -31,7 +32,7 @@ public class LoginService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public ResponseEntity<?> login(LoginRequestDto requestDto, HttpServletResponse response) {
+    public ResponseEntity<?> login(LoginRequestDto requestDto, HttpServletResponse response, HttpSession httpSession, UserDetails user) {
         Member member = isPresentMemberByEmail(requestDto.getEmail());
         if (null == member) {
             return ResponseEntity.badRequest().body(Map.of("msg", "사용자를 찾을수 없습니다."));
@@ -49,6 +50,7 @@ public class LoginService {
                 .nickname(member.getNickname())
                 .level(0 + "LV")
                 .build();
+        httpSession.setAttribute("loggedUser", user.getUsername());
         return ResponseEntity.ok().body(Map.of("msg", "로그인 성공", "data", loginResponseDto));
     }
 

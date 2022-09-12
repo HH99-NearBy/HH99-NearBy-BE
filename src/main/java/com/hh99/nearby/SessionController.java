@@ -57,7 +57,8 @@ public class SessionController {
 		String sessionName = (String) sessionJSON.get("sessionName");
 
 		// Role associated to this user
-		OpenViduRole role = LoginController.users.get(httpSession.getAttribute("loggedUser")).role;
+//		OpenViduRole role = LoginController.users.get(httpSession.getAttribute("loggedUser")).role;
+		OpenViduRole role = OpenViduRole.PUBLISHER;
 
 		// Optional data to be passed to other users when this user connects to the
 		// video-call. In this case, a JSON with the value we stored in the HttpSession
