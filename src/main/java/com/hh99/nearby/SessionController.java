@@ -76,7 +76,8 @@ public class SessionController {
 			// Session already exists
 			System.out.println("Existing session " + sessionName);
 			try {
-
+//				role = OpenViduRole.SUBSCRIBER;
+//				ConnectionProperties connectionProperties = new ConnectionProperties.Builder().type(ConnectionType.WEBRTC).data(serverData).role(role).build();
 				// Generate a new Connection with the recently created connectionProperties
 				String token = this.mapSessions.get(sessionName).createConnection(connectionProperties).getToken();
 
@@ -104,7 +105,7 @@ public class SessionController {
 		// New session
 		System.out.println("New session " + sessionName);
 		try {
-
+//			ConnectionProperties connectionProperties = new ConnectionProperties.Builder().type(ConnectionType.WEBRTC).data(serverData).role(role).build();
 			// Create a new OpenVidu Session
 			Session session = this.openVidu.createSession();
 			// Generate a new Connection with the recently created connectionProperties
