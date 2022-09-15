@@ -77,7 +77,6 @@ public class JwtFilter extends OncePerRequestFilter {
                             .collect(Collectors.toList());
 
             UserDetails principal = userDetailsService.loadUserByUsername(subject);
-//            String EncodingPassword =  .encode(principal.getPassword());
             Authentication authentication = new UsernamePasswordAuthenticationToken(principal,jwt,authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
