@@ -71,6 +71,7 @@ public class DetailService {
         MemberChallenge memberChallenge = MemberChallenge.builder()
                 .challenge(challenge)
                 .member(member.get())
+                .realTime(0L)
                 .build();
         memberChallengeRepository.save(memberChallenge);
         return ResponseEntity.ok().body(Map.of("msg", "참여하기 완료"));
