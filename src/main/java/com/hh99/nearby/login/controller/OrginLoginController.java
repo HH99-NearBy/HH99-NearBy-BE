@@ -13,18 +13,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @RestController
-public class LoginController {
+public class OrginLoginController {
 
     private final LoginService loginService;
     private final KakaoLoginService kakaoLoginService;
 
     //로그인
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
-    public ResponseEntity<?> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse response) {
-        return  loginService.login(requestDto, response);
+    public ResponseEntity<?> login(@RequestBody LoginRequestDto requestDto, HttpServletResponse response, HttpSession httpSession) {
+        return  loginService.login(requestDto, response,httpSession);
     }
 
     //로그아웃
