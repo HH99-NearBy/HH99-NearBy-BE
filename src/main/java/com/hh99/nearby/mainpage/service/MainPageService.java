@@ -60,7 +60,6 @@ public class MainPageService {
 
     public ResponseEntity<?> joinAllChallenge(UserDetails user) {
         Member member = memberRepository.findByEmail(user.getUsername()).get();
-
         //참가한 리스트 불러오는
         List<MemberChallenge> challengeList = memberChallengeRepository.findByMember(member);
         ArrayList<MainPageResponseDto> mypageChallengeList = new ArrayList<>();
@@ -74,6 +73,7 @@ public class MainPageService {
                             .tagetTime(challenge.getChallenge().getTargetTime())
                             .endTime(challenge.getChallenge().getEndTime())
                             .limitPeople(challenge.getChallenge().getLimitPeople())
+                            .participatePeople((long)challenge.getChallenge().getMemberChallengeList().size())
                             .build()
             );
         }
