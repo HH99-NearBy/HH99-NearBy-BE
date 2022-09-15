@@ -27,4 +27,6 @@ public class MainPageResponseDto {
     private LocalDateTime endTime; // 종료시간
 
     private Long limitPeople; //인원제한
+
+    private Long participatePeople; //참여인원
 }
