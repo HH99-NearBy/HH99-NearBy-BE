@@ -35,6 +35,9 @@ public class MainPageService {
                                                                              //page보다 성능상 유리
         List<MainPageResponseDto> allchallengelist = new ArrayList<>();
         for (Challenge challenge : challenges) {
+
+            long participatePeople = challenge.getMemberChallengeList().size();
+
             allchallengelist.add(
                     MainPageResponseDto.builder()
                             .title(challenge.getTitle())
@@ -44,6 +47,7 @@ public class MainPageService {
                             .tagetTime(challenge.getTargetTime())
                             .endTime(challenge.getEndTime())
                             .limitPeople(challenge.getLimitPeople())
+                            .participatePeople(participatePeople)
                             .build()
             );
 
