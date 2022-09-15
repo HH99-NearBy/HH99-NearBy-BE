@@ -42,7 +42,9 @@ public class SecurityConfiguration {
             "/h2-console/**",
             "/api/kakaologin",
             "/api/email",
-            "/api/**"
+            "/api/**",
+            "/chat/**",
+            "/ws/**"
     };
     @Bean
     public PasswordEncoder passwordEncoder() {
