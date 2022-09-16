@@ -14,6 +14,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class MainPageResponseDto {
 
+    private Long id; //첼린지 아이디
+
     private String title; //첼린지 제목
 
     private String challengeImg; //첼린지이미지 url
