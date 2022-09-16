@@ -28,5 +28,5 @@ public class ChatMessage { //뷰로 보내는 메세지
 
     private String sessionId;
 
-    private List<String> peopleList;
+    private List<SessionMemberDto> peopleList;
 }

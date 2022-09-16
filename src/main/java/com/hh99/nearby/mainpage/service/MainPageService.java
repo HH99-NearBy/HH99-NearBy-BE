@@ -40,6 +40,7 @@ public class MainPageService {
 
             allchallengelist.add(
                     MainPageResponseDto.builder()
+                            .id(challenge.getId())
                             .title(challenge.getTitle())
                             .challengeImg(challenge.getChallengeImg())
                             .startDay(challenge.getStartDay())
