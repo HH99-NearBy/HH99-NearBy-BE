@@ -28,6 +28,9 @@ public class Chat extends Timestamped {
 
     @Column(nullable = false)
     private Long entryTime; //입장시간 (CurrentTime)
+    
+    @Column(nullable = false)
+    private Long challengeId; //입장한 첼린지 아이디
 
 
 
