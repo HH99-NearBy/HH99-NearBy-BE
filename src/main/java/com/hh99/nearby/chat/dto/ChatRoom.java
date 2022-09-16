@@ -11,13 +11,13 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ChatRoom {
 
-    private String roomId; //룸 아이디
+    private Long roomId; //룸 아이디
     private String roomName; //룸 이름
 
 
     public static ChatRoom create(String name) {
         ChatRoom room = new ChatRoom();
-        room.roomId = UUID.randomUUID().toString();
+        room.roomId = 1L; //테스트용
         room.roomName = name;
         return room;
     }

@@ -29,7 +29,7 @@ public class ChatConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) { //Client에서 websocket연결할 때 사용할 API 경로를 설정해주는 메서드
-        registry.addEndpoint("/ws/chat") //websocket연결할 때 사용할 API 경로
+        registry.addEndpoint("/ws") //websocket연결할 때 사용할 API 경로
                 .setAllowedOriginPatterns("*") //Cors 처리
                 .withSockJS(); //SockJS
     }

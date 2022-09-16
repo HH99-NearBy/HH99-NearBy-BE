@@ -1,12 +1,15 @@
 package com.hh99.nearby.login.service;
 
 import com.hh99.nearby.entity.Member;
+import com.hh99.nearby.entity.MemberChallenge;
 import com.hh99.nearby.login.dto.request.LoginRequestDto;
 import com.hh99.nearby.login.dto.response.LoginResponseDto;
+import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.repository.RefreshTokenRepository;
 import com.hh99.nearby.security.jwt.TokenDto;
 import com.hh99.nearby.security.jwt.TokenProvider;
+import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +26,8 @@ import java.util.Optional;
 @Service
 public class LoginService {
 
+    private final LevelCheck levelCheck;
+
     private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;
@@ -30,6 +35,8 @@ public class LoginService {
     private final TokenProvider tokenProvider;
 
     private final RefreshTokenRepository refreshTokenRepository;
+
+    private final MemberChallengeRepository memberChallengeRepository;
 
     @Transactional
     public ResponseEntity<?> login(LoginRequestDto requestDto, HttpServletResponse response, HttpSession httpSession) {
@@ -45,10 +52,12 @@ public class LoginService {
         TokenDto tokenDto = tokenProvider.generateTokenDto(member);
         tokenToHeaders(tokenDto, response);
 
+        Long level = levelCheck.levelCheck(member.getNickname()); // 레벨 계산
+
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
                 .profileImg(member.getProfileImg())
                 .nickname(member.getNickname())
-                .level(0 + "LV")
+                .level(level + "LV")
                 .build();
         httpSession.setAttribute("loggedUser", member.getNickname());
         return ResponseEntity.ok().body(Map.of("msg", "로그인 성공", "data", loginResponseDto));

@@ -11,6 +11,7 @@ import com.hh99.nearby.repository.ChallengeRepository;
 import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.security.jwt.TokenProvider;
+import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,6 +25,8 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class MypageService {
+
+    private final LevelCheck levelCheck;
 
     private final MemberRepository memberRepository;
 
@@ -56,13 +59,14 @@ public class MypageService {
         //내가 저장한 페이지
         
         //내가 완료한 페이지
-        
+
+        Long level = levelCheck.levelCheck(member.getNickname()); // 레벨 계산
 
         return ResponseEntity.ok(MypageResponseDto.builder()
                 .nickname(member.getNickname())
                 .email(member.getEmail())
                 .profileImg(member.getProfileImg())
-                .level(100)
+                .level(level + "Lv")
                 .rank(100)
                 .totalTime("시간")
                 .challengeLists(mypageChallengeList)
