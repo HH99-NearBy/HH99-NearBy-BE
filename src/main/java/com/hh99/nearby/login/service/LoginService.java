@@ -50,17 +50,17 @@ public class LoginService {
                 .nickname(member.getNickname())
                 .level(0 + "LV")
                 .build();
-        httpSession.setAttribute("loggedUser", "유저");
+        httpSession.setAttribute("loggedUser", member.getNickname());
         return ResponseEntity.ok().body(Map.of("msg", "로그인 성공", "data", loginResponseDto));
     }
 
-    public ResponseEntity<?> logout(UserDetails user) {
+    public ResponseEntity<?> logout(UserDetails user, HttpSession session) {
         Member member = isPresentMemberByEmail(user.getUsername());
         if (null == member) {
             return ResponseEntity.badRequest().body(Map.of("msg", "사용자를 찾을수 없습니다."));
         }
         tokenProvider.deleteRefreshToken(member);
-
+        session.invalidate();
         return ResponseEntity.ok().body(Map.of("msg", "로그아웃 성공"));
     }
 
