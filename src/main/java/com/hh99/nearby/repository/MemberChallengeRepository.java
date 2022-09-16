@@ -13,4 +13,6 @@ public interface MemberChallengeRepository extends JpaRepository<MemberChallenge
     List<MemberChallenge> findByMember(Member member);
 
     Optional<MemberChallenge> findByMember_Id(Long memberId);
+
+    MemberChallenge findByMember_nickname(String nickname);
 }

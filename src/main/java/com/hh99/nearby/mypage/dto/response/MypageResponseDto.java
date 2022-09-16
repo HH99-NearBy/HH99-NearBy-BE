@@ -17,7 +17,7 @@ public class MypageResponseDto {
 
     private String profileImg; //프로필 이미지
 
-    private int level; //레벨
+    private String level; //레벨
 
     private int rank; //등수
 

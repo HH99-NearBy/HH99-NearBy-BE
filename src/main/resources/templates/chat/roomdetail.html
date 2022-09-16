@@ -92,7 +92,7 @@
             if(reconnect++ <= 5) {
                 setTimeout(function() {
                     console.log("connection reconnect");
-                    sock = new SockJS("/ws/chat");
+                    sock = new SockJS("/ws");
                     ws = Stomp.over(sock);
                     connect();
                 },10*1000);
