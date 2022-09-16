@@ -55,7 +55,7 @@ public class MessageController {
         sendingOperations.convertAndSend("/sub/chat/room/"+message.getRoomId(),message);
     }
 
-    @GetMapping("/api/chat/list/{challenge_id}") //클라이언트가 Send 할수 있는 경로
+    @GetMapping("/api/chat/list/{challenge_id}") //특정 챌린지에 참여하고 있는 맴버 인원리스트
     public ResponseEntity<?> PeopleList(@PathVariable Long challenge_id) {
         List<Chat> chatList = chatRepository.findAllByChallengeId(challenge_id);//특정 챌린지에 참여하고 있는 채팅수
         List<SessionMemberDto> list = new ArrayList<SessionMemberDto>();//지금까지 특정 챌린지참여 하고 있는 맴버 정보 만들기 위한 리스트 선언
