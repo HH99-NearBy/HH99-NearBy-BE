@@ -1,7 +1,6 @@
 package com.hh99.nearby.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hh99.nearby.ResponseDto;
 import com.hh99.nearby.security.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -28,6 +27,8 @@ import java.security.Key;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -65,7 +66,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().println(
                         new ObjectMapper().writeValueAsString(
-                                ResponseDto.fail("403", "Token is not valid")
+                                new HashMap<>(Map.of("msg", "Token is not valid"))
                         )
                 );
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -77,7 +78,6 @@ public class JwtFilter extends OncePerRequestFilter {
                             .collect(Collectors.toList());
 
             UserDetails principal = userDetailsService.loadUserByUsername(subject);
-//            String EncodingPassword =  .encode(principal.getPassword());
             Authentication authentication = new UsernamePasswordAuthenticationToken(principal,jwt,authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
