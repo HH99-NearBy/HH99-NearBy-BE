@@ -46,9 +46,9 @@ public class MessageController {
                             .entryTime(System.currentTimeMillis()) // 시작시간
                             .challengeId(challengeid) // 첼린지아이디
                     .build());
-            message.setMessage(message.getSender()+"님이 입장하였습니다."+message.getSendTime()); // people list 를 같이 보내줄것
+            message.setMessage(message.getSender()+"님이 입장하였습니다."); // people list 를 같이 보내줄것
         }else if(ChatMessage.MessageType.QUIT.equals(message.getType())) {
-            message.setMessage(message.getSender()+"님이 퇴장하였습니다."+message.getSendTime());
+            message.setMessage(message.getSender()+"님이 퇴장하였습니다.");
         }else {
             message.setMessage(message.getMessage()+message.getSendTime());
         }

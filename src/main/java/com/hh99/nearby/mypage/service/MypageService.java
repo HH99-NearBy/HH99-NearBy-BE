@@ -37,7 +37,7 @@ public class MypageService {
 
     @Transactional
     public ResponseEntity<?> myPage(@AuthenticationPrincipal UserDetails user) {
-        Member member = memberRepository.findByEmail(user.getUsername()).get();
+        Member member = memberRepository.findByNickname(user.getUsername()).get();
 
         //참가한 리스트 불러오는
         List<MemberChallenge> challengeList = memberChallengeRepository.findByMember(member);
@@ -60,13 +60,14 @@ public class MypageService {
         
         //내가 완료한 페이지
 
-        Long level = levelCheck.levelCheck(member.getNickname()); // 레벨 계산
+
+        List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname()); // 레벨 계산
 
         return ResponseEntity.ok(MypageResponseDto.builder()
                 .nickname(member.getNickname())
                 .email(member.getEmail())
                 .profileImg(member.getProfileImg())
-                .level(level + "Lv")
+                .level(levelAndPoint.get(1) + "Lv")
                 .rank(100)
                 .totalTime("시간")
                 .challengeLists(mypageChallengeList)
@@ -76,7 +77,7 @@ public class MypageService {
 
     @Transactional //수정서비스
     public ResponseEntity<?> memberUpdate(MypageRequestDto requestDto, @AuthenticationPrincipal UserDetails user) {
-        Optional<Member> member = memberRepository.findByEmail(user.getUsername());
+        Optional<Member> member = memberRepository.findByNickname(user.getUsername());
         member.get().update(requestDto);
         return ResponseEntity.ok(Map.of("msg","수정완료"));
     }

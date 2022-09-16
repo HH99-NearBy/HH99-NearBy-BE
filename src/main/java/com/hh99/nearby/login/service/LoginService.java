@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -52,12 +53,12 @@ public class LoginService {
         TokenDto tokenDto = tokenProvider.generateTokenDto(member);
         tokenToHeaders(tokenDto, response);
 
-        Long level = levelCheck.levelCheck(member.getNickname()); // 레벨 계산
-
+//        Long level = levelCheck.levelCheck(member.getNickname()); // 레벨 계산
+        List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname()); // 레벨 계산
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
                 .profileImg(member.getProfileImg())
                 .nickname(member.getNickname())
-                .level(level + "LV")
+                .level(levelAndPoint.get(1)+ "LV")
                 .build();
         httpSession.setAttribute("loggedUser", member.getNickname());
         return ResponseEntity.ok().body(Map.of("msg", "로그인 성공", "data", loginResponseDto));
