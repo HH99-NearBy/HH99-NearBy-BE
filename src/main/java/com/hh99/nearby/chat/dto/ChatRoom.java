@@ -1,4 +1,4 @@
-package com.hh99.nearby.chat.Dto;
+package com.hh99.nearby.chat.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -2,7 +2,7 @@ package com.hh99.nearby.chat.controller;
 
 
 
-import com.hh99.nearby.chat.Dto.ChatMessage;
+import com.hh99.nearby.chat.dto.ChatMessage;
 import com.hh99.nearby.chat.entity.Chat;
 import com.hh99.nearby.chat.repository.ChatRepository;
 import lombok.RequiredArgsConstructor;

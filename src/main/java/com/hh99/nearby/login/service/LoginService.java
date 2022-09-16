@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class LoginService {
     private final MemberChallengeRepository memberChallengeRepository;
 
     @Transactional
-    public ResponseEntity<?> login(LoginRequestDto requestDto, HttpServletResponse response) {
+    public ResponseEntity<?> login(LoginRequestDto requestDto, HttpServletResponse response, HttpSession httpSession) {
         Member member = isPresentMemberByEmail(requestDto.getEmail());
         if (null == member) {
             return ResponseEntity.badRequest().body(Map.of("msg", "사용자를 찾을수 없습니다."));
@@ -58,16 +59,17 @@ public class LoginService {
                 .nickname(member.getNickname())
                 .level(level + "LV")
                 .build();
+        httpSession.setAttribute("loggedUser", member.getNickname());
         return ResponseEntity.ok().body(Map.of("msg", "로그인 성공", "data", loginResponseDto));
     }
 
-    public ResponseEntity<?> logout(UserDetails user) {
+    public ResponseEntity<?> logout(UserDetails user, HttpSession session) {
         Member member = isPresentMemberByEmail(user.getUsername());
         if (null == member) {
             return ResponseEntity.badRequest().body(Map.of("msg", "사용자를 찾을수 없습니다."));
         }
         tokenProvider.deleteRefreshToken(member);
-
+        session.invalidate();
         return ResponseEntity.ok().body(Map.of("msg", "로그아웃 성공"));
     }
 

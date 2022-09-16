@@ -1,6 +1,5 @@
 package com.hh99.nearby.signup.contorller;
 
-import com.hh99.nearby.ResponseDto;
 import com.hh99.nearby.signup.dto.SignUpRequestDto;
 import com.hh99.nearby.signup.service.SignUpService;
 import lombok.RequiredArgsConstructor;
