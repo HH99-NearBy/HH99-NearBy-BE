@@ -47,7 +47,7 @@ public class ChatService {
         return ResponseEntity.ok().body(Map.of("msg", "참여하신 첼린지 입니다."));
     }
 
-    private Map<String, ChatRoom> chatRooms;
+    private Map<Long, ChatRoom> chatRooms;
 
     @PostConstruct
     //의존관게 주입완료되면 실행되는 코드
@@ -73,6 +73,7 @@ public class ChatService {
     public ChatRoom createRoom(String name) {
         ChatRoom chatRoom = ChatRoom.create(name);
         chatRooms.put(chatRoom.getRoomId(), chatRoom);
+        System.out.println(chatRoom.getRoomId());
         return chatRoom;
     }
 

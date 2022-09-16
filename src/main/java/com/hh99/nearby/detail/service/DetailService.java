@@ -7,6 +7,7 @@ import com.hh99.nearby.entity.MemberChallenge;
 import com.hh99.nearby.repository.ChallengeRepository;
 import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
+import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,6 +22,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class DetailService {
+
+    private final LevelCheck levelCheck;
+
     private final ChallengeRepository challengeRepository;
     private final MemberRepository memberRepository;
     private final MemberChallengeRepository memberChallengeRepository;
@@ -34,6 +38,8 @@ public class DetailService {
 
         long participatePeople = challenge.getMemberChallengeList().size();
 
+        Long level = levelCheck.levelCheck(challenge.getWriter().getNickname()); // 레벨 계산
+
         DetailResponseDto detailResponseDto = DetailResponseDto.builder()
                 .title(challenge.getTitle())
                 .challengeImg(challenge.getChallengeImg())
@@ -46,7 +52,7 @@ public class DetailService {
                 .content(challenge.getContent())
                 .notice(challenge.getNotice())
                 .writer(challenge.getWriter().getNickname())
-                .level(0+"LV")
+                .level(level+"LV")
                 .challengeTag(challenge.getChallengeTag())
                 .build();
         return ResponseEntity.ok().body(Map.of("detailModal", detailResponseDto, "msg", "상세모달 조회 완료"));

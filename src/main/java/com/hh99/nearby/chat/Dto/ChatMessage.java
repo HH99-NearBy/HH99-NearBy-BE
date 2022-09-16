@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,4 +28,6 @@ public class ChatMessage { //뷰로 보내는 메세지
     private String sendTime;
 
     private String sessionId;
+
+    private List<String> peopleList;
 }
