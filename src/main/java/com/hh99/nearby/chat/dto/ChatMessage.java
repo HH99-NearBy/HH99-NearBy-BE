@@ -1,11 +1,9 @@
-package com.hh99.nearby.chat.Dto;
+package com.hh99.nearby.chat.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalTime;
 
 @Getter
 @Setter

@@ -1,7 +1,7 @@
 package com.hh99.nearby.chat.controller;
 
 
-import com.hh99.nearby.chat.Dto.ChatRoom;
+import com.hh99.nearby.chat.dto.ChatRoom;
 import com.hh99.nearby.chat.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
