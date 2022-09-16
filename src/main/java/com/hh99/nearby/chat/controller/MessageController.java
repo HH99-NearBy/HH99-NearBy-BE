@@ -7,6 +7,7 @@ import com.hh99.nearby.chat.entity.Chat;
 import com.hh99.nearby.chat.repository.ChatRepository;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.repository.MemberRepository;
+import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -32,6 +33,7 @@ public class MessageController {
 
     private final MemberRepository memberRepository;
 
+    private  final LevelCheck levelCheck;
 
     @MessageMapping("/chat/message") //클라이언트가 Send 할수 있는 경로
     public void enter(ChatMessage message) {
@@ -62,7 +64,7 @@ public class MessageController {
         for(Chat chat: chatList){
             Optional<Member> member = memberRepository.findByNickname(chat.getSender());
             SessionMemberDto sessionMemberDto = SessionMemberDto.builder()
-                    .level("0 LV")
+                    .level(levelCheck.levelAndPoint(member.get().getNickname()).get(1)+"LV")
                     .nickname(member.get().getNickname())
                     .build();
             list.add(sessionMemberDto);
