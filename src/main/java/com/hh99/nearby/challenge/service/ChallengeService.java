@@ -26,7 +26,7 @@ public class ChallengeService {
 
     @Transactional
     public ResponseEntity<?> createChallenge(ChallengeRequestDto challengeRequestDto, UserDetails user) throws ParseException {
-        Member member = memberRepository.findByEmail(user.getUsername()).get();
+        Member member = memberRepository.findByNickname(user.getUsername()).get();
 
         LocalDate localDate = LocalDate.parse(challengeRequestDto.getStartDay());   //챌리지 시작일자
         LocalTime localTime = LocalTime.parse(challengeRequestDto.getStartTime());   //챌리지 시작시간
@@ -59,7 +59,7 @@ public class ChallengeService {
 
     @Transactional
     public ResponseEntity<?> updateChallenge(Long challenge_id, ChallengeRequestDto challengeRequestDto, UserDetails user) {
-        Member member = memberRepository.findByEmail(user.getUsername()).get();
+        Member member = memberRepository.findByNickname(user.getUsername()).get();
         Optional<Challenge> challenge = challengeRepository.findById(challenge_id);
 
         if(!challenge.isPresent()){
@@ -73,7 +73,7 @@ public class ChallengeService {
     }
 
     public ResponseEntity<?> deleteChallenge(Long challenge_id, UserDetails user) {
-        Member member = memberRepository.findByEmail(user.getUsername()).get();
+        Member member = memberRepository.findByNickname(user.getUsername()).get();
         Optional<Challenge> challenge = challengeRepository.findById(challenge_id);
 
         if(!challenge.isPresent()){

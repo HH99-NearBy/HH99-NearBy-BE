@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class DetailService {
 
         long participatePeople = challenge.getMemberChallengeList().size();
 
-        Long level = levelCheck.levelCheck(challenge.getWriter().getNickname()); // 레벨 계산
+        List<Long> levelAndPoint = levelCheck.levelAndPoint(challenge.getWriter().getNickname()); // 레벨 계산
 
         DetailResponseDto detailResponseDto = DetailResponseDto.builder()
                 .title(challenge.getTitle())
@@ -52,7 +53,7 @@ public class DetailService {
                 .content(challenge.getContent())
                 .notice(challenge.getNotice())
                 .writer(challenge.getWriter().getNickname())
-                .level(level+"LV")
+                .level(levelAndPoint.get(1)+"LV")
                 .challengeTag(challenge.getChallengeTag())
                 .build();
         return ResponseEntity.ok().body(Map.of("detailModal", detailResponseDto, "msg", "상세모달 조회 완료"));
@@ -72,7 +73,7 @@ public class DetailService {
         if (challenge == null) {
             return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 챌린지 번호"));
         }
-        Optional<Member> member = memberRepository.findByEmail(user.getUsername());
+        Optional<Member> member = memberRepository.findByNickname(user.getUsername());
 
         MemberChallenge memberChallenge = MemberChallenge.builder()
                 .challenge(challenge)
@@ -89,7 +90,7 @@ public class DetailService {
         if (challenge == null) {
             return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 챌린지 번호"));
         }
-        Optional<Member> member = memberRepository.findByEmail(user.getUsername());
+        Optional<Member> member = memberRepository.findByNickname(user.getUsername());
 
         if (!challenge.getWriter().getId().equals(member.get().getId())){
             return ResponseEntity.badRequest().body(Map.of("msg","참여하지 않으셨습니다."));

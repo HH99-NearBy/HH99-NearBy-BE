@@ -39,7 +39,7 @@ public class ChatService {
     }
 
     public ResponseEntity<?> checkChallenge(Long challengeId, UserDetails user) { //참여한 첼린지인지 확인
-        Optional<Member> member = memberRepository.findByEmail(user.getUsername());
+        Optional<Member> member = memberRepository.findByNickname(user.getUsername());
         Optional<MemberChallenge> memberChallenge = memberChallengeRepository.findByMember_IdAndChallenge_Id(member.get().getId(), challengeId);
         if(memberChallenge.isEmpty()){
             return ResponseEntity.badRequest().body(Map.of("msg","참여하지 않은 첼린지입니다."));
