@@ -28,10 +28,8 @@ public class LevelCheck {
             level += memberChallenges.get(i).getRealTime()/70;
             point += memberChallenges.get(i).getRealTime()*10;
         }
-        System.out.println(levelandpoint.add(point));
-        System.out.println(levelandpoint.add(level));
-        System.out.println(levelandpoint.get(0));
-        System.out.println(levelandpoint.get(1));
+        levelandpoint.add(point);
+        levelandpoint.add(level);
 
         return levelandpoint;
     }
