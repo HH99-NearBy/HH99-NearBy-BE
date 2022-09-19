@@ -94,7 +94,7 @@ public class MypageService {
                 .email(member.getEmail())
                 .profileImg(member.getProfileImg())
                 .level(levelAndPoint.get(1) + "Lv")
-                .rank("100등")
+                .rank(member.getMyRank()+"등")
                 .remainingTime((minute%60)+"분")
                 .totalTime((hour/60)+"시간"+(minute%60)+"분")
                 .challengeLists(mypageChallengeList)
