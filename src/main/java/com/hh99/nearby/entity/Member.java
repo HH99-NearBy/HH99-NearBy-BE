@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Builder
 @Getter
@@ -60,4 +61,7 @@ public class Member extends Timestamped{
     public void update(Long points){
         this.points = points;
     }
+
+    @OneToMany(mappedBy="member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MemberChallenge> memberChallengeList2;
 }

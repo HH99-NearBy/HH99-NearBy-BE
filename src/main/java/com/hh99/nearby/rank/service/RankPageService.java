@@ -3,6 +3,7 @@ package com.hh99.nearby.rank.service;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.rank.dto.RankPageDto;
 import com.hh99.nearby.repository.MemberRepository;
+import com.hh99.nearby.util.Graph;
 import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class RankPageService {
 
     private final MemberRepository memberRepository;
     private final LevelCheck levelCheck;
+    private final Graph graph;
 
     public ResponseEntity<?> getRank(@AuthenticationPrincipal UserDetails user){
 
@@ -29,12 +31,14 @@ public class RankPageService {
 
         for ( Member member : allByOrderByPointsDesc){
             List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname());
+            List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
             rankPageDtos.add(RankPageDto.builder()
                     .id(member.getId())
                     .profileImg(member.getProfileImg())
                     .level(levelAndPoint.get(1)+"LV")
                     .nickname(member.getNickname())
                     .score(member.getPoints())
+                    .graph(sevengraph)
                     .build());
         }
 

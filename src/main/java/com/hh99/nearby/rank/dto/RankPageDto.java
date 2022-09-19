@@ -15,6 +15,6 @@ public class RankPageDto {
     private String level;
     private String nickname;
     private Long score;
-    private List<String> graph;
+    private List<Long> graph;
 
 }
