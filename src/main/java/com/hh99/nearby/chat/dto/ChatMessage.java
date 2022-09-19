@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,5 +26,5 @@ public class ChatMessage { //뷰로 보내는 메세지
 
     private String sessionId;
 
-    private List<SessionMemberDto> peopleList;
+    private String level;
 }

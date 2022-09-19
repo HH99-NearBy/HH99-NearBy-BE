@@ -35,14 +35,14 @@ public class ChallengeService {
         LocalDateTime localDateTime = localDate.atTime(localTime);
         localDateTime = localDateTime.plusMinutes(challengeRequestDto.getTargetTime());
 
-        LocalDateTime endTime = localDateTime;  //챌리지 종료시간
+        LocalDateTime endTime = localDateTime;  //챌린지 종료시간
 
         String defaultImg = "https://user-images.githubusercontent.com/74406343/188258363-9a049b49-eba3-4518-9674-391d7887c5f8.png";
 
         challengeRepository.save(
                 Challenge.builder()
                         .title(challengeRequestDto.getTitle())
-                        .challengeImg(challengeRequestDto.getChallengeImg().equals("") ? "defaultImg" :challengeRequestDto.getChallengeImg())
+                        .challengeImg(challengeRequestDto.getChallengeImg().equals("") ? defaultImg :challengeRequestDto.getChallengeImg())
                         .startDay(localDate)
                         .startTime(localTime)
                         .targetTime(challengeRequestDto.getTargetTime())
