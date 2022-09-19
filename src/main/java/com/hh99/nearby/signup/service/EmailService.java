@@ -18,7 +18,7 @@ public class EmailService {
     public void sendSimpleMessage(String email, Long id) throws MessagingException {
         String Text =
                 "<img src='https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/2021/06/09/17/3/20646f8a-d76c-47b2-869e-7b9f606bb13d.jpg'/>"+
-                        "<h1><a href='http://localhost:8080/api/email?id=" + id +
+                        "<h1><a href='https://ssggwan.site/api/email?id=" + id +
                         "'>이메일 인증 확인</a></h1>";
 
         MimeMessage mail = emailSender.createMimeMessage();
