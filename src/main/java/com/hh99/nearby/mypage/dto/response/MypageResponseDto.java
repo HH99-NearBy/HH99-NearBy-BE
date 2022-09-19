@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 public class MypageResponseDto {
 
+    //마이페이지 상단
     private String nickname; //닉네임
 
     private String email; //이메일
@@ -19,7 +20,9 @@ public class MypageResponseDto {
 
     private String level; //레벨
 
-    private int rank; //등수
+    private String rank; //등수
+
+    private String remainingTime; //남은시간
 
     private String totalTime; //사용시간
     
