@@ -5,6 +5,7 @@ import com.hh99.nearby.rank.dto.RankPageDto;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.util.Graph;
 import com.hh99.nearby.util.LevelCheck;
+import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -41,6 +42,19 @@ public class RankPageService {
                     .graph(sevengraph)
                     .build());
         }
+        if (user != null) {
+            for (int i = 0; i < rankPageDtos.size(); i++) {
+                if (user.getUsername().equals(rankPageDtos.get(i).getNickname())) {
+                    System.out.println(i + 1);
+                    allByOrderByPointsDesc.get(i).update(i+1);
+                    System.out.println(allByOrderByPointsDesc.get(i).getMyRank());
+                }
+            }
+        }
+        Optional<Member> member = memberRepository.findByNickname(user.getUsername());
+        System.out.println(member.get().getNickname());
+        System.out.println(member.get().getMyRank());
+
 
         return ResponseEntity.ok().body(Map.of("msg","랭킹 조회 완료","data",rankPageDtos));
     }

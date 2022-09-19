@@ -64,4 +64,10 @@ public class Member extends Timestamped{
 
     @OneToMany(mappedBy="member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MemberChallenge> memberChallengeList2;
+
+    @Column
+    private int myRank;
+    public void update(int myRank){
+        this.myRank = myRank;
+    }
 }
