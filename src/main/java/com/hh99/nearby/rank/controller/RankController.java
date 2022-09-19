@@ -15,7 +15,7 @@ public class RankController {
     private final RankPageService rankPageService;
 
     @GetMapping("/api/rank")
-    public ResponseEntity<?> getRank(@AuthenticationPrincipal UserDetails user){
-        return rankPageService.getRank(user);
+    public ResponseEntity<?> getRank(@AuthenticationPrincipal UserDetails user,int pageNum,int size){
+        return rankPageService.getRank(user,pageNum,size);
     }
 }

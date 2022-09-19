@@ -6,6 +6,9 @@ import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.util.Graph;
 import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,11 +26,14 @@ public class RankPageService {
     private final Graph graph;
 
     @Transactional
-    public ResponseEntity<?> getRank(@AuthenticationPrincipal UserDetails user){
+    public ResponseEntity<?> getRank(@AuthenticationPrincipal UserDetails user,int pageNum,int size){
+        pageNum = pageNum -1;
+        Pageable pageable = PageRequest.of(pageNum,size);
+        Slice<Member> allByOrderByPointsDesc= memberRepository.rank(pageable);
 
 //        List<Member> allByOrderByPointsDesc = memberRepository.findAllByOrderByPointsDesc();
 
-        List<Member> allByOrderByPointsDesc= memberRepository.rank();
+//        List<Member> allByOrderByPointsDesc= memberRepository.rank();
 
         List<RankPageDto> rankPageDtos = new ArrayList<>();
 
@@ -50,13 +56,13 @@ public class RankPageService {
                     int myRank = i+1;
                     String nickname = rankPageDtos.get(i).getNickname();
                     memberRepository.updateRank(myRank, nickname);
-                    System.out.println(allByOrderByPointsDesc.get(i).getMyRank());
+//                    System.out.println(allByOrderByPointsDesc.get(i).getMyRank());
                 }
             }
         }
-        Optional<Member> member = memberRepository.findByNickname(user.getUsername());
-        System.out.println(member.get().getNickname());
-        System.out.println(member.get().getMyRank());
+//        Optional<Member> member = memberRepository.findByNickname(user.getUsername());
+//        System.out.println(member.get().getNickname());
+//        System.out.println(member.get().getMyRank());
 
 
         return ResponseEntity.ok().body(Map.of("msg","랭킹 조회 완료","data",rankPageDtos));
