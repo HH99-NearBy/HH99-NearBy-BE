@@ -67,6 +67,7 @@ public class MainPageService {
         for (MemberChallenge challenge : challengeList) {
             mypageChallengeList.add(
                     MainPageResponseDto.builder()
+                            .id(challenge.getChallenge().getId())
                             .title(challenge.getChallenge().getTitle())
                             .challengeImg(challenge.getChallenge().getChallengeImg())
                             .startDay(challenge.getChallenge().getStartDay())
