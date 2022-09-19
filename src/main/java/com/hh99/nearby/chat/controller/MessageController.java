@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +36,16 @@ public class MessageController {
 
     private  final LevelCheck levelCheck;
 
+
+
     @MessageMapping("/chat/message") //클라이언트가 Send 할수 있는 경로
     public void enter(ChatMessage message) {
         System.out.println("채팅 시작!");
-        LocalTime now = LocalTime.now(); // 현재 채팅시간
+//        LocalTime now = LocalTime.now(); // 현재 채팅시간
+        LocalTime now = LocalTime.now(ZoneId.of("Asia/Seoul")); // 현재 채팅시간
         message.setSendTime(now.format(DateTimeFormatter.ofPattern("a HH시 mm분"))); //채팅 모양 변환
         if (ChatMessage.MessageType.ENTER.equals(message.getType())) { //입장시
+            String level = levelCheck.levelAndPoint(message.getSender()).get(1)+"Lv"; //Lv 계산
             Long challengeid = Long.valueOf(message.getRoomId()); //프론트에서 첼린지 번호를 넘겨줌
             chatRepository.save(Chat.builder() //chat 엔티티에 저장
                             .sender(message.getSender()) //글쓴이
@@ -48,11 +53,10 @@ public class MessageController {
                             .entryTime(System.currentTimeMillis()) // 시작시간
                             .challengeId(challengeid) // 첼린지아이디
                     .build());
+            message.setLevel(level); // Lv 저장
             message.setMessage(message.getSender()+"님이 입장하였습니다."); // people list 를 같이 보내줄것
         }else if(ChatMessage.MessageType.QUIT.equals(message.getType())) {
             message.setMessage(message.getSender()+"님이 퇴장하였습니다.");
-        }else {
-            message.setMessage(message.getMessage()+message.getSendTime());
         }
         sendingOperations.convertAndSend("/sub/chat/room/"+message.getRoomId(),message);
     }
