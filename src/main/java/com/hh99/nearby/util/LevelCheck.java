@@ -22,24 +22,19 @@ public class LevelCheck {
     public List<Long> levelAndPoint(String nickname){ // 0번이 포인트  1번이 레벨
         List<Long> levelandpoint = new ArrayList<>();
         List<MemberChallenge> memberChallenges = memberChallengeRepository.findAllByMember_nickname(nickname);
-        Long level = 0L;
+        Long level2 = 0L;
         Long point = 0L;
         for(int i = 0;i<memberChallenges.size();i++){
-            level += memberChallenges.get(i).getRealTime()/70;
+            level2 += memberChallenges.get(i).getRealTime();
             point += memberChallenges.get(i).getRealTime()*10;
         }
+        Long level = level2/70;
         levelandpoint.add(point);
         levelandpoint.add(level);
 
-
         Optional<Member> member = memberRepository.findByNickname(nickname);
-
-        if (member.get().getPoints() != null) { // 리얼타임이 0보다 크다면
-            Long points = member.get().getPoints(); // 데이터베이스 안에 리얼타임을 가져와서
-            member.get().update(points + point); //현재 계산된 리얼타임과 db에 저장된 realtime을 더해서 업데이트
-        } else {
-            member.get().update(point); // 아니면 리얼타임 업데이트
-        }
+        long points = 0;
+        member.get().update(points + point);
 
         return levelandpoint;
     }
