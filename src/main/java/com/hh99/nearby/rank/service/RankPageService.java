@@ -5,12 +5,12 @@ import com.hh99.nearby.rank.dto.RankPageDto;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.util.Graph;
 import com.hh99.nearby.util.LevelCheck;
-import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -22,6 +22,7 @@ public class RankPageService {
     private final LevelCheck levelCheck;
     private final Graph graph;
 
+    @Transactional
     public ResponseEntity<?> getRank(@AuthenticationPrincipal UserDetails user){
 
 //        List<Member> allByOrderByPointsDesc = memberRepository.findAllByOrderByPointsDesc();
@@ -46,7 +47,9 @@ public class RankPageService {
             for (int i = 0; i < rankPageDtos.size(); i++) {
                 if (user.getUsername().equals(rankPageDtos.get(i).getNickname())) {
                     System.out.println(i + 1);
-                    allByOrderByPointsDesc.get(i).update(i+1);
+                    int myRank = i+1;
+                    String nickname = rankPageDtos.get(i).getNickname();
+                    memberRepository.updateRank(myRank, nickname);
                     System.out.println(allByOrderByPointsDesc.get(i).getMyRank());
                 }
             }
