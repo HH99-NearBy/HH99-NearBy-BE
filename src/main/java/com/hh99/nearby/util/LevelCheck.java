@@ -22,7 +22,6 @@ public class LevelCheck {
     public List<Long> levelAndPoint(String nickname){ // 0번이 포인트  1번이 레벨
         List<Long> levelandpoint = new ArrayList<>();
         List<MemberChallenge> memberChallenges = memberChallengeRepository.findAllByMember_nickname(nickname);
-        System.out.println("사이즈 보기 : "+ memberChallenges.size());
         Long level = 0L;
         Long point = 0L;
         for(int i = 0;i<memberChallenges.size();i++){
