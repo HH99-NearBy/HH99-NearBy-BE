@@ -53,4 +53,11 @@ public class Member extends Timestamped{
     }
 
     public void update(String nickname){this.nickname = nickname;}
+
+    @Column
+    private Long points;
+
+    public void update(Long points){
+        this.points = points;
+    }
 }
