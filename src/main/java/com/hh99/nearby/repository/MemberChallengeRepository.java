@@ -19,8 +19,24 @@ public interface MemberChallengeRepository extends JpaRepository<MemberChallenge
 
 //    MemberChallenge findByMember_nickname(String nickname);
     @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date")
-    List<MemberChallenge> today();
+    List<MemberChallenge> oneday();
 
+    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -1")
+    List<MemberChallenge> twoday();
+
+    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -2")
+    List<MemberChallenge> threeday();
+
+    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -3")
+    List<MemberChallenge> fourday();
+
+    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -4")
+    List<MemberChallenge> fiveday();
+    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -5")
+    List<MemberChallenge> sixday();
+
+    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -6")
+    List<MemberChallenge> sevenday();
 
 
 }
