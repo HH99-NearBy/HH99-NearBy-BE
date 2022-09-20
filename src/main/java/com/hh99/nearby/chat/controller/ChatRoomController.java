@@ -5,6 +5,8 @@ import com.hh99.nearby.chat.dto.ChatRoom;
 import com.hh99.nearby.chat.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.annotation.Schedules;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -25,7 +27,6 @@ public class ChatRoomController {
     public ResponseEntity<?> checkChallenge(@PathVariable Long challengeId, @AuthenticationPrincipal UserDetails user){
         return chatService.checkChallenge(challengeId,user);
     }
-
 
 
 
