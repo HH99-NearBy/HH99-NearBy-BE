@@ -17,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.security.Key;
 import java.util.Date;
 import java.util.Optional;
@@ -27,7 +29,8 @@ public class TokenProvider {
 
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_PREFIX = "Bearer ";
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 300;            //300분
+//    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 300;            //300분
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 10;            //300분
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;     //7일
 
     private final Key key;
@@ -44,7 +47,6 @@ public class TokenProvider {
 
     public TokenDto generateTokenDto(Member member) {
         long now = (new Date().getTime());
-
         Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
         String accessToken = Jwts.builder()
                 .setSubject(member.getNickname())
@@ -72,7 +74,6 @@ public class TokenProvider {
                 .accessTokenExpiresIn(accessTokenExpiresIn.getTime())
                 .refreshToken(refreshToken)
                 .build();
-
     }
 
     public Member getMemberFromAuthentication() {
@@ -84,18 +85,27 @@ public class TokenProvider {
         return ((UserDetailsImpl) authentication.getPrincipal()).getMember();
     }
 
-    public boolean validateToken(String token) {
+    public boolean validateToken(String token, HttpServletRequest request) throws IOException {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            System.out.println("=======================1==================");
             return true;
         } catch (SecurityException | MalformedJwtException e) {
             log.info("Invalid JWT signature");
+            request.setAttribute("exception","Invalid JWT signature");
+            System.out.println("=======================2==================");
         } catch (ExpiredJwtException e) {
             log.info("Expired JWT token");
+            request.setAttribute("exception","Expired JWT token");
+            System.out.println("=======================3==================");
         } catch (UnsupportedJwtException e) {
             log.info("Unsupported JWT token");
+            request.setAttribute("exception","Unsupported JWT token");
+            System.out.println("=======================4==================");
         } catch (IllegalArgumentException e) {
             log.info("JWT claims is empty");
+            request.setAttribute("exception","JWT claims is empty");
+            System.out.println("=======================5==================");
         }
         return false;
     }

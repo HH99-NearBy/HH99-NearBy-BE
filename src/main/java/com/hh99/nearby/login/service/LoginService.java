@@ -1,7 +1,6 @@
 package com.hh99.nearby.login.service;
 
 import com.hh99.nearby.entity.Member;
-import com.hh99.nearby.entity.MemberChallenge;
 import com.hh99.nearby.login.dto.request.LoginRequestDto;
 import com.hh99.nearby.login.dto.response.LoginResponseDto;
 import com.hh99.nearby.repository.MemberChallengeRepository;
@@ -82,6 +81,5 @@ public class LoginService {
 
     public void tokenToHeaders(TokenDto tokenDto, HttpServletResponse response) {
         response.addHeader("Authorization", "Bearer " + tokenDto.getAccessToken());
-        response.addHeader("Access-Token-Expire-Time", tokenDto.getAccessTokenExpiresIn().toString());
     }
 }
