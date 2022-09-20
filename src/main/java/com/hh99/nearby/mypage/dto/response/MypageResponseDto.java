@@ -25,6 +25,8 @@ public class MypageResponseDto {
     private String remainingTime; //남은시간
 
     private String totalTime; //사용시간
+
+    private List<Long> graph; // 일주일 그래프
     
     List<MypageChallengeList> challengeLists; //도전중인 첼린지 리스트
     
