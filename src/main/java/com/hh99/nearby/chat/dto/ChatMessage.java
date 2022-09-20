@@ -1,17 +1,15 @@
 package com.hh99.nearby.chat.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ChatMessage { //뷰로 보내는 메세지
     public enum MessageType {
-        ENTER, TALK, QUIT
+        ENTER, TALK, QUIT,END
     }
 
     private MessageType type;

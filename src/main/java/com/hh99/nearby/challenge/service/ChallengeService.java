@@ -15,14 +15,17 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+
+import static com.hh99.nearby.chat.Scheduler.endTimeList;
 
 @Service
 @RequiredArgsConstructor
 public class ChallengeService {
     private final MemberRepository memberRepository;
     private final ChallengeRepository challengeRepository;
+
+
 
     @Transactional
     public ResponseEntity<?> createChallenge(ChallengeRequestDto challengeRequestDto, UserDetails user) throws ParseException {
@@ -37,9 +40,15 @@ public class ChallengeService {
 
         LocalDateTime endTime = localDateTime;  //챌린지 종료시간
 
+        if(!endTimeList.contains(endTime)){ // endTimeList에 endtime값이 없을때 
+            endTimeList.add(endTime); // endtimeList에 endtime 저장
+            Collections.sort(endTimeList); //endTimeList 정렬
+        }
+
+
         String defaultImg = "https://user-images.githubusercontent.com/74406343/188258363-9a049b49-eba3-4518-9674-391d7887c5f8.png";
 
-        challengeRepository.save(
+        Challenge challenge = challengeRepository.save(
                 Challenge.builder()
                         .title(challengeRequestDto.getTitle())
                         .challengeImg(challengeRequestDto.getChallengeImg().equals("") ? defaultImg :challengeRequestDto.getChallengeImg())
@@ -54,7 +63,7 @@ public class ChallengeService {
                         .challengeTag(challengeRequestDto.getChallengeTag())
                         .build()
         );
-        return ResponseEntity.ok().body(Map.of("msg","챌린지 작성이 완료되었습니다."));
+        return ResponseEntity.ok().body(Map.of("msg","챌린지 작성이 완료되었습니다.","data",challenge.getId()));
     }
 
     @Transactional
