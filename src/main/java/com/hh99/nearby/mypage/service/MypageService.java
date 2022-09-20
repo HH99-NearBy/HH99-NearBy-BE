@@ -12,6 +12,7 @@ import com.hh99.nearby.repository.ChallengeRepository;
 import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.security.jwt.TokenProvider;
+import com.hh99.nearby.util.Graph;
 import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class MypageService {
     private final ChallengeRepository challengeRepository;
 
     private final MemberChallengeRepository memberChallengeRepository;
-
+    private final Graph graph;
 
 
     @Transactional
@@ -88,6 +89,8 @@ public class MypageService {
             minute += memberChallenge.get(i).getRealTime();
         }
 
+        List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
+
 
         return ResponseEntity.ok(MypageResponseDto.builder()
                 .nickname(member.getNickname())
@@ -97,6 +100,7 @@ public class MypageService {
                 .rank(member.getMyRank()+"등")
                 .remainingTime((minute%60)+"분")
                 .totalTime((hour/60)+"시간"+(minute%60)+"분")
+                .graph(sevengraph)
                 .challengeLists(mypageChallengeList)
                 .finishLists(finishLists)
                 .build());
