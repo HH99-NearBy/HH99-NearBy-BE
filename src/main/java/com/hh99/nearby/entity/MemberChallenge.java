@@ -6,13 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class MemberChallenge {
+public class MemberChallenge extends Timestamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +31,8 @@ public class MemberChallenge {
     @ManyToOne(fetch = FetchType.LAZY)
     private Challenge challenge; //참여한 첼린지
 
+    @Column(nullable = false)
+    private LocalDate startDay; //챌리지 시작 시간
     public void update(Long realtime){
         this.realTime = realtime;
 

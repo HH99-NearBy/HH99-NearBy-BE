@@ -5,9 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Builder
 @Getter
@@ -53,4 +55,17 @@ public class Member extends Timestamped{
     }
 
     public void update(String nickname){this.nickname = nickname;}
+
+    @Column
+    private Long points;
+
+    public void update(Long points){
+        this.points = points;
+    }
+
+    @OneToMany(mappedBy="member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MemberChallenge> memberChallengeList2;
+
+    @Column
+    private int myRank;
 }
