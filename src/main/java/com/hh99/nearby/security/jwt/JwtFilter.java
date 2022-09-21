@@ -1,6 +1,5 @@
 package com.hh99.nearby.security.jwt;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hh99.nearby.security.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -24,11 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Key;
-import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -54,7 +50,8 @@ public class JwtFilter extends OncePerRequestFilter {
         System.out.println();
 
         //StringUtils.hasText(String) 유효성 검증--- not null, 빈문자열이 아니여야하고, String문자가 들어있는지 검증
-        if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+
+        if (tokenProvider.validateToken(jwt,request)) {
             Claims claims;
             try {
                 claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
@@ -62,15 +59,15 @@ public class JwtFilter extends OncePerRequestFilter {
                 claims = e.getClaims();
             }
 
-            if (claims.getExpiration().toInstant().toEpochMilli() < Instant.now().toEpochMilli()) {
-                response.setContentType("application/json;charset=UTF-8");
-                response.getWriter().println(
-                        new ObjectMapper().writeValueAsString(
-                                new HashMap<>(Map.of("msg", "Token is not valid"))
-                        )
-                );
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            }
+//            if (claims.getExpiration().toInstant().toEpochMilli() < Instant.now().toEpochMilli()) {
+//                response.setContentType("application/json;charset=UTF-8");
+//                response.getWriter().println(
+//                        new ObjectMapper().writeValueAsString(
+//                                new HashMap<>(Map.of("msg", "Token is not valid"))
+//                        )
+//                );
+//                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//            }
             String subject = claims.getSubject();
             Collection<? extends GrantedAuthority> authorities =
                     Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
