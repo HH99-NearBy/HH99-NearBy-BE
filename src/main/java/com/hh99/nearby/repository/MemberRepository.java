@@ -23,8 +23,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
 //    List<Member> findAllByOrderByPointsDesc();
 
-//    @Query(value = "Select p from Member p order by p.points desc ")
-//    List<Member> rank();
+    @Query(value = "Select p from Member p order by p.points desc ")
+    List<Member> rank();
 
     @Query(value = "Select p from Member p order by p.points desc ")
     Slice<Member> rank(Pageable pageable);
