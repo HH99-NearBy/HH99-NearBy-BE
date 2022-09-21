@@ -45,6 +45,16 @@ jobs:
           cloud.aws.credentials.access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           cloud.aws.credentials.secret-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           jwt.secret: ${{ secrets.JWT_SECRET_KEY }}
+          kakao.client.id: ${{ secrets.KAKAO_CLIENT_ID }}
+          kakao.redirect.url: ${{ secrets.KAKAO_REDIRECT_URL }}
+          kakao.url: ${{ secrets.KAKAO_URL }}
+          mail.url: ${{ secrets.MAIL_URL}}
+          openvidu.secret: ${{ secrets.OPENVIDU_SECRET}}
+          openvidu.url: ${{ secrets.OPENVIDU_URL}}
+          spring.datasource.password: ${{ secrets.SPRING_DATASOURCE_PASSWORD}}
+          spring.datasource.url: ${{ secrets.SPRING_DATASOURCE_URL}}
+          spring.datasource.username: ${{ secrets.SPRING_DATASOURCE_USERNAME}}
+          spring.mail.username: ${{ secrets.SPRING_MAIL_USERNAME }}
           spring.mail.password: ${{ secrets.SPRING_MAIL_PASSWORD }}
 
       - name: Grant execute permission for gradlew
