@@ -49,7 +49,7 @@ public class RankPageService {
             for (int i = 0; i < rankPageDtos.size(); i++) {
                 if (user.getUsername().equals(rankPageDtos.get(i).getNickname())) {
                     System.out.println(i + 1);
-                    int myRank = i+1;
+                    long myRank = (long)i+1;
                     String nickname = rankPageDtos.get(i).getNickname();
                     memberRepository.updateRank(myRank, nickname);
                 }
