@@ -13,6 +13,7 @@ import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.util.Graph;
 import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -90,6 +91,16 @@ public class MypageService {
         }
 
         List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
+
+        List<Member> allByOrderByPointsDesc= memberRepository.rank();
+        for (int i = 0; i < allByOrderByPointsDesc.size(); i++) {
+            if (member.getNickname().equals(allByOrderByPointsDesc.get(i).getNickname())) {
+                System.out.println(i + 1);
+                int myRank = i+1;
+                String nickname = allByOrderByPointsDesc.get(i).getNickname();
+                memberRepository.updateRank(myRank, nickname);
+            }
+        }
 
 
         return ResponseEntity.ok(MypageResponseDto.builder()
