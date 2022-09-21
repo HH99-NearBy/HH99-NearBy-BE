@@ -1,7 +1,6 @@
 package com.hh99.nearby.mypage.service;
 
 
-import com.hh99.nearby.entity.Challenge;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.entity.MemberChallenge;
 import com.hh99.nearby.mypage.dto.request.MypageRequestDto;
@@ -11,7 +10,6 @@ import com.hh99.nearby.mypage.dto.response.MypageResponseDto;
 import com.hh99.nearby.repository.ChallengeRepository;
 import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
-import com.hh99.nearby.security.jwt.TokenProvider;
 import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 
 @Service

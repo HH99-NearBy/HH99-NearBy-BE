@@ -31,7 +31,7 @@ public class TokenProvider {
     private static final String BEARER_PREFIX = "Bearer ";
 //    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 300;            //300분
     private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 10;            //300분
-    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;     //7일
+    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 30;     //7일
 
     private final Key key;
 
@@ -65,8 +65,13 @@ public class TokenProvider {
                 .member(member)
                 .token(refreshToken)
                 .build();
-
-        refreshTokenRepository.save(refreshTokenObject);
+        if(refreshTokenRepository.findByMember(member).isPresent()){
+            RefreshToken retoken = refreshTokenRepository.findByMember(member).get();
+            retoken.update(refreshToken);
+            refreshTokenRepository.save(retoken);
+        }else{
+            refreshTokenRepository.save(refreshTokenObject);
+        }
 
         return TokenDto.builder()
                 .grantType(BEARER_PREFIX)
@@ -88,24 +93,19 @@ public class TokenProvider {
     public boolean validateToken(String token, HttpServletRequest request) throws IOException {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            System.out.println("=======================1==================");
             return true;
         } catch (SecurityException | MalformedJwtException e) {
-            log.info("Invalid JWT signature");
-            request.setAttribute("exception","Invalid JWT signature");
-            System.out.println("=======================2==================");
+            log.info("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
+            request.setAttribute("exception","유효하지 않는 JWT 서명 입니다.");
         } catch (ExpiredJwtException e) {
-            log.info("Expired JWT token");
-            request.setAttribute("exception","Expired JWT token");
-            System.out.println("=======================3==================");
+            log.info("Expired JWT token, 만료된 JWT token 입니다.");
+            request.setAttribute("exception","만료된 JWT token 입니다.");
         } catch (UnsupportedJwtException e) {
-            log.info("Unsupported JWT token");
-            request.setAttribute("exception","Unsupported JWT token");
-            System.out.println("=======================4==================");
+            log.info("Unsupported JWT token, 지원되지 않는 JWT 토큰 입니다.");
+            request.setAttribute("exception","지원되지 않는 JWT 토큰 입니다.");
         } catch (IllegalArgumentException e) {
-            log.info("JWT claims is empty");
-            request.setAttribute("exception","JWT claims is empty");
-            System.out.println("=======================5==================");
+            log.info("JWT claims is empty, 잘못된 JWT 토큰 입니다.");
+            request.setAttribute("exception","잘못된 JWT 토큰 입니다.");
         }
         return false;
     }

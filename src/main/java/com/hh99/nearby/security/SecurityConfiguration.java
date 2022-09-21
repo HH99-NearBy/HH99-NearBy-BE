@@ -49,6 +49,7 @@ public class SecurityConfiguration {
             "/api/kakaologin",
             "/api/email",
 //            "/api/**",
+            "/api/token",
             "/chat/**",
             "/ws/**"
     };
@@ -69,8 +70,8 @@ public class SecurityConfiguration {
                 .disable()
 
                 .exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandlerException)
                 .authenticationEntryPoint(authenticationEntryPointException)
+                .accessDeniedHandler(accessDeniedHandlerException)
 
                 .and()
                 .sessionManagement()
