@@ -45,6 +45,9 @@ public class KakaoLoginService {
     @Value("${kakao.redirect.url}")
     String url;
 
+    @Value("${kakao.url}")
+    String url2;
+
 
     public ResponseEntity<?> kakaoLogin(Kakaocode kakaocode, HttpServletResponse response)throws JsonProcessingException {
 
@@ -102,7 +105,7 @@ public class KakaoLoginService {
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
         RestTemplate rt = new RestTemplate();//서버에게 요청을 보냄
         ResponseEntity<String> response = rt.exchange(
-                "https://kauth.kakao.com/oauth/token",
+                url2,
                 HttpMethod.POST, //매서드는 포스트타입
                 kakaoTokenRequest, // 카카오서버로 보낼 httpEntity
                 String.class //스트링 클래스로
@@ -126,6 +129,7 @@ public class KakaoLoginService {
         HttpEntity<MultiValueMap<String, String>> kakaoUserInfoRequest = new HttpEntity<>(headers);
         RestTemplate rt = new RestTemplate();//서버에게 요청을 보냄
         ResponseEntity<String> response = rt.exchange(
+
                 "https://kapi.kakao.com/v2/user/me",
                 HttpMethod.POST,  //매서드는 포스트타입
                 kakaoUserInfoRequest, // 카카오서버로 보낼 httpEntity
