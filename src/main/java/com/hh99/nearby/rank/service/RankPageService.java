@@ -1,6 +1,7 @@
 package com.hh99.nearby.rank.service;
 
 import com.hh99.nearby.entity.Member;
+import com.hh99.nearby.rank.dto.MyRankPageDto;
 import com.hh99.nearby.rank.dto.RankPageDto;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.util.Graph;
@@ -26,37 +27,73 @@ public class RankPageService {
     private final Graph graph;
 
     @Transactional
-    public ResponseEntity<?> getRank(@AuthenticationPrincipal UserDetails user,int pageNum,int size){
-        pageNum = pageNum -1;
-        Pageable pageable = PageRequest.of(pageNum,size);
-        Slice<Member> allByOrderByPointsDesc= memberRepository.rank(pageable);
+    public ResponseEntity<?> getRank(@AuthenticationPrincipal UserDetails user, int pageNum, int size) {
+        //로그인 헀을때
+        if (user != null) {
+            pageNum = pageNum - 1;
+            Pageable pageable = PageRequest.of(pageNum, size);
+            Slice<Member> allByOrderByPointsDesc = memberRepository.rank(pageable);
+
+            List<RankPageDto> rankPageDtos = new ArrayList<>();
+
+            for (Member member : allByOrderByPointsDesc) {
+                List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname());
+                List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
+                rankPageDtos.add(RankPageDto.builder()
+                        .id(member.getId())
+                        .profileImg(member.getProfileImg())
+                        .level(levelAndPoint.get(1) + "LV")
+                        .nickname(member.getNickname())
+                        .score(member.getPoints())
+                        .graph(sevengraph)
+                        .build());
+            }
+
+            for (int i = 0; i < rankPageDtos.size(); i++) {
+                if (user.getUsername().equals(rankPageDtos.get(i).getNickname())) {
+                    System.out.println(i + 1);
+                    long myRank = (long) i + 1;
+                    String nickname = rankPageDtos.get(i).getNickname();
+                    memberRepository.updateRank(myRank, nickname);
+                }
+            }
+            //랭킹페이지에서 내 정보 보여주기
+            Optional<Member> member2 = memberRepository.findByNickname(user.getUsername());
+            List<Long> levelAndPoint = levelCheck.levelAndPoint(member2.get().getNickname());
+            List<Long> sevengraph = graph.SevenDaysGraph(member2.get().getNickname());
+            MyRankPageDto myRankPageDto = new MyRankPageDto(
+                    member2.get().getId(),
+                    member2.get().getMyRank() + "등",
+                    member2.get().getProfileImg(),
+                    levelAndPoint.get(1) + "LV",
+                    member2.get().getNickname(),
+                    member2.get().getPoints(),
+                    sevengraph
+            );
+
+            return ResponseEntity.ok().body(Map.of("msg", "랭킹 조회 완료", "data", rankPageDtos, "myRank", myRankPageDto));
+        }
+
+        //로그인 안했을때
+        pageNum = pageNum - 1;
+        Pageable pageable = PageRequest.of(pageNum, size);
+        Slice<Member> allByOrderByPointsDesc = memberRepository.rank(pageable);
 
         List<RankPageDto> rankPageDtos = new ArrayList<>();
 
-        for ( Member member : allByOrderByPointsDesc){
+        for (Member member : allByOrderByPointsDesc) {
             List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname());
             List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
             rankPageDtos.add(RankPageDto.builder()
                     .id(member.getId())
                     .profileImg(member.getProfileImg())
-                    .level(levelAndPoint.get(1)+"LV")
+                    .level(levelAndPoint.get(1) + "LV")
                     .nickname(member.getNickname())
                     .score(member.getPoints())
                     .graph(sevengraph)
                     .build());
         }
-        if (user != null) {
-            for (int i = 0; i < rankPageDtos.size(); i++) {
-                if (user.getUsername().equals(rankPageDtos.get(i).getNickname())) {
-                    System.out.println(i + 1);
-                    long myRank = (long)i+1;
-                    String nickname = rankPageDtos.get(i).getNickname();
-                    memberRepository.updateRank(myRank, nickname);
-                }
-            }
-        }
+        return ResponseEntity.ok().body(Map.of("msg", "랭킹 조회 완료", "data", rankPageDtos));
 
-
-        return ResponseEntity.ok().body(Map.of("msg","랭킹 조회 완료","data",rankPageDtos));
     }
 }
