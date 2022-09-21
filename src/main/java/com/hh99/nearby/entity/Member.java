@@ -67,5 +67,5 @@ public class Member extends Timestamped{
     private List<MemberChallenge> memberChallengeList2;
 
     @Column
-    private int myRank;
+    private Long myRank;
 }
