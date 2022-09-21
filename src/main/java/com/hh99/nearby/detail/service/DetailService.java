@@ -75,6 +75,7 @@ public class DetailService {
         }
         Optional<Member> member = memberRepository.findByNickname(user.getUsername());
 
+        if (memberChallengeRepository.findByMember_IdAndChallenge_Id(member.get().getId(),id).isEmpty()){
         MemberChallenge memberChallenge = MemberChallenge.builder()
                 .challenge(challenge)
                 .member(member.get())
@@ -82,7 +83,10 @@ public class DetailService {
                 .startDay(challenge.getStartDay())
                 .build();
         memberChallengeRepository.save(memberChallenge);
-        return ResponseEntity.ok().body(Map.of("msg", "참여하기 완료"));
+            return ResponseEntity.ok().body(Map.of("msg", "참여하기 완료"));
+        } else {
+            return ResponseEntity.badRequest().body(Map.of("msg", "이미 참여한 챌린지입니다."));
+        }
     }
     //참여 취소하기
     @Transactional
@@ -93,7 +97,7 @@ public class DetailService {
         }
         Optional<Member> member = memberRepository.findByNickname(user.getUsername());
 
-        if (!challenge.getWriter().getId().equals(member.get().getId())){
+        if (memberChallengeRepository.findByMember_IdAndChallenge_Id(member.get().getId(),id).isEmpty()){
             return ResponseEntity.badRequest().body(Map.of("msg","참여하지 않으셨습니다."));
         }
         Optional<MemberChallenge> memberChallenge = memberChallengeRepository.findByMember_IdAndChallenge_Id(id,member.get().getId());
