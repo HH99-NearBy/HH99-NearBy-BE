@@ -1,6 +1,5 @@
 package com.hh99.nearby.security;
 
-import com.hh99.nearby.security.jwt.AccessDeniedHandlerException;
 import com.hh99.nearby.security.jwt.AuthenticationEntryPointException;
 import com.hh99.nearby.security.jwt.JwtSecurityConfiguration;
 import com.hh99.nearby.security.jwt.TokenProvider;
@@ -29,9 +28,6 @@ public class SecurityConfiguration {
     String SECRET_KEY;
     private final TokenProvider tokenProvider;
     private final UserDetailsServiceImpl userDetailsService;
-
-    private final AccessDeniedHandlerException accessDeniedHandlerException;
-
     private final AuthenticationEntryPointException authenticationEntryPointException;
     private static final String[] PERMIT_URL_ARRAY = {
             "/api/signup",
@@ -72,7 +68,6 @@ public class SecurityConfiguration {
 
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPointException)
-                .accessDeniedHandler(accessDeniedHandlerException)
 
                 .and()
                 .sessionManagement()

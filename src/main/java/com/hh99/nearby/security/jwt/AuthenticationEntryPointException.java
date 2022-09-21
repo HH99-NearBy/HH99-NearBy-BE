@@ -24,7 +24,6 @@ public class AuthenticationEntryPointException implements
                         new HashMap<>(Map.of("msg", request.getAttribute("exception")))
                 )
         );
-        System.out.println("==========================================확인");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
 }

@@ -23,6 +23,7 @@ public class TokenService {
     private final MemberRepository memberRepository;
 
     private final TokenProvider tokenProvider;
+
     @Value("${jwt.secret}")
     private String secret;
 

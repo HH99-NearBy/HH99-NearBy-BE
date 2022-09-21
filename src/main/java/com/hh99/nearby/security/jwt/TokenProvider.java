@@ -29,14 +29,12 @@ public class TokenProvider {
 
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_PREFIX = "Bearer ";
-//    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 300;            //300분
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 10;            //300분
-    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 30;     //7일
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;            //30분
+    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;     //7일
 
     private final Key key;
 
     private final RefreshTokenRepository refreshTokenRepository;
-//  private final UserDetailsServiceImpl userDetailsService;
 
     public TokenProvider(@Value("${jwt.secret}") String secretKey,
                          RefreshTokenRepository refreshTokenRepository) {
@@ -65,12 +63,12 @@ public class TokenProvider {
                 .member(member)
                 .token(refreshToken)
                 .build();
-        if(refreshTokenRepository.findByMember(member).isPresent()){
+        if(refreshTokenRepository.findByMember(member).isPresent()){ //기존의 리프레쉬 토큰이 존재하면 업데이트
             RefreshToken retoken = refreshTokenRepository.findByMember(member).get();
             retoken.update(refreshToken);
-            refreshTokenRepository.save(retoken);
+            refreshTokenRepository.save(retoken); //기존의 객체를 변경후에 세이브 하면 객체가 업데이트됨(UPDATE쿼리 날림)
         }else{
-            refreshTokenRepository.save(refreshTokenObject);
+            refreshTokenRepository.save(refreshTokenObject);//새로운 객체를 세이브 하면 객체가 저장됨(INSERT쿼리 날림)
         }
 
         return TokenDto.builder()
