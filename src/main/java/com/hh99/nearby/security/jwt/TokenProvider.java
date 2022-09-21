@@ -17,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.security.Key;
 import java.util.Date;
 import java.util.Optional;
@@ -27,13 +29,12 @@ public class TokenProvider {
 
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_PREFIX = "Bearer ";
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 300;            //300분
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;            //30분
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;     //7일
 
     private final Key key;
 
     private final RefreshTokenRepository refreshTokenRepository;
-//  private final UserDetailsServiceImpl userDetailsService;
 
     public TokenProvider(@Value("${jwt.secret}") String secretKey,
                          RefreshTokenRepository refreshTokenRepository) {
@@ -44,7 +45,6 @@ public class TokenProvider {
 
     public TokenDto generateTokenDto(Member member) {
         long now = (new Date().getTime());
-
         Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
         String accessToken = Jwts.builder()
                 .setSubject(member.getNickname())
@@ -63,8 +63,13 @@ public class TokenProvider {
                 .member(member)
                 .token(refreshToken)
                 .build();
-
-        refreshTokenRepository.save(refreshTokenObject);
+        if(refreshTokenRepository.findByMember(member).isPresent()){ //기존의 리프레쉬 토큰이 존재하면 업데이트
+            RefreshToken retoken = refreshTokenRepository.findByMember(member).get();
+            retoken.update(refreshToken);
+            refreshTokenRepository.save(retoken); //기존의 객체를 변경후에 세이브 하면 객체가 업데이트됨(UPDATE쿼리 날림)
+        }else{
+            refreshTokenRepository.save(refreshTokenObject);//새로운 객체를 세이브 하면 객체가 저장됨(INSERT쿼리 날림)
+        }
 
         return TokenDto.builder()
                 .grantType(BEARER_PREFIX)
@@ -72,7 +77,6 @@ public class TokenProvider {
                 .accessTokenExpiresIn(accessTokenExpiresIn.getTime())
                 .refreshToken(refreshToken)
                 .build();
-
     }
 
     public Member getMemberFromAuthentication() {
@@ -84,18 +88,22 @@ public class TokenProvider {
         return ((UserDetailsImpl) authentication.getPrincipal()).getMember();
     }
 
-    public boolean validateToken(String token) {
+    public boolean validateToken(String token, HttpServletRequest request) throws IOException {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (SecurityException | MalformedJwtException e) {
-            log.info("Invalid JWT signature");
+            log.info("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
+            request.setAttribute("exception","유효하지 않는 JWT 서명 입니다.");
         } catch (ExpiredJwtException e) {
-            log.info("Expired JWT token");
+            log.info("Expired JWT token, 만료된 JWT token 입니다.");
+            request.setAttribute("exception","만료된 JWT token 입니다.");
         } catch (UnsupportedJwtException e) {
-            log.info("Unsupported JWT token");
+            log.info("Unsupported JWT token, 지원되지 않는 JWT 토큰 입니다.");
+            request.setAttribute("exception","지원되지 않는 JWT 토큰 입니다.");
         } catch (IllegalArgumentException e) {
-            log.info("JWT claims is empty");
+            log.info("JWT claims is empty, 잘못된 JWT 토큰 입니다.");
+            request.setAttribute("exception","잘못된 JWT 토큰 입니다.");
         }
         return false;
     }

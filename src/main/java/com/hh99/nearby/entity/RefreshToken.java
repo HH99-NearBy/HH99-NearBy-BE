@@ -1,9 +1,6 @@
 package com.hh99.nearby.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -27,5 +24,9 @@ public class RefreshToken extends Timestamped {
 
     public void updateValue(String token) {
         this.token = token;
+    }
+
+    public void update(String refreshToken) {
+        this.token = refreshToken;
     }
 }

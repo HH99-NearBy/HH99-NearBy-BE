@@ -1,5 +1,6 @@
 package com.hh99.nearby.security;
 
+import com.hh99.nearby.security.jwt.AuthenticationEntryPointException;
 import com.hh99.nearby.security.jwt.JwtSecurityConfiguration;
 import com.hh99.nearby.security.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class SecurityConfiguration {
     String SECRET_KEY;
     private final TokenProvider tokenProvider;
     private final UserDetailsServiceImpl userDetailsService;
+    private final AuthenticationEntryPointException authenticationEntryPointException;
     private static final String[] PERMIT_URL_ARRAY = {
             "/api/signup",
             "/api/login",
@@ -42,7 +44,8 @@ public class SecurityConfiguration {
             "/h2-console/**",
             "/api/kakaologin",
             "/api/email",
-            "/api/**",
+//            "/api/**",
+            "/api/token",
             "/chat/**",
             "/ws/**",
             "/api/rank"
@@ -62,6 +65,11 @@ public class SecurityConfiguration {
         http.csrf()
                 .ignoringAntMatchers("/h2-console/**", "/favicon.ico")
                 .disable()
+
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPointException)
+
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
