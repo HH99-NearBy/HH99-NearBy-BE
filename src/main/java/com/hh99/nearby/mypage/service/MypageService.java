@@ -96,7 +96,7 @@ public class MypageService {
         for (int i = 0; i < allByOrderByPointsDesc.size(); i++) {
             if (member.getNickname().equals(allByOrderByPointsDesc.get(i).getNickname())) {
                 System.out.println(i + 1);
-                int myRank = i+1;
+                long myRank = (long)i+1;
                 String nickname = allByOrderByPointsDesc.get(i).getNickname();
                 memberRepository.updateRank(myRank, nickname);
             }
