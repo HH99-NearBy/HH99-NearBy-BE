@@ -6,6 +6,7 @@ import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.entity.MemberChallenge;
 import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
+import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -15,6 +16,7 @@ import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -26,6 +28,7 @@ public class StompHandler implements ChannelInterceptor {
     private final MemberChallengeRepository memberChallengeRepository;
 
     private final MemberRepository memberRepository;
+    private final LevelCheck levelCheck;
 
 
     @Override
@@ -49,6 +52,7 @@ public class StompHandler implements ChannelInterceptor {
                 memberChallenge.get().update(realTime); // 아니면 리얼타임 업데이트
             }
             System.out.println("총 리얼타임 : " + memberChallenge.get().getRealTime());
+            levelCheck.levelAndPoint(member.get().getNickname());
             chatRepository.delete(chat); // 다 업데이트하면 session아이디 삭제
         }
         return message;

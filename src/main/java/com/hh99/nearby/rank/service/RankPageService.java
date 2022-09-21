@@ -31,10 +31,6 @@ public class RankPageService {
         Pageable pageable = PageRequest.of(pageNum,size);
         Slice<Member> allByOrderByPointsDesc= memberRepository.rank(pageable);
 
-//        List<Member> allByOrderByPointsDesc = memberRepository.findAllByOrderByPointsDesc();
-
-//        List<Member> allByOrderByPointsDesc= memberRepository.rank();
-
         List<RankPageDto> rankPageDtos = new ArrayList<>();
 
         for ( Member member : allByOrderByPointsDesc){
@@ -56,13 +52,9 @@ public class RankPageService {
                     int myRank = i+1;
                     String nickname = rankPageDtos.get(i).getNickname();
                     memberRepository.updateRank(myRank, nickname);
-//                    System.out.println(allByOrderByPointsDesc.get(i).getMyRank());
                 }
             }
         }
-//        Optional<Member> member = memberRepository.findByNickname(user.getUsername());
-//        System.out.println(member.get().getNickname());
-//        System.out.println(member.get().getMyRank());
 
 
         return ResponseEntity.ok().body(Map.of("msg","랭킹 조회 완료","data",rankPageDtos));
