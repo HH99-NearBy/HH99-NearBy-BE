@@ -49,11 +49,13 @@ public class RankPageService {
                         .build());
             }
 
-            for (int i = 0; i < rankPageDtos.size(); i++) {
-                if (user.getUsername().equals(rankPageDtos.get(i).getNickname())) {
+            //내 등수 구해서 업데이트하기
+            List<Member> allByOrderByPointsDesc2 = memberRepository.rank();
+            for (int i = 0; i < allByOrderByPointsDesc2.size(); i++) {
+                if (user.getUsername().equals(allByOrderByPointsDesc2.get(i).getNickname())) {
                     System.out.println(i + 1);
                     long myRank = (long) i + 1;
-                    String nickname = rankPageDtos.get(i).getNickname();
+                    String nickname = allByOrderByPointsDesc2.get(i).getNickname();
                     memberRepository.updateRank(myRank, nickname);
                 }
             }
