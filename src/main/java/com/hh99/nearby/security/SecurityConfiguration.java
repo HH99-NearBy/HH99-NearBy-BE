@@ -48,7 +48,8 @@ public class SecurityConfiguration {
             "/api/token",
             "/chat/**",
             "/ws/**",
-            "/api/rank"
+            "/api/rank",
+            "/"
     };
     @Bean
     public PasswordEncoder passwordEncoder() {
