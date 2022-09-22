@@ -73,6 +73,10 @@ public class DetailService {
         if (challenge == null) {
             return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 챌린지 번호"));
         }
+        Long participatePeople = memberChallengeRepository.countAllByChallenge(challenge);
+        if(participatePeople>=challenge.getLimitPeople()){
+            return ResponseEntity.badRequest().body(Map.of("msg", "더이상 신청할 수 없는 챌린지 입니다."));
+        }
         Optional<Member> member = memberRepository.findByNickname(user.getUsername());
 
         if (memberChallengeRepository.findByMember_IdAndChallenge_Id(member.get().getId(),id).isEmpty()){

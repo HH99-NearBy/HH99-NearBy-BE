@@ -1,5 +1,6 @@
 package com.hh99.nearby.repository;
 
+import com.hh99.nearby.entity.Challenge;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.entity.MemberChallenge;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +17,8 @@ public interface MemberChallengeRepository extends JpaRepository<MemberChallenge
     Optional<MemberChallenge> findByMember_Id(Long memberId);
 
     List<MemberChallenge> findAllByMember_nickname(String nickname);
+
+    Long countAllByChallenge(Challenge challenge);
 
 //    MemberChallenge findByMember_nickname(String nickname);
     @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date")
