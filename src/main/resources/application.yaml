@@ -1,0 +1,43 @@
+spring:
+  mail:
+    host: smtp.naver.com
+    username: update
+    port: '465'
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: 'true'
+          auth: 'true'
+    password: update
+  freemarker:
+    cache: 'false'
+  datasource:
+    password: update
+    username: update
+    url: update
+  jpa:
+    hibernate:
+      ddl-auto: update
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: 'false'
+      fail-on-empty-beans: 'false'
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+kakao:
+  url: update
+  redirect:
+    url: update
+  client:
+    id: update
+openvidu:
+  secret: update
+  url: update
+mail:
+  url: update
+  image:
+    url: https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/2021/06/09/17/3/20646f8a-d76c-47b2-869e-7b9f606bb13d.jpg
+jwt:
+  secret: update
