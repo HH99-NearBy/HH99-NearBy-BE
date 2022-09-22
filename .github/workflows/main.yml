@@ -9,17 +9,17 @@ name: CI
 
 on:
   pull_request:
-    branches: [ "dev" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
 
 env:
   RESOURCE_PATH: ./src/main/resources/application.yaml
-  PROJECT_NAME: ssgwan
+  PROJECT_NAME: ssggwan
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  S3_BUCKET_NAME: ssgwan
+  S3_BUCKET_NAME: ssggwan-s3-bucket
   SPRING_MAIL_PASSWORD: ${{ secrets.SPRING_MAIL_PASSWORD }}
 
 
@@ -45,6 +45,16 @@ jobs:
           cloud.aws.credentials.access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           cloud.aws.credentials.secret-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           jwt.secret: ${{ secrets.JWT_SECRET_KEY }}
+          kakao.client.id: ${{ secrets.KAKAO_CLIENT_ID }}
+          kakao.redirect.url: ${{ secrets.KAKAO_REDIRECT_URL }}
+          kakao.url: ${{ secrets.KAKAO_URL }}
+          mail.url: ${{ secrets.MAIL_URL}}
+          openvidu.secret: ${{ secrets.OPENVIDU_SECRET}}
+          openvidu.url: ${{ secrets.OPENVIDU_URL}}
+          spring.datasource.password: ${{ secrets.SPRING_DATASOURCE_PASSWORD}}
+          spring.datasource.url: ${{ secrets.SPRING_DATASOURCE_URL}}
+          spring.datasource.username: ${{ secrets.SPRING_DATASOURCE_USERNAME}}
+          spring.mail.username: ${{ secrets.SPRING_MAIL_USERNAME }}
           spring.mail.password: ${{ secrets.SPRING_MAIL_PASSWORD }}
 
       - name: Grant execute permission for gradlew
@@ -86,4 +96,4 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: aws deploy create-deployment --application-name ssgwan-deploy --deployment-group-name ssgwan-code-deploy --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME.zip --region ap-northeast-2
+        run: aws deploy create-deployment --application-name ssggwan-app --deployment-group-name ssggwan-deployment-group --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME.zip --region ap-northeast-2
