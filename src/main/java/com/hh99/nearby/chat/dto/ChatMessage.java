@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 public class ChatMessage { //뷰로 보내는 메세지
     public enum MessageType {
-        ENTER, TALK, QUIT,END
+        ENTER, TALK, QUIT,END,DISCONNECT
     }
 
     private MessageType type;

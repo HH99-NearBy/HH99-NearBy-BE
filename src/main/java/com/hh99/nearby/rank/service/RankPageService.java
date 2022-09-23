@@ -53,7 +53,6 @@ public class RankPageService {
             List<Member> allByOrderByPointsDesc2 = memberRepository.rank();
             for (int i = 0; i < allByOrderByPointsDesc2.size(); i++) {
                 if (user.getUsername().equals(allByOrderByPointsDesc2.get(i).getNickname())) {
-                    System.out.println(i + 1);
                     long myRank = (long) i + 1;
                     String nickname = allByOrderByPointsDesc2.get(i).getNickname();
                     memberRepository.updateRank(myRank, nickname);
