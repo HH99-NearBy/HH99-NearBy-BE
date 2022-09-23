@@ -1,7 +1,6 @@
 package com.hh99.nearby.chat.service;
 
 
-
 import com.hh99.nearby.chat.dto.ChatRoom;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.entity.MemberChallenge;

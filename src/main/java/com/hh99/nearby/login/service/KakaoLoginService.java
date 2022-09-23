@@ -49,7 +49,7 @@ public class KakaoLoginService {
     String url2;
 
 
-    public ResponseEntity<?> kakaoLogin(Kakaocode kakaocode, HttpServletResponse response)throws JsonProcessingException {
+    public ResponseEntity<?> kakaoLogin(Kakaocode kakaocode, HttpServletResponse response) throws JsonProcessingException {
 
         // 1. "인가 코드"로 "액세스 토큰" 요청
         String accessToken = getAccessToken(kakaocode.getCode());
@@ -59,7 +59,7 @@ public class KakaoLoginService {
         KakaoRequestDto kakaoUserInfo = getKakaoUserInfo(accessToken); //엑세스 토큰값으로 유저 정보 받아오기!
 
         Optional<Member> member = memberRepository.findByNickname(kakaoUserInfo.getNickname()); //가입이 되어있는지 확인
-        if (member.isPresent()){
+        if (member.isPresent()) {
             Member kakaoUser = Member.builder()
                     .kakaoId(kakaoUserInfo.getKakaoid())
                     .nickname(kakaoUserInfo.getNickname())
@@ -68,20 +68,20 @@ public class KakaoLoginService {
             Authentication authentication = forceLogin(kakaoUser);
 
             // 5. response Header에 JWT 토큰 추가
-            kakaoUsersAuthorizationInput(kakaoUser,authentication, response);
+            kakaoUsersAuthorizationInput(kakaoUser, authentication, response);
 
             return ResponseEntity.ok(kakaoUserInfo); //kakaouser로 리턴~
-        };
+        }
+        ;
 
 //         3. 카카오ID로 회원가입 처리
-        Member kakaoUser = registerKakaoUserIfNeed(kakaoUserInfo,kakaocode.getNickname()); //담아온 카카오데이터로 로그인 처리
+        Member kakaoUser = registerKakaoUserIfNeed(kakaoUserInfo, kakaocode.getNickname()); //담아온 카카오데이터로 로그인 처리
 
         // 4. 강제 로그인 처리
         Authentication authentication = forceLogin(kakaoUser);
 
         // 5. response Header에 JWT 토큰 추가
-        kakaoUsersAuthorizationInput(kakaoUser,authentication, response);
-
+        kakaoUsersAuthorizationInput(kakaoUser, authentication, response);
 
 
         return ResponseEntity.ok(kakaoUserInfo); //kakaouser로 리턴~
@@ -147,23 +147,23 @@ public class KakaoLoginService {
                 .get("nickname").asText();
         String profileImg = jsonNode.get("properties").get("profile_image").asText(); //프로필url
 
-        return new KakaoRequestDto(id, nickname,profileImg); //Dto 에 담아서 리턴
+        return new KakaoRequestDto(id, nickname, profileImg); //Dto 에 담아서 리턴
     }
 
     // 3. 카카오ID로 회원가입 처리
-    private Member registerKakaoUserIfNeed (KakaoRequestDto kakaoUserInfo,String nickname1) {
+    private Member registerKakaoUserIfNeed(KakaoRequestDto kakaoUserInfo, String nickname1) {
 
         Long kakaoid = kakaoUserInfo.getKakaoid();
         String nickname = nickname1; //닉네임값
         String profileImg = kakaoUserInfo.getProfileImg();
 
 
-            Member kakaoUser = Member.builder()
-                    .kakaoId(kakaoid)
-                    .nickname(nickname)
-                    .profileImg(profileImg)
-                    .build();
-            memberRepository.save(kakaoUser); // db에 저장
+        Member kakaoUser = Member.builder()
+                .kakaoId(kakaoid)
+                .nickname(nickname)
+                .profileImg(profileImg)
+                .build();
+        memberRepository.save(kakaoUser); // db에 저장
 
 
         return kakaoUser; //유저정보 리턴
@@ -178,7 +178,7 @@ public class KakaoLoginService {
     }
 
     // 5. response Header에 JWT 토큰 추가
-    private void kakaoUsersAuthorizationInput(Member kakaoUser,Authentication authentication, HttpServletResponse response) {
+    private void kakaoUsersAuthorizationInput(Member kakaoUser, Authentication authentication, HttpServletResponse response) {
         // response header에 token 추가
         UserDetailsImpl userDetailsImpl = ((UserDetailsImpl) authentication.getPrincipal());
         TokenDto token = tokenProvider.generateTokenDto(kakaoUser);//.generateJwtToken(userDetailsImpl);
