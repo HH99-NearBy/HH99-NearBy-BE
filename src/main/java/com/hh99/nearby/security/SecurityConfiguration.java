@@ -49,6 +49,7 @@ public class SecurityConfiguration {
             "/chat/**",
             "/ws/**",
             "/api/rank",
+            "/api/posts",
             "/"
     };
     @Bean
