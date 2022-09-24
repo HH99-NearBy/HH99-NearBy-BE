@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,9 +39,9 @@ public class MessageController {
 
     @MessageMapping("/chat/message") //클라이언트가 Send 할수 있는 경로
     public void enter(ChatMessage message) {
-        System.out.println("채팅 시작!");
-//        LocalTime now = LocalTime.now(); // 현재 채팅시간
-        LocalTime now = LocalTime.now(ZoneId.of("Asia/Seoul")); // 현재 채팅시간
+        LocalTime now = LocalTime.now(); // 현재 채팅시간
+//        LocalTime now = LocalTime.now(ZoneId.of("Asia/Seoul")); // 현재 채팅시간
+
         message.setSendTime(now.format(DateTimeFormatter.ofPattern("a HH시 mm분"))); //채팅 모양 변환
         if (ChatMessage.MessageType.ENTER.equals(message.getType())) { //입장시
             String level = levelCheck.levelAndPoint(message.getSender()).get(1)+"Lv"; //Lv 계산

@@ -53,7 +53,6 @@ public class MainPageService {
             );
 
         }
-        System.out.println();
 
         return ResponseEntity.ok(allchallengelist);
     }

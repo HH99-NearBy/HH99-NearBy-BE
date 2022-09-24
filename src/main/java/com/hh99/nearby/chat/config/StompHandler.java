@@ -1,5 +1,6 @@
 package com.hh99.nearby.chat.config;
 
+import com.hh99.nearby.chat.dto.ChatMessage;
 import com.hh99.nearby.chat.entity.Chat;
 import com.hh99.nearby.chat.repository.ChatRepository;
 import com.hh99.nearby.entity.Member;
@@ -8,8 +9,10 @@ import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
@@ -18,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor
 @Component
 public class StompHandler implements ChannelInterceptor {
 
@@ -29,6 +31,22 @@ public class StompHandler implements ChannelInterceptor {
     private final MemberRepository memberRepository;
     private final LevelCheck levelCheck;
 
+    private final SimpMessageSendingOperations sendingOperations;
+
+    public StompHandler(ChatRepository chatRepository,
+                        MemberChallengeRepository memberChallengeRepository,
+                        MemberRepository memberRepository,
+                        LevelCheck levelCheck,
+                        @Lazy SimpMessageSendingOperations sendingOperations)
+    {
+        this.chatRepository = chatRepository;
+        this.memberChallengeRepository = memberChallengeRepository;
+        this.memberRepository = memberRepository;
+        this.levelCheck = levelCheck;
+        this.sendingOperations = sendingOperations;
+    }
+
+
     @Override
     @Transactional
     public Message preSend(Message<?> message, MessageChannel channel) {
@@ -38,7 +56,7 @@ public class StompHandler implements ChannelInterceptor {
         if (command.compareTo(StompCommand.DISCONNECT) == 0) {
             String seesionId = (String) message.getHeaders().get("simpSessionId"); //세션아이디를 초기화
             Chat chat = chatRepository.findBysessionId(seesionId); //세션아이디로 데이터 찾음
-            Optional<Member> member = memberRepository.findByNickname(chat.getSender()); //chatDB에 저장된 sender(닉네임)으로 데이터 찾기
+            Optional<Member> member = memberRepository.findByNickname(chat.getSender());//chatDB에 저장된 sender(닉네임)으로 데이터 찾기
             Optional<MemberChallenge> memberChallenge = memberChallengeRepository.findByMember_IdAndChallenge_Id(member.get().getId(),chat.getChallengeId()); //MemberId로 참여한 첼린지 데이터 찾기
             //위에 수정 |  맴버 아이디 + 프론트에서 보내준 challengeId를 받아서 찾은후 밑에 계산 실시
             Long endTime = System.currentTimeMillis(); // 사용자 연결해제 시간
@@ -49,8 +67,13 @@ public class StompHandler implements ChannelInterceptor {
             } else {
                 memberChallenge.get().update(realTime); // 아니면 리얼타임 업데이트
             }
-            System.out.println("총 리얼타임 : " + memberChallenge.get().getRealTime());
             levelCheck.levelAndPoint(member.get().getNickname());
+            ChatMessage chatMessage = ChatMessage.builder()
+                    .type(ChatMessage.MessageType.QUIT)
+                    .sender(member.get().getNickname())
+                    .message(member.get().getNickname()+"님이 퇴장하였습니다.")
+                    .build();
+            sendingOperations.convertAndSend("/sub/chat/room/"+chat.getChallengeId(),chatMessage);
             chatRepository.delete(chat); // 다 업데이트하면 session아이디 삭제
         }
         return message;
