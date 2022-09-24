@@ -60,8 +60,8 @@ public class RankPageService {
             }
             //랭킹페이지에서 내 정보 보여주기
             Optional<Member> member2 = memberRepository.findByNickname(user.getUsername());
-            List<Long> levelAndPoint = levelCheck.levelAndPoint(member2.get().getNickname());
             List<Long> sevengraph = graph.SevenDaysGraph(member2.get().getNickname());
+            List<Long> levelAndPoint = levelCheck.levelAndPoint(member2.get().getNickname());
             MyRankPageDto myRankPageDto = new MyRankPageDto(
                     member2.get().getId(),
                     member2.get().getMyRank() + "등",
