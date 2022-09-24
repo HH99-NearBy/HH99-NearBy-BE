@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,8 +35,6 @@ public class MessageController {
     private final MemberRepository memberRepository;
 
     private  final LevelCheck levelCheck;
-
-
 
     @MessageMapping("/chat/message") //클라이언트가 Send 할수 있는 경로
     public void enter(ChatMessage message) {

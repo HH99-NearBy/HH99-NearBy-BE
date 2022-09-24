@@ -1,4 +1,4 @@
-package com.hh99.nearby.security.service;
+package com.hh99.nearby.security.jwt.service;
 
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.repository.MemberRepository;

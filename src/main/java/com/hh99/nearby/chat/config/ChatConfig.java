@@ -15,8 +15,6 @@ public class ChatConfig implements WebSocketMessageBrokerConfigurer {
 
     private final StompHandler stompHandler;
 
-
-
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
 
