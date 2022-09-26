@@ -26,19 +26,21 @@ public class Graph {
         System.out.println("==========");
         System.out.println("스케줄러 실행 중");
         System.out.println("==========");
-        List<Long> sevendaysGraph = new ArrayList<>();
-        long oneTime = 0;
-        long twoTime = 0;
-        long threeTime = 0;
-        long fourTime = 0;
-        long fiveTime = 0;
-        long sixTime = 0;
-        long sevenTime = 0;
+
 
         List<Member> memberList = memberRepository.findAll();
         if (memberList.size() != 0) {
 
             for (int j = 0; j < memberList.size(); j++) {
+
+                List<Long> sevendaysGraph = new ArrayList<>();
+                long oneTime = 0;
+                long twoTime = 0;
+                long threeTime = 0;
+                long fourTime = 0;
+                long fiveTime = 0;
+                long sixTime = 0;
+                long sevenTime = 0;
 
                 List<MemberChallenge> memberChallengeSevenDay = memberChallengeRepository.sevenday();
                 for (int i = 0; i < memberChallengeSevenDay.size(); i++) {
@@ -96,6 +98,8 @@ public class Graph {
                 sevendaysGraph.add(threeTime);
                 sevendaysGraph.add(twoTime);
                 sevendaysGraph.add(oneTime);
+
+                memberList.get(j).update(sevendaysGraph);
             }
 
         }
