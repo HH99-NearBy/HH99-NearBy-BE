@@ -75,8 +75,4 @@ public class ChatService {
         System.out.println(chatRoom.getRoomId());
         return chatRoom;
     }
-
-
-
-
 }
