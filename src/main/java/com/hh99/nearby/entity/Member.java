@@ -70,6 +70,7 @@ public class Member extends Timestamped{
     @PrePersist
     public void prePersist(){
         this.myRank = (long)0;
+        this.points = (long)0;
     }
 
     @Column

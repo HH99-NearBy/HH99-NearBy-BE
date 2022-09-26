@@ -32,11 +32,11 @@ public class RankPageService {
         if (user != null) {
             pageNum = pageNum - 1;
             Pageable pageable = PageRequest.of(pageNum, size);
-            Slice<Member> allByOrderByRankAsc = memberRepository.rank(pageable);
+            Slice<Member> allByOrderByPointsDesc = memberRepository.rank(pageable);
 
             List<RankPageDto> rankPageDtos = new ArrayList<>();
 
-            for (Member member : allByOrderByRankAsc) {
+            for (Member member : allByOrderByPointsDesc) {
                 List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname());
 //                List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
                 rankPageDtos.add(RankPageDto.builder()
@@ -78,11 +78,11 @@ public class RankPageService {
         //로그인 안했을때
         pageNum = pageNum - 1;
         Pageable pageable = PageRequest.of(pageNum, size);
-        Slice<Member> allByOrderByRankAsc = memberRepository.rank(pageable);
+        Slice<Member> allByOrderByPointsDesc = memberRepository.rank(pageable);
 
         List<RankPageDto> rankPageDtos = new ArrayList<>();
 
-        for (Member member : allByOrderByRankAsc) {
+        for (Member member : allByOrderByPointsDesc) {
             List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname());
 //            List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
             rankPageDtos.add(RankPageDto.builder()
