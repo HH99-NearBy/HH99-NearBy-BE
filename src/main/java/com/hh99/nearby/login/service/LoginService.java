@@ -58,7 +58,7 @@ public class LoginService {
                 .profileImg(member.getProfileImg())
                 .nickname(member.getNickname())
                 .level("LV."+levelAndPoint.get(1))
-                .totalTime(member.getPoints()/10+"분")
+                .totalTime(levelAndPoint.get(0)/10+"분")
                 .build();
         return ResponseEntity.ok().body(Map.of("msg", "로그인 성공", "data", loginResponseDto));
     }
