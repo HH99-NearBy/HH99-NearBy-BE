@@ -1,4 +1,4 @@
-package com.hh99.nearby.rank.service;
+package com.hh99.nearby.util;
 
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.repository.MemberRepository;
