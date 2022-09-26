@@ -50,7 +50,8 @@ public class SecurityConfiguration {
             "/ws/**",
             "/api/rank",
             "/api/posts",
-            "/"
+            "/",
+            "/api/search"
     };
     @Bean
     public PasswordEncoder passwordEncoder() {
