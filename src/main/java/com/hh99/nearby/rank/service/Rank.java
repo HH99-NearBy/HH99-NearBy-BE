@@ -20,7 +20,7 @@ public class Rank {
     private final LevelCheck levelCheck;
     private final Graph graph;
 
-    @Scheduled(cron = "* * * * * *")
+    @Scheduled(cron = "0 0 5 * * *")
     public void scheduleRank(){
 //        System.out.println("==========");
 //        System.out.println("스케줄러 실행 중");

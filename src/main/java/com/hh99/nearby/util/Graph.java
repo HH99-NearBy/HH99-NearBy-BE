@@ -21,11 +21,11 @@ public class Graph {
     private final MemberRepository memberRepository;
     private final MemberChallengeRepository memberChallengeRepository;
 
-    @Scheduled(cron = "* * * * * *")
+    @Scheduled(cron = "0 0 5 * * *")
     public void SevenDaysGraph() {
-        System.out.println("==========");
-        System.out.println("스케줄러 실행 중");
-        System.out.println("==========");
+//        System.out.println("==========");
+//        System.out.println("스케줄러 실행 중");
+//        System.out.println("==========");
 
 
         List<Member> memberList = memberRepository.findAll();
