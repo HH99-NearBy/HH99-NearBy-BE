@@ -17,9 +17,9 @@ public class MainPageController {
 
     //모든 리스트 불러오는 API
     @GetMapping("/api/posts")
-    public ResponseEntity<?> getAllChallenge(@RequestParam int pageNum, //페이지의 수
-                                             @RequestParam int size){   //글갯수
-        return mainPageService.getAllChallenge(pageNum,size);
+    public ResponseEntity<?> getAllChallenge(@RequestParam long challengeId, //조회된 마지막 챌린지 아이디
+                                             @RequestParam long size){   //글갯수
+        return mainPageService.getAllChallenge(challengeId,size);
     }
 
     //참가신청한 리스트 불러오는 API
