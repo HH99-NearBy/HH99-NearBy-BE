@@ -44,7 +44,7 @@ public class RankPageService {
                 rankPageDtos.add(RankPageDto.builder()
                         .id(member.getId())
                         .profileImg(member.getProfileImg())
-                        .level(levelAndPoint.get(1) + "LV")
+                        .level("LV."+levelAndPoint.get(1))
                         .nickname(member.getNickname())
                         .score(member.getPoints())
                         .graph(member.getGraph())
@@ -68,7 +68,7 @@ public class RankPageService {
                     member2.get().getId(),
                     member2.get().getMyRank() + "등",
                     member2.get().getProfileImg(),
-                    levelAndPoint.get(1) + "LV",
+                    "LV."+levelAndPoint.get(1),
                     member2.get().getNickname(),
                     member2.get().getPoints(),
                     member2.get().getGraph()
@@ -90,7 +90,7 @@ public class RankPageService {
             rankPageDtos.add(RankPageDto.builder()
                     .id(member.getId())
                     .profileImg(member.getProfileImg())
-                    .level(levelAndPoint.get(1) + "LV")
+                    .level("LV."+levelAndPoint.get(1))
                     .nickname(member.getNickname())
                     .score(member.getPoints())
                     .graph(member.getGraph())
