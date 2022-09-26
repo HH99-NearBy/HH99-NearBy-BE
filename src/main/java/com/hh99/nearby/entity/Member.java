@@ -68,4 +68,12 @@ public class Member extends Timestamped{
 
     @Column
     private Long myRank;
+
+    @Column
+    @ElementCollection(targetClass = Long.class)
+    private List<Long> graph;
+
+    public void update(List<Long> graph){
+        this.graph = graph;
+    }
 }

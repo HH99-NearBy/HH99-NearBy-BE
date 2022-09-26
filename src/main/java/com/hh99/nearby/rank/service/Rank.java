@@ -22,9 +22,9 @@ public class Rank {
 
     @Scheduled(cron = "* * * * * *")
     public void scheduleRank(){
-        System.out.println("==========");
-        System.out.println("스케줄러 실행 중");
-        System.out.println("==========");
+//        System.out.println("==========");
+//        System.out.println("스케줄러 실행 중");
+//        System.out.println("==========");
         List<Member> allByOrderByPointsDesc = memberRepository.rank();
         if (allByOrderByPointsDesc != null) {
             for (int i = 0; i < allByOrderByPointsDesc.size(); i++) {

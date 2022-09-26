@@ -88,7 +88,7 @@ public class MypageService {
             minute += memberChallenge.get(i).getRealTime();
         }
 
-        List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
+//        List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
 
 //        List<Member> allByOrderByPointsDesc = memberRepository.rank();
 //        for (int i = 0; i < allByOrderByPointsDesc.size(); i++) {
@@ -108,7 +108,7 @@ public class MypageService {
                 .rank(member.getMyRank() + "등")
                 .remainingTime((minute % 60) + "분")
                 .totalTime((hour / 60) + "시간" + (minute % 60) + "분")
-                .graph(sevengraph)
+                .graph(member.getGraph())
                 .challengeLists(mypageChallengeList)
                 .finishLists(finishLists)
                 .build());

@@ -40,29 +40,29 @@ public class RankPageService {
 
             for (Member member : allByOrderByPointsDesc) {
                 List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname());
-                List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
+//                List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
                 rankPageDtos.add(RankPageDto.builder()
                         .id(member.getId())
                         .profileImg(member.getProfileImg())
                         .level(levelAndPoint.get(1) + "LV")
                         .nickname(member.getNickname())
                         .score(member.getPoints())
-                        .graph(sevengraph)
+                        .graph(member.getGraph())
                         .build());
             }
 
-            //내 등수 구해서 업데이트하기
-            List<Member> allByOrderByPointsDesc2 = memberRepository.rank();
-            for (int i = 0; i < allByOrderByPointsDesc2.size(); i++) {
-                if (user.getUsername().equals(allByOrderByPointsDesc2.get(i).getNickname())) {
-                    long myRank = (long) i + 1;
-                    String nickname = allByOrderByPointsDesc2.get(i).getNickname();
-                    memberRepository.updateRank(myRank, nickname);
-                }
-            }
+//            //내 등수 구해서 업데이트하기
+//            List<Member> allByOrderByPointsDesc2 = memberRepository.rank();
+//            for (int i = 0; i < allByOrderByPointsDesc2.size(); i++) {
+//                if (user.getUsername().equals(allByOrderByPointsDesc2.get(i).getNickname())) {
+//                    long myRank = (long) i + 1;
+//                    String nickname = allByOrderByPointsDesc2.get(i).getNickname();
+//                    memberRepository.updateRank(myRank, nickname);
+//                }
+//            }
             //랭킹페이지에서 내 정보 보여주기
             Optional<Member> member2 = memberRepository.findByNickname(user.getUsername());
-            List<Long> sevengraph = graph.SevenDaysGraph(member2.get().getNickname());
+//            List<Long> sevengraph = graph.SevenDaysGraph(member2.get().getNickname());
             List<Long> levelAndPoint = levelCheck.levelAndPoint(member2.get().getNickname());
             MyRankPageDto myRankPageDto = new MyRankPageDto(
                     member2.get().getId(),
@@ -71,7 +71,7 @@ public class RankPageService {
                     levelAndPoint.get(1) + "LV",
                     member2.get().getNickname(),
                     member2.get().getPoints(),
-                    sevengraph
+                    member2.get().getGraph()
             );
 
             return ResponseEntity.ok().body(Map.of("msg", "랭킹 조회 완료", "data", rankPageDtos, "myRank", myRankPageDto));
@@ -86,14 +86,14 @@ public class RankPageService {
 
         for (Member member : allByOrderByPointsDesc) {
             List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname());
-            List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
+//            List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
             rankPageDtos.add(RankPageDto.builder()
                     .id(member.getId())
                     .profileImg(member.getProfileImg())
                     .level(levelAndPoint.get(1) + "LV")
                     .nickname(member.getNickname())
                     .score(member.getPoints())
-                    .graph(sevengraph)
+                    .graph(member.getGraph())
                     .build());
         }
         return ResponseEntity.ok().body(Map.of("msg", "랭킹 조회 완료", "data", rankPageDtos));
