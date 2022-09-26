@@ -57,7 +57,8 @@ public class LoginService {
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
                 .profileImg(member.getProfileImg())
                 .nickname(member.getNickname())
-                .level(levelAndPoint.get(1)+ "LV")
+                .level("LV."+levelAndPoint.get(1))
+                .totalTime(member.getPoints()/10+"분")
                 .build();
         return ResponseEntity.ok().body(Map.of("msg", "로그인 성공", "data", loginResponseDto));
     }

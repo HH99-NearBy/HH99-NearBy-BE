@@ -44,7 +44,7 @@ public class MessageController {
 
         message.setSendTime(now.format(DateTimeFormatter.ofPattern("a HH시 mm분"))); //채팅 모양 변환
         if (ChatMessage.MessageType.ENTER.equals(message.getType())) { //입장시
-            String level = levelCheck.levelAndPoint(message.getSender()).get(1)+"Lv"; //Lv 계산
+            String level = "LV."+levelCheck.levelAndPoint(message.getSender()).get(1); //Lv 계산
             Long challengeid = Long.valueOf(message.getRoomId()); //프론트에서 첼린지 번호를 넘겨줌
             chatRepository.save(Chat.builder() //chat 엔티티에 저장
                             .sender(message.getSender()) //글쓴이
@@ -67,7 +67,7 @@ public class MessageController {
         for(Chat chat: chatList){
             Optional<Member> member = memberRepository.findByNickname(chat.getSender());
             SessionMemberDto sessionMemberDto = SessionMemberDto.builder()
-                    .level(levelCheck.levelAndPoint(member.get().getNickname()).get(1)+"LV")
+                    .level("LV."+levelCheck.levelAndPoint(member.get().getNickname()).get(1))
                     .nickname(member.get().getNickname())
                     .build();
             list.add(sessionMemberDto);

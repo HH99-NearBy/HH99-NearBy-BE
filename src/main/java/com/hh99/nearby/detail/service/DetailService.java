@@ -53,7 +53,7 @@ public class DetailService {
                 .content(challenge.getContent())
                 .notice(challenge.getNotice())
                 .writer(challenge.getWriter().getNickname())
-                .level(levelAndPoint.get(1)+"LV")
+                .level("LV."+levelAndPoint.get(1))
                 .challengeTag(challenge.getChallengeTag())
                 .build();
         return ResponseEntity.ok().body(Map.of("detailModal", detailResponseDto, "msg", "상세모달 조회 완료"));

@@ -26,7 +26,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query(value = "Select p from Member p order by p.points desc ")
     List<Member> rank();
 
-    @Query(value = "Select p from Member p order by p.points desc ")
+    @Query(value = "Select p from Member p order by p.myRank asc ")
     Slice<Member> rank(Pageable pageable);
 
     @Query(value = "Select p from Member p order by p.points desc ")
