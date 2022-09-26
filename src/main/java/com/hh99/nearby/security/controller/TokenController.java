@@ -1,7 +1,7 @@
 package com.hh99.nearby.security.controller;
 
 import com.hh99.nearby.security.dto.ReissueDto;
-import com.hh99.nearby.security.service.TokenService;
+import com.hh99.nearby.security.jwt.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

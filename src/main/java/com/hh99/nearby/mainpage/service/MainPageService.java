@@ -3,12 +3,13 @@ package com.hh99.nearby.mainpage.service;
 import com.hh99.nearby.entity.Challenge;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.entity.MemberChallenge;
+import com.hh99.nearby.entity.QChallenge;
 import com.hh99.nearby.mainpage.dto.MainPageResponseDto;
 import com.hh99.nearby.repository.ChallengeRepository;
 import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -25,15 +26,11 @@ public class MainPageService {
     private final MemberChallengeRepository memberChallengeRepository;
 
     private final ChallengeRepository challengeRepository;
+    private final JPAQueryFactory jpaQueryFactory;
 
-    public ResponseEntity<?> getAllChallenge(int pageNum, int size) {
-        pageNum = pageNum-1; //페이지는 0부터 시작하기때문
-        Sort.Direction direction = Sort.Direction.DESC; // true: 오름차순 (asc) , 내림차순 DESC(최신 것이 위로온다)
-        Sort sort = Sort.by(direction, "id"); // id를 기준으로 내림차순으로 적용
-        Pageable pageable = PageRequest.of(pageNum,size,sort); // 페이지 넘버, 글갯수, 정렬
-        Slice<Challenge> challenges = challengeRepository.findAll(pageable); //Slice는 다음 Slice가 존재하는 여부만 파악하기때문에
-                                                                             //page보다 성능상 유리
+    public ResponseEntity<?> getAllChallenge(long challengeId, long size) {
         List<MainPageResponseDto> allchallengelist = new ArrayList<>();
+        List<Challenge> challenges = ChallengeList(challengeId, size);
         for (Challenge challenge : challenges) {
 
             long participatePeople = challenge.getMemberChallengeList().size();
@@ -79,5 +76,18 @@ public class MainPageService {
             );
         }
         return ResponseEntity.ok(mypageChallengeList);
+    }
+
+    public List<Challenge> ChallengeList(Long id,Long limit) {
+        QChallenge challenge = QChallenge.challenge;
+
+        return jpaQueryFactory
+                .selectFrom(challenge)
+                .where(
+                        id == 0 ? null : challenge.id.lt(id)
+                )
+                .orderBy(challenge.id.desc())
+                .limit(limit)
+                .fetch();
     }
 }

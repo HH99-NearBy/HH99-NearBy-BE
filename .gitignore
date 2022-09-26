@@ -21,7 +21,6 @@ bin/
 application.properties
 application-local.properties
 application-mail.properties
-application-rds.properties
 
 .idea
 *.iws
