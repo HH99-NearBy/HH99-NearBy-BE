@@ -67,7 +67,7 @@ public class StompHandler implements ChannelInterceptor {
             } else {
                 memberChallenge.get().update(realTime); // 아니면 리얼타임 업데이트
             }
-            levelCheck.levelAndPoint(member.get().getNickname());
+//            levelCheck.levelAndPoint(member.get().getNickname());
             ChatMessage chatMessage = ChatMessage.builder()
                     .type(ChatMessage.MessageType.QUIT)
                     .sender(member.get().getNickname())

@@ -90,14 +90,14 @@ public class MypageService {
 
         List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
 
-        List<Member> allByOrderByPointsDesc = memberRepository.rank();
-        for (int i = 0; i < allByOrderByPointsDesc.size(); i++) {
-            if (member.getNickname().equals(allByOrderByPointsDesc.get(i).getNickname())) {
-                long myRank = (long) i + 1;
-                String nickname = allByOrderByPointsDesc.get(i).getNickname();
-                memberRepository.updateRank(myRank, nickname);
-            }
-        }
+//        List<Member> allByOrderByPointsDesc = memberRepository.rank();
+//        for (int i = 0; i < allByOrderByPointsDesc.size(); i++) {
+//            if (member.getNickname().equals(allByOrderByPointsDesc.get(i).getNickname())) {
+//                long myRank = (long) i + 1;
+//                String nickname = allByOrderByPointsDesc.get(i).getNickname();
+//                memberRepository.updateRank(myRank, nickname);
+//            }
+//        }
 
 
         return ResponseEntity.ok(MypageResponseDto.builder()

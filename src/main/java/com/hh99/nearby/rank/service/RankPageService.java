@@ -26,6 +26,8 @@ public class RankPageService {
     private final LevelCheck levelCheck;
     private final Graph graph;
 
+
+
     @Transactional
     public ResponseEntity<?> getRank(@AuthenticationPrincipal UserDetails user, int pageNum, int size) {
         //로그인 헀을때
