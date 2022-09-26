@@ -21,7 +21,7 @@ public class SearchService {
     private final ChallengeRepository challengeRepository;
 
     public ResponseEntity<?> search(String keyword,int pageNum) {
-        int size = 10;
+        int size = 10; //사이즈 고정
         pageNum = pageNum-1; //페이지는 0부터 시작하기때문
         Sort.Direction direction = Sort.Direction.DESC; // true: 오름차순 (asc) , 내림차순 DESC(최신 것이 위로온다)
         Sort sort = Sort.by(direction, "id"); // id를 기준으로 내림차순으로 적용
