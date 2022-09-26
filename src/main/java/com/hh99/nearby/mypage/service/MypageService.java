@@ -88,27 +88,27 @@ public class MypageService {
             minute += memberChallenge.get(i).getRealTime();
         }
 
-        List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
+//        List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
 
-        List<Member> allByOrderByPointsDesc = memberRepository.rank();
-        for (int i = 0; i < allByOrderByPointsDesc.size(); i++) {
-            if (member.getNickname().equals(allByOrderByPointsDesc.get(i).getNickname())) {
-                long myRank = (long) i + 1;
-                String nickname = allByOrderByPointsDesc.get(i).getNickname();
-                memberRepository.updateRank(myRank, nickname);
-            }
-        }
+//        List<Member> allByOrderByPointsDesc = memberRepository.rank();
+//        for (int i = 0; i < allByOrderByPointsDesc.size(); i++) {
+//            if (member.getNickname().equals(allByOrderByPointsDesc.get(i).getNickname())) {
+//                long myRank = (long) i + 1;
+//                String nickname = allByOrderByPointsDesc.get(i).getNickname();
+//                memberRepository.updateRank(myRank, nickname);
+//            }
+//        }
 
 
         return ResponseEntity.ok(MypageResponseDto.builder()
                 .nickname(member.getNickname())
                 .email(member.getEmail())
                 .profileImg(member.getProfileImg())
-                .level(levelAndPoint.get(1) + "Lv")
+                .level("LV."+levelAndPoint.get(1))
                 .rank(member.getMyRank() + "등")
                 .remainingTime((minute % 60) + "분")
                 .totalTime((hour / 60) + "시간" + (minute % 60) + "분")
-                .graph(sevengraph)
+                .graph(member.getGraph())
                 .challengeLists(mypageChallengeList)
                 .finishLists(finishLists)
                 .build());

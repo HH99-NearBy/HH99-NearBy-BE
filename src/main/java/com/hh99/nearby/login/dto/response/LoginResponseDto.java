@@ -12,4 +12,5 @@ public class LoginResponseDto {
     private String profileImg;
     private String level;
     private String nickname;
+    private String totalTime;
 }

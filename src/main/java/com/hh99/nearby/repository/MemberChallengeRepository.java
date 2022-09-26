@@ -21,24 +21,24 @@ public interface MemberChallengeRepository extends JpaRepository<MemberChallenge
     Long countAllByChallenge(Challenge challenge);
 
 //    MemberChallenge findByMember_nickname(String nickname);
-    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date")
+    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -1")
     List<MemberChallenge> oneday();
 
-    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -1")
+    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -2")
     List<MemberChallenge> twoday();
 
-    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -2")
+    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -3")
     List<MemberChallenge> threeday();
 
-    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -3")
+    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -4")
     List<MemberChallenge> fourday();
 
-    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -4")
-    List<MemberChallenge> fiveday();
     @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -5")
+    List<MemberChallenge> fiveday();
+    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -6")
     List<MemberChallenge> sixday();
 
-    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -6")
+    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -7")
     List<MemberChallenge> sevenday();
 
 
