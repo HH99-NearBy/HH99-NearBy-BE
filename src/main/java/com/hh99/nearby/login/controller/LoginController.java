@@ -3,6 +3,7 @@ package com.hh99.nearby.login.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hh99.nearby.login.dto.request.Kakaocode;
 import com.hh99.nearby.login.dto.request.LoginRequestDto;
+import com.hh99.nearby.login.dto.request.NicknameRequestDto;
 import com.hh99.nearby.login.service.KakaoLoginService;
 import com.hh99.nearby.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @RestController
@@ -36,5 +36,10 @@ public class LoginController {
     @PostMapping("/api/kakaologin")
     public ResponseEntity<?> kakaoLogin(@RequestBody Kakaocode kakaocode, HttpServletResponse response) throws JsonProcessingException {
         return kakaoLoginService.kakaoLogin(kakaocode, response);
+    }
+
+    @PutMapping("/api/nicknameupdate")
+    public ResponseEntity<?> nicknameupdate(@RequestBody NicknameRequestDto nicknameRequestDto, @AuthenticationPrincipal UserDetails user){
+        return loginService.nicknameupdate(nicknameRequestDto,user);
     }
 }
