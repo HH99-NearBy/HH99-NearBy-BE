@@ -12,13 +12,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +67,7 @@ public class MessageController {
             SessionMemberDto sessionMemberDto = SessionMemberDto.builder()
                     .level("LV."+levelCheck.levelAndPoint(member.get().getNickname()).get(1))
                     .nickname(member.get().getNickname())
+                   .entryTime(chat.getEntryTime())
                     .build();
             list.add(sessionMemberDto);
         }
