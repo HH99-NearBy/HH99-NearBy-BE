@@ -71,6 +71,7 @@ public class MessageController {
             SessionMemberDto sessionMemberDto = SessionMemberDto.builder()
                     .level("LV."+levelCheck.levelAndPoint(member.get().getNickname()).get(1))
                     .nickname(member.get().getNickname())
+//                    .entryTime(chat.getEntryTime())
                     .entryTime(entryTime)
                     .build();
             list.add(sessionMemberDto);
