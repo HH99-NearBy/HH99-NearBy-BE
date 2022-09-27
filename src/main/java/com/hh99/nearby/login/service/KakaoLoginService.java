@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.login.dto.request.KakaoRequestDto;
 import com.hh99.nearby.login.dto.request.Kakaocode;
-import com.hh99.nearby.login.dto.response.KakaoResponseDto;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.security.UserDetailsImpl;
 import com.hh99.nearby.security.jwt.TokenDto;
@@ -21,14 +20,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 import java.util.Optional;
 
 @Service

@@ -2,6 +2,7 @@ package com.hh99.nearby.login.service;
 
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.login.dto.request.LoginRequestDto;
+import com.hh99.nearby.login.dto.request.NicknameRequestDto;
 import com.hh99.nearby.login.dto.response.LoginResponseDto;
 import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
@@ -67,12 +68,15 @@ public class LoginService {
     }
 
     public ResponseEntity<?> logout(UserDetails user) {
-        Member member = isPresentMemberByEmail(user.getUsername());
-        if (null == member) {
-            return ResponseEntity.badRequest().body(Map.of("msg", "사용자를 찾을수 없습니다."));
-        }
+        Member member = memberRepository.findByNickname(user.getUsername()).get();
         tokenProvider.deleteRefreshToken(member);
         return ResponseEntity.ok().body(Map.of("msg", "로그아웃 성공"));
+    }
+    @Transactional
+    public ResponseEntity<?> nicknameupdate(NicknameRequestDto nicknameRequestDto, UserDetails user) {
+        Member member = memberRepository.findByNickname(user.getUsername()).get();
+        member.update(nicknameRequestDto.getNickname());
+        return ResponseEntity.ok().body(Map.of("msg", "닉네임 업데이트 성공"));
     }
 
     @Transactional(readOnly = true)

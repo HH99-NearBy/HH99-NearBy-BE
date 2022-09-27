@@ -3,22 +3,20 @@ package com.hh99.nearby.chat.controller;
 
 import com.hh99.nearby.chat.dto.ChatMessage;
 import com.hh99.nearby.chat.dto.SessionMemberDto;
-import com.hh99.nearby.chat.entity.Chat;
-import com.hh99.nearby.chat.repository.ChatRepository;
+import com.hh99.nearby.entity.Chat;
 import com.hh99.nearby.entity.Member;
+import com.hh99.nearby.repository.ChatRepository;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +67,7 @@ public class MessageController {
             SessionMemberDto sessionMemberDto = SessionMemberDto.builder()
                     .level("LV."+levelCheck.levelAndPoint(member.get().getNickname()).get(1))
                     .nickname(member.get().getNickname())
+                   .entryTime(chat.getEntryTime())
                     .build();
             list.add(sessionMemberDto);
         }
