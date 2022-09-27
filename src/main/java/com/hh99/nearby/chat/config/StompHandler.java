@@ -1,10 +1,10 @@
 package com.hh99.nearby.chat.config;
 
 import com.hh99.nearby.chat.dto.ChatMessage;
-import com.hh99.nearby.chat.entity.Chat;
-import com.hh99.nearby.chat.repository.ChatRepository;
+import com.hh99.nearby.entity.Chat;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.entity.MemberChallenge;
+import com.hh99.nearby.repository.ChatRepository;
 import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.util.LevelCheck;

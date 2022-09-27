@@ -1,6 +1,7 @@
-package com.hh99.nearby.chat.repository;
+package com.hh99.nearby.repository;
 
-import com.hh99.nearby.chat.entity.Chat;
+
+import com.hh99.nearby.entity.Chat;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

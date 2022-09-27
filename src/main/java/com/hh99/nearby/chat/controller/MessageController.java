@@ -3,9 +3,9 @@ package com.hh99.nearby.chat.controller;
 
 import com.hh99.nearby.chat.dto.ChatMessage;
 import com.hh99.nearby.chat.dto.SessionMemberDto;
-import com.hh99.nearby.chat.entity.Chat;
-import com.hh99.nearby.chat.repository.ChatRepository;
+import com.hh99.nearby.entity.Chat;
 import com.hh99.nearby.entity.Member;
+import com.hh99.nearby.repository.ChatRepository;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
