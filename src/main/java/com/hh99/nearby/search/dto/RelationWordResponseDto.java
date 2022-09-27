@@ -9,5 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class RelationWordResponseDto {
 
+    private Long challengeId;
+
     private String title; //제목
 }
