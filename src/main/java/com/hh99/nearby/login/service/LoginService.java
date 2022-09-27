@@ -9,6 +9,8 @@ import com.hh99.nearby.repository.RefreshTokenRepository;
 import com.hh99.nearby.security.jwt.TokenDto;
 import com.hh99.nearby.security.jwt.TokenProvider;
 import com.hh99.nearby.util.LevelCheck;
+import io.sentry.Sentry;
+import io.sentry.spring.tracing.SentrySpan;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -39,9 +40,11 @@ public class LoginService {
     private final MemberChallengeRepository memberChallengeRepository;
 
     @Transactional
+    @SentrySpan
     public ResponseEntity<?> login(LoginRequestDto requestDto, HttpServletResponse response) {
         Member member = isPresentMemberByEmail(requestDto.getEmail());
         if (null == member) {
+            Sentry.captureException(new Exception("사용자를 찾을수 없습니다."));
             return ResponseEntity.badRequest().body(Map.of("msg", "사용자를 찾을수 없습니다."));
         }
 
