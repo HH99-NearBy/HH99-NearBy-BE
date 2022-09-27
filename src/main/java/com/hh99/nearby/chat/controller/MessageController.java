@@ -12,11 +12,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -65,10 +66,12 @@ public class MessageController {
         List<Chat> chatList = chatRepository.findAllByChallengeId(challenge_id);//특정 챌린지에 참여하고 있는 채팅수
         List<SessionMemberDto> list = new ArrayList<SessionMemberDto>();//지금까지 특정 챌린지참여 하고 있는 맴버 정보 만들기 위한 리스트 선언
         for(Chat chat: chatList){
+            LocalDateTime entryTime = Instant.ofEpochMilli(chat.getEntryTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
             Optional<Member> member = memberRepository.findByNickname(chat.getSender());
             SessionMemberDto sessionMemberDto = SessionMemberDto.builder()
                     .level("LV."+levelCheck.levelAndPoint(member.get().getNickname()).get(1))
                     .nickname(member.get().getNickname())
+                    .entryTime(entryTime)
                     .build();
             list.add(sessionMemberDto);
         }
