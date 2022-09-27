@@ -123,18 +123,12 @@ public class MainPageService {
 
     public List<Challenge> RecruitChallengeList(Long id,Long limit){
         QChallenge challenge = QChallenge.challenge;
-        System.out.println("========");
-        System.out.println(LocalTime.now());
-        System.out.println("========");
-        System.out.println(LocalDateTime.now());
-        System.out.println("========");
-        System.out.println(LocalDate.now());
-        System.out.println("========");
         return jpaQueryFactory
                 .selectFrom(challenge)
                 .where(
-                        id == 0 ? null : challenge.id.lt(id)
-                                .and(challenge.startDay.after(LocalDate.now()))
+                        id == 0 ? null : challenge.id.lt(id),
+                        challenge.startDay.goe(LocalDate.now()),
+                        challenge.startTime.goe(LocalTime.now())
                 )
                 .orderBy(challenge.id.desc())
                 .limit(limit)
