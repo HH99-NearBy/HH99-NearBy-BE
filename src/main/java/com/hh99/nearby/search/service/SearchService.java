@@ -54,6 +54,7 @@ public class SearchService {
         List<RelationWordResponseDto> wordResponseDtos = new ArrayList<>();
         for (Challenge challenge : challenges) {
             wordResponseDtos.add(RelationWordResponseDto.builder()
+                    .challengeId(challenge.getId())
                     .title(challenge.getTitle())
                     .build());
         }

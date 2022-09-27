@@ -1,7 +1,6 @@
-package com.hh99.nearby.chat.entity;
+package com.hh99.nearby.entity;
 
 
-import com.hh99.nearby.entity.Timestamped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
