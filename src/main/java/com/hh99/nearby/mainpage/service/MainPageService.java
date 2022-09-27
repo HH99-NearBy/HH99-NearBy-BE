@@ -84,6 +84,31 @@ public class MainPageService {
         return ResponseEntity.ok().body(Map.of("msg","조회 완료","data",allchallengelist));
     }
 
+    public ResponseEntity<?> getAllCloseChallenge(long challengeId, long size){
+        List<MainPageResponseDto> allchallengelist = new ArrayList<>();
+        List<Challenge> challenges = CloseChallengeList(challengeId, size);
+        for (Challenge challenge : challenges) {
+
+            long participatePeople = challenge.getMemberChallengeList().size();
+
+            allchallengelist.add(
+                    MainPageResponseDto.builder()
+                            .id(challenge.getId())
+                            .title(challenge.getTitle())
+                            .challengeImg(challenge.getChallengeImg())
+                            .startDay(challenge.getStartDay())
+                            .startTime(challenge.getStartTime())
+                            .tagetTime(challenge.getTargetTime())
+                            .endTime(challenge.getEndTime())
+                            .limitPeople(challenge.getLimitPeople())
+                            .participatePeople(participatePeople)
+                            .build()
+            );
+
+        }
+        return ResponseEntity.ok().body(Map.of("msg","조회 완료","data",allchallengelist));
+    }
+
 
     public ResponseEntity<?> joinAllChallenge(UserDetails user) {
         Member member = memberRepository.findByNickname(user.getUsername()).get();
@@ -127,8 +152,24 @@ public class MainPageService {
                 .selectFrom(challenge)
                 .where(
                         id == 0 ? null : challenge.id.lt(id),
-                        challenge.startDay.goe(LocalDate.now()),
-                        challenge.startTime.goe(LocalTime.now())
+                        challenge.startDay.eq(LocalDate.now())
+                                .and(challenge.startTime.goe(LocalTime.now()))
+                                .or(challenge.startDay.after(LocalDate.now()))
+                )
+                .orderBy(challenge.id.desc())
+                .limit(limit)
+                .fetch();
+    }
+
+    public List<Challenge> CloseChallengeList(Long id,Long limit){
+        QChallenge challenge = QChallenge.challenge;
+        return jpaQueryFactory
+                .selectFrom(challenge)
+                .where(
+                        id == 0 ? null : challenge.id.lt(id),
+                        challenge.startDay.eq(LocalDate.now())
+                                .and(challenge.startTime.before(LocalTime.now()))
+                                .or(challenge.startDay.before(LocalDate.now()))
                 )
                 .orderBy(challenge.id.desc())
                 .limit(limit)
