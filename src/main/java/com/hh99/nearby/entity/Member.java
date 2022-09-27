@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -68,6 +67,11 @@ public class Member extends Timestamped{
 
     @Column
     private Long myRank;
+    @PrePersist
+    public void prePersist(){
+        this.myRank = (long)0;
+        this.points = (long)0;
+    }
 
     @Column
     @ElementCollection(targetClass = Long.class)

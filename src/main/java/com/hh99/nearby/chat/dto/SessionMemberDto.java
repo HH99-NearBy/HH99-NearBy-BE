@@ -10,4 +10,5 @@ import lombok.Getter;
 public class SessionMemberDto {
     private final String level;
     private final String nickname;
+    private final Long entryTime;
 }

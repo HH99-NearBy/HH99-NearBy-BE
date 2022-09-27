@@ -52,7 +52,9 @@ public class SecurityConfiguration {
             "/api/posts",
             "/",
             "/api/search",
-            "/api/relation"
+            "/api/relation",
+            "/api/posts/recruit",
+            "/api/posts/close"
     };
     @Bean
     public PasswordEncoder passwordEncoder() {

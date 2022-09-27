@@ -22,6 +22,19 @@ public class MainPageController {
         return mainPageService.getAllChallenge(challengeId,size);
     }
 
+    @GetMapping("/api/posts/recruit")
+    public ResponseEntity<?> getAllRecruitChallenge(@RequestParam long challengeId, //조회된 마지막 챌린지 아이디
+                                             @RequestParam long size){   //글갯수
+        return mainPageService.getAllRecruitChallenge(challengeId,size);
+    }
+
+    @GetMapping("/api/posts/close")
+    public ResponseEntity<?> getAllCloseChallenge(@RequestParam long challengeId, //조회된 마지막 챌린지 아이디
+                                                    @RequestParam long size){   //글갯수
+        return mainPageService.getAllCloseChallenge(challengeId,size);
+    }
+
+
     //참가신청한 리스트 불러오는 API
     @GetMapping("/api/joinposts")
     public ResponseEntity<?> joinAllChallenge(@AuthenticationPrincipal UserDetails user){
