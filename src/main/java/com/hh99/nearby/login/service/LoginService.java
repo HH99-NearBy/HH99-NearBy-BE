@@ -10,6 +10,8 @@ import com.hh99.nearby.repository.RefreshTokenRepository;
 import com.hh99.nearby.security.jwt.TokenDto;
 import com.hh99.nearby.security.jwt.TokenProvider;
 import com.hh99.nearby.util.LevelCheck;
+import io.sentry.Sentry;
+import io.sentry.spring.tracing.SentrySpan;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,10 +41,15 @@ public class LoginService {
     private final MemberChallengeRepository memberChallengeRepository;
 
     @Transactional
+    @SentrySpan
     public ResponseEntity<?> login(LoginRequestDto requestDto, HttpServletResponse response) {
         Member member = isPresentMemberByEmail(requestDto.getEmail());
         if (null == member) {
+            Sentry.captureException(new Exception("사용자를 찾을수 없습니다."));
             return ResponseEntity.badRequest().body(Map.of("msg", "사용자를 찾을수 없습니다."));
+        }
+        if (!member.isEmailCheck()){
+            return ResponseEntity.badRequest().body(Map.of("msg","이메일을 인증해 주십시오."));
         }
 
         if (!member.validatePassword(passwordEncoder, requestDto.getPassword())) {
