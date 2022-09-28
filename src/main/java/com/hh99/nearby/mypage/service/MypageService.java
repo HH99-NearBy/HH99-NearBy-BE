@@ -11,6 +11,7 @@ import com.hh99.nearby.util.Graph;
 import com.hh99.nearby.util.LevelCheck;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -73,10 +74,12 @@ public class MypageService {
         pageNum = pageNum - 1;
         int size = 4;
         Pageable pageable = PageRequest.of(pageNum,size);
+
         List<MemberChallenge> challengeList = joinChallenge(member,pageable);
         List<MemberChallenge> challengeSize = joinChallenge(member);
         List<MypageJoinList> mypageJoinList = new ArrayList<>();
         for (int i=0;i<challengeList.size();i++) {
+            long participatePeople = challengeList.get(i).getChallenge().getMemberChallengeList().size();
                 mypageJoinList.add(
                         MypageJoinList.builder()
                                 .title(challengeList.get(i).getChallenge().getTitle())
@@ -86,6 +89,7 @@ public class MypageService {
                                 .tagetTime(challengeList.get(i).getChallenge().getTargetTime())
                                 .endTime(challengeList.get(i).getChallenge().getEndTime())
                                 .limitPeople(challengeList.get(i).getChallenge().getLimitPeople())
+                                .participatePeople(participatePeople)
                                 .build()
                 );
         }
