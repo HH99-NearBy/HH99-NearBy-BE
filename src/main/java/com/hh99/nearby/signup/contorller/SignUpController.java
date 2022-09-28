@@ -3,6 +3,7 @@ package com.hh99.nearby.signup.contorller;
 import com.hh99.nearby.signup.dto.SignUpRequestDto;
 import com.hh99.nearby.signup.service.SignUpService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,9 @@ public class SignUpController {
 
     private final SignUpService signUpService;
 
+    @Value("${signup.redirect.url}")
+    private String url;
+
     //회원가입
     @RequestMapping(value = "/api/signup", method = RequestMethod.POST)
     public ResponseEntity<?> signup(@RequestBody @Valid SignUpRequestDto requestDto) throws MessagingException {
@@ -25,7 +29,7 @@ public class SignUpController {
     //이메일 인증
     @RequestMapping(value = "/api/email",method = RequestMethod.GET)
     public ResponseEntity<?> email(@RequestParam("id") Long id,HttpServletResponse response) throws IOException {
-        response.sendRedirect("http://localhost:8080/");
+        response.sendRedirect(url);
         return signUpService.email(id);
     }
     
