@@ -3,9 +3,7 @@ package com.hh99.nearby.mypage.service;
 
 import com.hh99.nearby.entity.*;
 import com.hh99.nearby.mypage.dto.request.MypageRequestDto;
-import com.hh99.nearby.mypage.dto.response.MypageJoinList;
-import com.hh99.nearby.mypage.dto.response.MypageFinishList;
-import com.hh99.nearby.mypage.dto.response.MemberPageResponseDto;
+import com.hh99.nearby.mypage.dto.response.*;
 import com.hh99.nearby.repository.ChallengeRepository;
 import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
@@ -47,7 +45,6 @@ public class MypageService {
         Member member = memberRepository.findByNickname(user.getUsername()).get(); // 맴버 불러오기
 
         List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname()); // 레벨 계산
-
         List<MemberChallenge> memberChallenge = memberChallengeRepository.findByMember(member);
         Long hour = 0L;
         Long minute = 0L;
@@ -77,6 +74,7 @@ public class MypageService {
         int size = 4;
         Pageable pageable = PageRequest.of(pageNum,size);
         List<MemberChallenge> challengeList = joinChallenge(member,pageable);
+        List<MemberChallenge> challengeSize = joinChallenge(member);
         List<MypageJoinList> mypageJoinList = new ArrayList<>();
         for (int i=0;i<challengeList.size();i++) {
                 mypageJoinList.add(
@@ -91,7 +89,18 @@ public class MypageService {
                                 .build()
                 );
         }
-       return ResponseEntity.ok(mypageJoinList);
+        System.out.println(challengeSize.size());
+        System.out.println((double) challengeSize.size()/size);
+        double totalPage =  Math.ceil((double) challengeSize.size()/(double) size);
+        System.out.println(totalPage);
+
+
+
+        MypageJoinResponseDto mypageResponseDto = MypageJoinResponseDto.builder()
+                .totalPage((int)totalPage)
+                .mypageJoinList(mypageJoinList)
+                .build();
+       return ResponseEntity.ok(mypageResponseDto);
     }
 
     public ResponseEntity<?> finishChallenge(UserDetails user, int pageNum) { //완료한 리스트
@@ -99,8 +108,8 @@ public class MypageService {
         pageNum = pageNum - 1;
         int size = 5;
         Pageable pageable = PageRequest.of(pageNum,size);
-
         List<MemberChallenge> finishChallengeList = finishChallenge(member,pageable);
+        List<MemberChallenge> finishChallengesize = finishChallenge(member);
         List<MypageFinishList> finishLists = new ArrayList<>(); // 리스트 선언
         for (int i = 0; i < finishChallengeList.size(); i++) {
                 finishLists.add(MypageFinishList.builder()
@@ -110,7 +119,17 @@ public class MypageService {
                         .endtime(finishChallengeList.get(i).getChallenge().getEndTime()) //엔드타임임
                         .build());
         }
-        return ResponseEntity.ok(finishLists);
+
+        System.out.println(finishChallengesize.size());
+        System.out.println((double) finishChallengesize.size()/size);
+        double totalPage =  Math.ceil((double) finishChallengesize.size()/(double) size);
+        System.out.println(totalPage);
+
+        MypageFinishResponseDto mypageFinishResponseDto = MypageFinishResponseDto.builder()
+                .totalPage((int)totalPage)
+                .mypageFinishLists(finishLists)
+                .build();
+        return ResponseEntity.ok(mypageFinishResponseDto);
     }
 
 
@@ -122,7 +141,7 @@ public class MypageService {
     }
 
 
-    public List<MemberChallenge> finishChallenge(Member member, Pageable pageable) {
+    public List<MemberChallenge> finishChallenge(Member member, Pageable pageable) { // 페이징처리를 위한 메서드
         QMemberChallenge memberChallenge = QMemberChallenge.memberChallenge;
         LocalDateTime now = LocalDateTime.now();
         return jpaQueryFactory
@@ -136,8 +155,21 @@ public class MypageService {
                 .limit(pageable.getPageSize())
                 .fetch();
     }
+    public List<MemberChallenge> finishChallenge(Member member) { // 사이즈를 가져오기 위한 메서드
+        QMemberChallenge memberChallenge = QMemberChallenge.memberChallenge;
+        LocalDateTime now = LocalDateTime.now();
+        return jpaQueryFactory
+                .selectFrom(memberChallenge)
+                .where(
+                        memberChallenge.member.eq(member),
+                        memberChallenge.challenge.endTime.before(now)
+                )
+                .orderBy(memberChallenge.challenge.id.desc())
+                .fetch();
+    }
 
-    public List<MemberChallenge> joinChallenge(Member member, Pageable pageable) {
+
+    public List<MemberChallenge> joinChallenge(Member member, Pageable pageable) { // 페이징처리를 위한 메서드
         QMemberChallenge memberChallenge = QMemberChallenge.memberChallenge;
         LocalDateTime now = LocalDateTime.now();
         return jpaQueryFactory
@@ -149,6 +181,19 @@ public class MypageService {
                 .orderBy(memberChallenge.challenge.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
+                .fetch();
+    }
+
+    public List<MemberChallenge> joinChallenge(Member member) { // 사이즈를 가져오기 위한 메서드
+        QMemberChallenge memberChallenge = QMemberChallenge.memberChallenge;
+        LocalDateTime now = LocalDateTime.now();
+        return jpaQueryFactory
+                .selectFrom(memberChallenge)
+                .where(
+                        memberChallenge.member.eq(member),
+                        memberChallenge.challenge.endTime.after(now)
+                )
+                .orderBy(memberChallenge.challenge.id.desc())
                 .fetch();
     }
 
