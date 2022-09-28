@@ -48,6 +48,9 @@ public class LoginService {
             Sentry.captureException(new Exception("사용자를 찾을수 없습니다."));
             return ResponseEntity.badRequest().body(Map.of("msg", "사용자를 찾을수 없습니다."));
         }
+        if (!member.isEmailCheck()){
+            return ResponseEntity.badRequest().body(Map.of("msg","이메일을 인증해 주십시오."));
+        }
 
         if (!member.validatePassword(passwordEncoder, requestDto.getPassword())) {
             return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 입력입니다."));
