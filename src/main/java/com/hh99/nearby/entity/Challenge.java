@@ -1,7 +1,7 @@
 package com.hh99.nearby.entity;
 
 
-import com.hh99.nearby.challenge.dto.ChallengeRequestDto;
+import com.hh99.nearby.login.service.challenge.dto.ChallengeRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
