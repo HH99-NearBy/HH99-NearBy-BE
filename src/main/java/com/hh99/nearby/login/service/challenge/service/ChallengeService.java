@@ -1,6 +1,6 @@
-package com.hh99.nearby.challenge.service;
+package com.hh99.nearby.login.service.challenge.service;
 
-import com.hh99.nearby.challenge.dto.ChallengeRequestDto;
+import com.hh99.nearby.login.service.challenge.dto.ChallengeRequestDto;
 import com.hh99.nearby.entity.Challenge;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.repository.ChallengeRepository;

@@ -1,7 +1,7 @@
 package com.hh99.nearby.signup.contorller;
 
 import com.hh99.nearby.signup.dto.SignUpRequestDto;
-import com.hh99.nearby.signup.service.SignUpService;
+import com.hh99.nearby.signup.contorller.service.SignUpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;

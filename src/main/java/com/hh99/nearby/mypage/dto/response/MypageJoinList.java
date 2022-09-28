@@ -11,7 +11,7 @@ import java.time.LocalTime;
 @Builder
 @AllArgsConstructor
 @Getter
-public class MypageChallengeList {
+public class MypageJoinList {
 
     private String title; //첼린지 제목
 
