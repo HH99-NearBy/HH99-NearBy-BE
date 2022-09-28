@@ -3,6 +3,7 @@ package com.hh99.nearby.repository;
 import com.hh99.nearby.entity.Challenge;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.entity.MemberChallenge;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -14,7 +15,8 @@ public interface MemberChallengeRepository extends JpaRepository<MemberChallenge
 
     List<MemberChallenge> findByMember(Member member);
 
-    Optional<MemberChallenge> findByMember_Id(Long memberId);
+    List<MemberChallenge> findByMember_Nickname(String nickname, Pageable pageable);
+
 
     List<MemberChallenge> findAllByMember_nickname(String nickname);
 

@@ -1,4 +1,4 @@
-package com.hh99.nearby.signup.service;
+package com.hh99.nearby.signup.contorller.service;
 
 
 import com.hh99.nearby.signup.dto.SignUpRequestDto;
