@@ -56,12 +56,14 @@ public class MypageService {
             minute += memberChallenge.get(i).getRealTime();
         }
 
+        String myRank = member.getMyRank() == 0 ? "---": member.getMyRank()+"등";
+
         return ResponseEntity.ok(MemberPageResponseDto.builder()
                 .nickname(member.getNickname())
                 .email(member.getEmail())
                 .profileImg(member.getProfileImg())
                 .level("LV."+levelAndPoint.get(1))
-                .rank(member.getMyRank() + "등")
+                .rank(myRank)
                 .remainingTime((minute % 60) + "분")
                 .totalTime((hour / 60) + "시간" + (minute % 60) + "분")
                 .graph(member.getGraph())
