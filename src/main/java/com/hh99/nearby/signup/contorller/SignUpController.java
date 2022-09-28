@@ -25,7 +25,7 @@ public class SignUpController {
     //이메일 인증
     @RequestMapping(value = "/api/email",method = RequestMethod.GET)
     public ResponseEntity<?> email(@RequestParam("id") Long id,HttpServletResponse response) throws IOException {
-        response.sendRedirect("http://localhost:8080/");
+        response.sendRedirect("https://ssggwan.site/");
         return signUpService.email(id);
     }
     
