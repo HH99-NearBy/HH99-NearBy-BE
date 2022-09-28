@@ -108,7 +108,7 @@ public class MainPageService {
     public ResponseEntity<?> joinAllChallenge(UserDetails user) {
         Member member = memberRepository.findByNickname(user.getUsername()).get();
         //참가한 리스트 불러오는
-        List<MemberChallenge> challengeList = JoinChallengeList(member.getNickname());
+        List<MemberChallenge> challengeList = JoinChallengeList(member);
         ArrayList<MainPageResponseDto> mypageChallengeList = new ArrayList<>();
         for (MemberChallenge challenge : challengeList) {
             mypageChallengeList.add(
@@ -128,15 +128,16 @@ public class MainPageService {
         return ResponseEntity.ok(mypageChallengeList);
     }
 
-    public List<MemberChallenge> JoinChallengeList(String nickname){
+    public List<MemberChallenge> JoinChallengeList(Member member){
         QMemberChallenge memberChallenge = QMemberChallenge.memberChallenge;
+        LocalDateTime now = LocalDateTime.now();
         return jpaQueryFactory
                 .selectFrom(memberChallenge)
                 .where(
-                        nickname.equals("null") ? null : memberChallenge.member.nickname.eq(nickname),
-                        memberChallenge.challenge.endTime.after(LocalDateTime.now())
+                        memberChallenge.member.eq(member),
+                        memberChallenge.challenge.endTime.after(now)
                 )
-                .orderBy(memberChallenge.id.desc())
+                .orderBy(memberChallenge.challenge.id.desc())
                 .fetch();
     }
 
