@@ -1,8 +1,8 @@
-package com.hh99.nearby.rank.service;
+package com.hh99.nearby.entity.rank.service;
 
 import com.hh99.nearby.entity.Member;
-import com.hh99.nearby.rank.dto.MyRankPageDto;
-import com.hh99.nearby.rank.dto.RankPageDto;
+import com.hh99.nearby.entity.rank.dto.MyRankPageDto;
+import com.hh99.nearby.entity.rank.dto.RankPageDto;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
