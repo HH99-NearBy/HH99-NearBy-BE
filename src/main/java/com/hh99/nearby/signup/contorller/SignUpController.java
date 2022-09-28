@@ -11,7 +11,6 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.net.URL;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,7 +19,7 @@ public class SignUpController {
     private final SignUpService signUpService;
 
     @Value("${signup.redirect.url}")
-    private final String url;
+    private String url;
 
     //회원가입
     @RequestMapping(value = "/api/signup", method = RequestMethod.POST)
