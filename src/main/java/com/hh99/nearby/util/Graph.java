@@ -21,7 +21,7 @@ public class Graph {
     private final MemberRepository memberRepository;
     private final MemberChallengeRepository memberChallengeRepository;
 
-    @Scheduled(cron = "0 0 5 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     public void SevenDaysGraph() {
 //        System.out.println("==========");
 //        System.out.println("스케줄러 실행 중");

@@ -17,7 +17,7 @@ public class Score {
     private final MemberRepository memberRepository;
     private final LevelCheck levelCheck;
 
-    @Scheduled(cron = "0 55 4 * * *")
+    @Scheduled(cron = "0 55 0 * * *")
     public void score(){
         List<Member> member = memberRepository.findAll();
         for (int i = 0; i<member.size(); i++){
