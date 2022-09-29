@@ -1,4 +1,4 @@
-package com.hh99.nearby.signup.contorller.service;
+package com.hh99.nearby.signup.service;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
