@@ -39,7 +39,7 @@ public class DetailService {
 
         long participatePeople = challenge.getMemberChallengeList().size();
         boolean check = false;
-        if(user.getUsername() != null){
+        if(user != null){
             long count = memberChallengeRepository.countByChallengeAndMemberNickname(challenge,user.getUsername());
             if(count != 0)check = true;
         }
