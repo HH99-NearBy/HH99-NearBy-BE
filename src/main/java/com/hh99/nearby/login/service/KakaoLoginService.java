@@ -47,7 +47,7 @@ public class KakaoLoginService {
     @Value("${kakao.redirect.url}")
     String url;
 
-    @Value("${kakao.url2}")
+    @Value("${kakao.url}")
     String url2;
 
 
