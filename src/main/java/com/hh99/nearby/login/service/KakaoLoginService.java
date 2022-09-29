@@ -6,10 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.login.dto.request.KakaoRequestDto;
 import com.hh99.nearby.login.dto.request.Kakaocode;
+import com.hh99.nearby.login.dto.response.LoginResponseDto;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.security.UserDetailsImpl;
 import com.hh99.nearby.security.jwt.TokenDto;
 import com.hh99.nearby.security.jwt.TokenProvider;
+import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -26,6 +28,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,13 +39,15 @@ public class KakaoLoginService {
 
     private final MemberRepository memberRepository;
 
+    private final LevelCheck levelCheck;
+
     @Value("${kakao.client.id}")
     String restapikey;
 
     @Value("${kakao.redirect.url}")
     String url;
 
-    @Value("${kakao.url}")
+    @Value("${kakao.url2}")
     String url2;
 
 
@@ -67,7 +72,15 @@ public class KakaoLoginService {
             // 5. response Header에 JWT 토큰 추가
             kakaoUsersAuthorizationInput(kakaoUser, authentication, response);
 
-            return ResponseEntity.ok(kakaoUserInfo); //kakaouser로 리턴~
+            List<Long> levelAndPoint = levelCheck.levelAndPoint(kakaoUser.getNickname()); // 레벨 계산
+            LoginResponseDto loginResponseDto = LoginResponseDto.builder()
+                    .profileImg(kakaoUser.getProfileImg())
+                    .nickname(kakaoUser.getNickname())
+                    .level("LV."+levelAndPoint.get(1))
+                    .totalTime(levelAndPoint.get(0)/10+"분")
+                    .build();
+
+            return ResponseEntity.ok(loginResponseDto); //kakaouser로 리턴~
         }
         ;
 
@@ -80,8 +93,16 @@ public class KakaoLoginService {
         // 5. response Header에 JWT 토큰 추가
         kakaoUsersAuthorizationInput(kakaoUser, authentication, response);
 
+        List<Long> levelAndPoint = levelCheck.levelAndPoint(kakaoUser.getNickname()); // 레벨 계산
+        LoginResponseDto loginResponseDto = LoginResponseDto.builder()
+                .profileImg(kakaoUser.getProfileImg())
+                .nickname(kakaoUser.getNickname())
+                .level("LV."+levelAndPoint.get(1))
+                .totalTime(levelAndPoint.get(0)/10+"분")
+                .build();
 
-        return ResponseEntity.ok(kakaoUserInfo); //kakaouser로 리턴~
+
+        return ResponseEntity.ok(loginResponseDto); //kakaouser로 리턴~
     }
 
     // 1. "인가 코드"로 "액세스 토큰" 요청
@@ -97,7 +118,8 @@ public class KakaoLoginService {
         body.add("client_id", restapikey); //내 restapi 키
         body.add("redirect_uri", url); //리다이렉트 Url
         body.add("code", code); //카카오로 받는 인가코드
-
+        System.out.println("========================="+code+"=================================");
+        System.out.println("========================="+url+"=================================");
         // HTTP 요청 보내기
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
         RestTemplate rt = new RestTemplate();//서버에게 요청을 보냄
