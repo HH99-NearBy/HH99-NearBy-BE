@@ -1,6 +1,7 @@
 package com.hh99.nearby.signup.contorller;
 
-import com.hh99.nearby.signup.dto.SignUpRequestDto;
+import com.hh99.nearby.signup.dto.request.KakaodSignUpRequestDto;
+import com.hh99.nearby.signup.dto.request.SignUpRequestDto;
 import com.hh99.nearby.signup.service.SignUpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,5 +43,14 @@ public class SignUpController {
     @PostMapping("/api/emailcheck")
     public ResponseEntity<?> emailCheck(@RequestBody SignUpRequestDto email){
         return signUpService.emailCheck(email);
+    }
+
+    @PostMapping("/api/kakaosign")
+    public ResponseEntity<?> kakaoSign(@RequestBody KakaodSignUpRequestDto kakaodSignUpRequestDto, HttpServletResponse response){
+        System.out.println("카카오사인업");
+        System.out.println(kakaodSignUpRequestDto.getKakaoId());
+        System.out.println(kakaodSignUpRequestDto.getNickname());
+        System.out.println(kakaodSignUpRequestDto.getProfileImg());
+        return signUpService.kakaoSignUp(kakaodSignUpRequestDto,response);
     }
 }
