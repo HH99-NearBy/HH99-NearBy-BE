@@ -4,6 +4,7 @@ package com.hh99.nearby.signup.contorller.service;
 import com.hh99.nearby.signup.dto.SignUpRequestDto;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.repository.MemberRepository;
+import com.hh99.nearby.util.Graph;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +22,8 @@ public class SignUpService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+
+    private final Graph graph;
 
     //회원가입
     @Transactional
@@ -51,6 +54,7 @@ public class SignUpService {
 
         memberRepository.save(member);
         emailService.sendSimpleMessage(requestDto.getEmail(), member.getId());
+        graph.SevenDaysGraph();
 
         return ResponseEntity.ok().body(Map.of("msg", "Successfully sign up."));
     }
