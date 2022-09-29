@@ -42,6 +42,7 @@ public class SearchService {
                     .endTime(challenge.getEndTime())
                     .limitPeople(challenge.getLimitPeople())
                     .participatePeople(participatePeople)
+                    .nickname(challenge.getWriter().getNickname())
                     .build());
         }
 
