@@ -1,4 +1,4 @@
-package com.hh99.nearby.signup.dto;
+package com.hh99.nearby.signup.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

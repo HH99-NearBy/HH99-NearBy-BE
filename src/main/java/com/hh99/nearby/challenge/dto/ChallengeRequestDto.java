@@ -1,4 +1,4 @@
-package com.hh99.nearby.login.service.challenge.dto;
+package com.hh99.nearby.challenge.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

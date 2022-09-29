@@ -57,7 +57,8 @@ public class SecurityConfiguration {
             "/api/relation",
             "/api/posts/recruit",
             "/api/posts/close",
-            "/api/challenge/*"
+            "/api/challenge/*",
+            "/api/kakaosign"
     };
     @Bean
     public PasswordEncoder passwordEncoder() {
