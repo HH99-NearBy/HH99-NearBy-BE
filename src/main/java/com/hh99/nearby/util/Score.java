@@ -1,7 +1,6 @@
 package com.hh99.nearby.util;
 
 import com.hh99.nearby.entity.Member;
-import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,7 +16,7 @@ public class Score {
     private final MemberRepository memberRepository;
     private final LevelCheck levelCheck;
 
-    @Scheduled(cron = "0 55 0 * * *")
+    @Scheduled(cron = "0 55 * * * *")
     public void score(){
         List<Member> member = memberRepository.findAll();
         for (int i = 0; i<member.size(); i++){

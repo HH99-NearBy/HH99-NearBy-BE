@@ -1,9 +1,9 @@
 package com.hh99.nearby.signup.service;
 
 
-import com.hh99.nearby.signup.dto.SignUpRequestDto;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.repository.MemberRepository;
+import com.hh99.nearby.signup.dto.SignUpRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -21,6 +23,8 @@ public class SignUpService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+
+
 
     //회원가입
     @Transactional
@@ -51,6 +55,17 @@ public class SignUpService {
 
         memberRepository.save(member);
         emailService.sendSimpleMessage(requestDto.getEmail(), member.getId());
+
+        List<Long> graph = new ArrayList<>();
+        graph.add(0L);
+        graph.add(0L);
+        graph.add(0L);
+        graph.add(0L);
+        graph.add(0L);
+        graph.add(0L);
+        graph.add(0L);
+
+        member.update(graph);
 
         return ResponseEntity.ok().body(Map.of("msg", "Successfully sign up."));
     }

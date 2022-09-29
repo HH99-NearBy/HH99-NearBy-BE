@@ -31,4 +31,6 @@ public class MainPageResponseDto {
     private Long limitPeople; //인원제한
 
     private Long participatePeople; //참여인원
+
+    private String nickname;
 }
