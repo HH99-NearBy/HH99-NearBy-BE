@@ -1,7 +1,7 @@
-package com.hh99.nearby.login.service.challenge.controller;
+package com.hh99.nearby.challenge.controller;
 
-import com.hh99.nearby.login.service.challenge.dto.ChallengeRequestDto;
-import com.hh99.nearby.login.service.challenge.service.ChallengeService;
+import com.hh99.nearby.challenge.dto.ChallengeRequestDto;
+import com.hh99.nearby.challenge.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
