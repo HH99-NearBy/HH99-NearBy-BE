@@ -46,6 +46,7 @@ public class MainPageService {
                             .endTime(challenge.getEndTime())
                             .limitPeople(challenge.getLimitPeople())
                             .participatePeople(participatePeople)
+                            .nickname(challenge.getWriter().getNickname())
                             .build()
             );
 
@@ -72,6 +73,7 @@ public class MainPageService {
                             .endTime(challenge.getEndTime())
                             .limitPeople(challenge.getLimitPeople())
                             .participatePeople(participatePeople)
+                            .nickname(challenge.getWriter().getNickname())
                             .build()
             );
 
@@ -97,6 +99,7 @@ public class MainPageService {
                             .endTime(challenge.getEndTime())
                             .limitPeople(challenge.getLimitPeople())
                             .participatePeople(participatePeople)
+                            .nickname(challenge.getWriter().getNickname())
                             .build()
             );
 
@@ -122,6 +125,7 @@ public class MainPageService {
                             .endTime(challenge.getChallenge().getEndTime())
                             .limitPeople(challenge.getChallenge().getLimitPeople())
                             .participatePeople((long)challenge.getChallenge().getMemberChallengeList().size())
+                            .nickname(challenge.getChallenge().getWriter().getNickname())
                             .build()
             );
         }
