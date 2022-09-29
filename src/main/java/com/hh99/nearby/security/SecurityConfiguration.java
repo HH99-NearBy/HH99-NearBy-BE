@@ -47,7 +47,6 @@ public class SecurityConfiguration {
             "/swagger-ui/**",
             "/h2-console/**",
             "/api/kakaologin",
-//            "/api/**",
             "/api/token",
             "/chat/**",
             "/ws/**",
@@ -57,7 +56,8 @@ public class SecurityConfiguration {
             "/api/search",
             "/api/relation",
             "/api/posts/recruit",
-            "/api/posts/close"
+            "/api/posts/close",
+            "/api/challenge/*"
     };
     @Bean
     public PasswordEncoder passwordEncoder() {

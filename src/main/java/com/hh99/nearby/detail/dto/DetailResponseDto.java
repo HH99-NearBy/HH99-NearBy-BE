@@ -1,6 +1,5 @@
 package com.hh99.nearby.detail.dto;
 
-import com.hh99.nearby.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,5 +28,6 @@ public class DetailResponseDto {
     private String writer;
     private String level;
     private List<String> challengeTag;
+    private boolean isJoin;
 
 }
