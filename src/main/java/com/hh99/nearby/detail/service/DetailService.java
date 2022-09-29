@@ -31,14 +31,18 @@ public class DetailService {
     private final MemberChallengeRepository memberChallengeRepository;
 
     @Transactional
-    public ResponseEntity<?> detailModal(@PathVariable Long id) {
+    public ResponseEntity<?> detailModal(@PathVariable Long id, UserDetails user) {
         Challenge challenge = isPresentChallenge(id);
         if (challenge == null) {
             return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 챌린지 번호"));
         }
 
         long participatePeople = challenge.getMemberChallengeList().size();
-
+        boolean check = false;
+        if(user.getUsername() != null){
+            long count = memberChallengeRepository.countByChallengeAndMemberNickname(challenge,user.getUsername());
+            if(count != 0)check = true;
+        }
         List<Long> levelAndPoint = levelCheck.levelAndPoint(challenge.getWriter().getNickname()); // 레벨 계산
 
         DetailResponseDto detailResponseDto = DetailResponseDto.builder()
@@ -55,6 +59,7 @@ public class DetailService {
                 .writer(challenge.getWriter().getNickname())
                 .level("LV."+levelAndPoint.get(1))
                 .challengeTag(challenge.getChallengeTag())
+                .isJoin(check)
                 .build();
         return ResponseEntity.ok().body(Map.of("detailModal", detailResponseDto, "msg", "상세모달 조회 완료"));
     }
