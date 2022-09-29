@@ -104,7 +104,7 @@ public class DetailService {
         if (memberChallengeRepository.findByMember_IdAndChallenge_Id(member.get().getId(),id).isEmpty()){
             return ResponseEntity.badRequest().body(Map.of("msg","참여하지 않으셨습니다."));
         }
-        Optional<MemberChallenge> memberChallenge = memberChallengeRepository.findByMember_IdAndChallenge_Id(id,member.get().getId());
+        Optional<MemberChallenge> memberChallenge = memberChallengeRepository.findByMember_IdAndChallenge_Id(member.get().getId(),id);
         memberChallengeRepository.delete(memberChallenge.get());
         return ResponseEntity.ok().body(Map.of("msg", "참여하기 취소 완료"));
     }
