@@ -21,6 +21,7 @@ public interface MemberChallengeRepository extends JpaRepository<MemberChallenge
     List<MemberChallenge> findAllByMember_nickname(String nickname);
 
     Long countAllByChallenge(Challenge challenge);
+    Long countByChallengeAndMemberNickname(Challenge challenge, String nickname);
 
 //    MemberChallenge findByMember_nickname(String nickname);
     @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -1")

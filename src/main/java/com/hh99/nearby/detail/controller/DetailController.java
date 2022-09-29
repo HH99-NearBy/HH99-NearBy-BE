@@ -18,8 +18,8 @@ public class DetailController {
 
     //상세 모달
     @GetMapping("/api/challenge/{id}")
-    public ResponseEntity<?> detailModal(@PathVariable Long id){
-        return detailService.detailModal(id);
+    public ResponseEntity<?> detailModal(@PathVariable Long id, @AuthenticationPrincipal UserDetails user){
+        return detailService.detailModal(id,user);
     }
 
     // 참여하기
