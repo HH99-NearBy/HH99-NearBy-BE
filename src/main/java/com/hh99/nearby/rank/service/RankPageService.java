@@ -1,8 +1,8 @@
-package com.hh99.nearby.entity.rank.service;
+package com.hh99.nearby.rank.service;
 
 import com.hh99.nearby.entity.Member;
-import com.hh99.nearby.entity.rank.dto.MyRankPageDto;
-import com.hh99.nearby.entity.rank.dto.RankPageDto;
+import com.hh99.nearby.rank.dto.MyRankPageDto;
+import com.hh99.nearby.rank.dto.RankPageDto;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
@@ -32,11 +32,11 @@ public class RankPageService {
         if (user != null) {
             pageNum = pageNum - 1;
             Pageable pageable = PageRequest.of(pageNum, size);
-            Slice<Member> allByOrderByPointsDesc = memberRepository.rank(pageable);
+            Slice<Member> allByOrderByMyRankAsc = memberRepository.rank2(pageable);
 
             List<RankPageDto> rankPageDtos = new ArrayList<>();
 
-            for (Member member : allByOrderByPointsDesc) {
+            for (Member member : allByOrderByMyRankAsc) {
                 List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname());
 //                List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
                 rankPageDtos.add(RankPageDto.builder()
@@ -79,11 +79,11 @@ public class RankPageService {
         //로그인 안했을때
         pageNum = pageNum - 1;
         Pageable pageable = PageRequest.of(pageNum, size);
-        Slice<Member> allByOrderByPointsDesc = memberRepository.rank(pageable);
+        Slice<Member> allByOrderByMyRankAsc = memberRepository.rank2(pageable);
 
         List<RankPageDto> rankPageDtos = new ArrayList<>();
 
-        for (Member member : allByOrderByPointsDesc) {
+        for (Member member : allByOrderByMyRankAsc) {
             List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname());
 //            List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
             rankPageDtos.add(RankPageDto.builder()
