@@ -28,6 +28,6 @@ public class DetailResponseDto {
     private String writer;
     private String level;
     private List<String> challengeTag;
-    private boolean isJoin;
+    private Boolean isJoin;
 
 }
