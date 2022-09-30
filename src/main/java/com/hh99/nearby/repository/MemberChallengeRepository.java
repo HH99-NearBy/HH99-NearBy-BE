@@ -7,10 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 public interface MemberChallengeRepository extends JpaRepository<MemberChallenge,Long> {
+
     Optional<MemberChallenge> findByMember_IdAndChallenge_Id(Long memberId,Long ChallengeId);
 
     List<MemberChallenge> findByMember(Member member);
@@ -24,7 +26,7 @@ public interface MemberChallengeRepository extends JpaRepository<MemberChallenge
     Long countByChallengeAndMemberNickname(Challenge challenge, String nickname);
 
 //    MemberChallenge findByMember_nickname(String nickname);
-    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date ")
+    @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date")
     List<MemberChallenge> oneday();
 
     @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -1")
@@ -32,6 +34,7 @@ public interface MemberChallengeRepository extends JpaRepository<MemberChallenge
 
     @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -2")
     List<MemberChallenge> threeday();
+    List<MemberChallenge> findAllByStartDayEquals(LocalDate localDate);
 
     @Query(value = "Select p FROM MemberChallenge p where p.startDay = current_date -3")
     List<MemberChallenge> fourday();
