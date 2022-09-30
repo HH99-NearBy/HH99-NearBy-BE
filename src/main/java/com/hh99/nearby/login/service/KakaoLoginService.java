@@ -85,7 +85,7 @@ public class KakaoLoginService {
             return ResponseEntity.ok().body(Map.of("logincheck",true,"msg","로그인성공","data",loginResponseDto)); //로그인처리
         }
             
-            registerKakaoUserIfNeed(kakaoUserInfo); //카카오id만 회원가입 처리
+//            registerKakaoUserIfNeed(kakaoUserInfo); //카카오id만 회원가입 처리
             
             KakaoResponseDto responseDto = KakaoResponseDto.builder() //카카오톡id 파싱
                     .kakaoId(kakaoUserInfo.getKakaoid())

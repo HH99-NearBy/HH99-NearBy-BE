@@ -127,21 +127,28 @@ public class SignUpService {
 
     public ResponseEntity<?> kakaoSignUp(KakaodSignUpRequestDto kakaodSignUpRequestDto, HttpServletResponse response) {
 
-        Optional<Member> member = memberRepository.findByKakaoId(kakaodSignUpRequestDto.getKakaoId()); //카카오 아이디로 맴버찾기
-        member.get().update(kakaodSignUpRequestDto.getNickname()); //닉네임 업데이트
-        memberRepository.save(member.get());
-        Member kakaoUser = Member.builder()
-                .kakaoId(member.get().getKakaoId())
-                .nickname(member.get().getNickname())
-                .profileImg(member.get().getProfileImg())
+//        Optional<Member> member = memberRepository.findByKakaoId(kakaodSignUpRequestDto.getKakaoId()); //카카오 아이디로 맴버찾기
+//        member.get().update(kakaodSignUpRequestDto.getNickname()); //닉네임 업데이트
+        Member kakaouser = Member.builder()
+                .nickname(kakaodSignUpRequestDto.getNickname())
+                .emailCheck(true)
+                .kakaoId(kakaodSignUpRequestDto.getKakaoId())
+                .profileImg(kakaodSignUpRequestDto.getProfileImg())
                 .build();
-        Authentication authentication = forceLogin(member.get());
+        memberRepository.save(kakaouser);
+
+//        Member kakaoUser = Member.builder()
+//                .kakaoId(member.get().getKakaoId())
+//                .nickname(member.get().getNickname())
+//                .profileImg(member.get().getProfileImg())
+//                .build();
+        Authentication authentication = forceLogin(kakaouser);
         // 5. response Header에 JWT 토큰 추가
-        kakaoUsersAuthorizationInput(member.get(), authentication, response);
-        List<Long> levelAndPoint = levelCheck.levelAndPoint(kakaoUser.getNickname()); // 레벨 계산
+        kakaoUsersAuthorizationInput(kakaouser, authentication, response);
+        List<Long> levelAndPoint = levelCheck.levelAndPoint(kakaouser.getNickname()); // 레벨 계산
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
-                .profileImg(kakaoUser.getProfileImg())
-                .nickname(kakaoUser.getNickname())
+                .profileImg(kakaouser.getProfileImg())
+                .nickname(kakaouser.getNickname())
                 .level("LV."+levelAndPoint.get(1))
                 .totalTime(levelAndPoint.get(0)/10+"분")
                 .build();
