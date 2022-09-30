@@ -7,6 +7,8 @@ import com.hh99.nearby.mypage.dto.response.*;
 import com.hh99.nearby.repository.ChallengeRepository;
 import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
+import com.hh99.nearby.security.jwt.TokenDto;
+import com.hh99.nearby.security.jwt.TokenProvider;
 import com.hh99.nearby.util.Graph;
 import com.hh99.nearby.util.LevelCheck;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -20,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,8 @@ public class MypageService {
     private final MemberChallengeRepository memberChallengeRepository;
     private final Graph graph;
     private final JPAQueryFactory jpaQueryFactory;
+
+    private final  TokenProvider tokenProvider;
 
 
     @Transactional
@@ -138,9 +143,13 @@ public class MypageService {
 
 
     @Transactional //수정서비스
-    public ResponseEntity<?> memberUpdate(MypageRequestDto requestDto, @AuthenticationPrincipal UserDetails user) {
+    public ResponseEntity<?> memberUpdate(MypageRequestDto requestDto, @AuthenticationPrincipal UserDetails user, HttpServletResponse response) {
         Optional<Member> member = memberRepository.findByNickname(user.getUsername());
         member.get().update(requestDto);
+
+        TokenDto tokenDto = tokenProvider.generateTokenDto(member.get());
+        response.addHeader("Authorization", "Bearer " + tokenDto.getAccessToken());
+
         return ResponseEntity.ok(Map.of("msg", "프로필 수정 완료!"));
     }
 
