@@ -8,6 +8,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/mypage")
@@ -35,7 +37,7 @@ public class MypageController {
 
     //프로필 수정
     @PutMapping("/member")
-    public ResponseEntity<?> memberUpdate(@RequestBody MypageRequestDto requestDto, @AuthenticationPrincipal UserDetails user){
-        return mypageService.memberUpdate(requestDto,user);
+    public ResponseEntity<?> memberUpdate(@RequestBody MypageRequestDto requestDto, @AuthenticationPrincipal UserDetails user, HttpServletResponse response){
+        return mypageService.memberUpdate(requestDto,user,response);
     }
 }

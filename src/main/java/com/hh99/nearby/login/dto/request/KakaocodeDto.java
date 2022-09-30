@@ -3,13 +3,13 @@ package com.hh99.nearby.login.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor
 @Getter
-public class Kakaocode {
+@NoArgsConstructor
+public class KakaocodeDto {
 
    private String code;
-
-   private String nickname;
 }

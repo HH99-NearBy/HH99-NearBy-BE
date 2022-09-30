@@ -43,49 +43,49 @@ public class Graph {
 
                 List<MemberChallenge> memberChallengeSevenDay = memberChallengeRepository.sevenday();
                 for (int i = 0; i < memberChallengeSevenDay.size(); i++) {
-                    if (memberList.get(j).getNickname().equals(memberChallengeSevenDay.get(i).getMember().getNickname())) {
+                    if (memberList.get(j).getId().equals(memberChallengeSevenDay.get(i).getMember().getId())) {
                         sevenTime += memberChallengeSevenDay.get(i).getRealTime();
                     }
                 }
 
                 List<MemberChallenge> memberChallengeSixDay = memberChallengeRepository.sixday();
                 for (int i = 0; i < memberChallengeSixDay.size(); i++) {
-                    if (memberList.get(j).getNickname().equals(memberChallengeSixDay.get(i).getMember().getNickname())) {
+                    if (memberList.get(j).getId().equals(memberChallengeSixDay.get(i).getMember().getId())) {
                         sixTime += memberChallengeSixDay.get(i).getRealTime();
                     }
                 }
 
                 List<MemberChallenge> memberChallengeFiveDay = memberChallengeRepository.fiveday();
                 for (int i = 0; i < memberChallengeFiveDay.size(); i++) {
-                    if (memberList.get(j).getNickname().equals(memberChallengeFiveDay.get(i).getMember().getNickname())) {
+                    if (memberList.get(j).getId().equals(memberChallengeFiveDay.get(i).getMember().getId())) {
                         fiveTime += memberChallengeFiveDay.get(i).getRealTime();
                     }
                 }
 
                 List<MemberChallenge> memberChallengeFourDay = memberChallengeRepository.fourday();
                 for (int i = 0; i < memberChallengeFourDay.size(); i++) {
-                    if (memberList.get(j).getNickname().equals(memberChallengeFourDay.get(i).getMember().getNickname())) {
+                    if (memberList.get(j).getId().equals(memberChallengeFourDay.get(i).getMember().getId())) {
                         fourTime += memberChallengeFourDay.get(i).getRealTime();
                     }
                 }
 
                 List<MemberChallenge> memberChallengeThreeDay = memberChallengeRepository.threeday();
                 for (int i = 0; i < memberChallengeThreeDay.size(); i++) {
-                    if (memberList.get(j).getNickname().equals(memberChallengeThreeDay.get(i).getMember().getNickname())) {
+                    if (memberList.get(j).getId().equals(memberChallengeThreeDay.get(i).getMember().getId())) {
                         threeTime += memberChallengeThreeDay.get(i).getRealTime();
                     }
                 }
 
                 List<MemberChallenge> memberChallengeTwoDay = memberChallengeRepository.twoday();
                 for (int i = 0; i < memberChallengeTwoDay.size(); i++) {
-                    if (memberList.get(j).getNickname().equals(memberChallengeTwoDay.get(i).getMember().getNickname())) {
+                    if (memberList.get(j).getId().equals(memberChallengeTwoDay.get(i).getMember().getId())) {
                         twoTime += memberChallengeTwoDay.get(i).getRealTime();
                     }
                 }
                 //오늘
                 List<MemberChallenge> memberChallengeOneDay = memberChallengeRepository.oneday();
                 for (int i = 0; i < memberChallengeOneDay.size(); i++) {
-                    if (memberList.get(j).getNickname().equals(memberChallengeOneDay.get(i).getMember().getNickname())) {
+                    if (memberList.get(j).getId().equals(memberChallengeOneDay.get(i).getMember().getId())) {
                         oneTime += memberChallengeOneDay.get(i).getRealTime();
                     }
                 }

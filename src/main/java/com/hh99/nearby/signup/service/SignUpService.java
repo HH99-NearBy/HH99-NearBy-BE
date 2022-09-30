@@ -2,15 +2,26 @@ package com.hh99.nearby.signup.service;
 
 
 import com.hh99.nearby.entity.Member;
+import com.hh99.nearby.login.dto.response.LoginResponseDto;
 import com.hh99.nearby.repository.MemberRepository;
-import com.hh99.nearby.signup.dto.SignUpRequestDto;
+import com.hh99.nearby.security.UserDetailsImpl;
+import com.hh99.nearby.security.jwt.TokenDto;
+import com.hh99.nearby.security.jwt.TokenProvider;
+import com.hh99.nearby.signup.dto.request.KakaodSignUpRequestDto;
+import com.hh99.nearby.signup.dto.request.SignUpRequestDto;
+import com.hh99.nearby.util.LevelCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +34,8 @@ public class SignUpService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final LevelCheck levelCheck;
+    private final TokenProvider tokenProvider;
 
 
 
@@ -109,6 +122,57 @@ public class SignUpService {
         }
         return ResponseEntity.ok().body(Map.of("msg", "가입가능한 이메일입니다."));
     }
+
+
+
+    public ResponseEntity<?> kakaoSignUp(KakaodSignUpRequestDto kakaodSignUpRequestDto, HttpServletResponse response) {
+
+//        Optional<Member> member = memberRepository.findByKakaoId(kakaodSignUpRequestDto.getKakaoId()); //카카오 아이디로 맴버찾기
+//        member.get().update(kakaodSignUpRequestDto.getNickname()); //닉네임 업데이트
+        Member kakaouser = Member.builder()
+                .nickname(kakaodSignUpRequestDto.getNickname())
+                .emailCheck(true)
+                .kakaoId(kakaodSignUpRequestDto.getKakaoId())
+                .profileImg(kakaodSignUpRequestDto.getProfileImg())
+                .build();
+        memberRepository.save(kakaouser);
+
+//        Member kakaoUser = Member.builder()
+//                .kakaoId(member.get().getKakaoId())
+//                .nickname(member.get().getNickname())
+//                .profileImg(member.get().getProfileImg())
+//                .build();
+        Authentication authentication = forceLogin(kakaouser);
+        // 5. response Header에 JWT 토큰 추가
+        kakaoUsersAuthorizationInput(kakaouser, authentication, response);
+        List<Long> levelAndPoint = levelCheck.levelAndPoint(kakaouser.getNickname()); // 레벨 계산
+        LoginResponseDto loginResponseDto = LoginResponseDto.builder()
+                .profileImg(kakaouser.getProfileImg())
+                .nickname(kakaouser.getNickname())
+                .level("LV."+levelAndPoint.get(1))
+                .totalTime(levelAndPoint.get(0)/10+"분")
+                .build();
+        return ResponseEntity.ok().body(Map.of("msg","로그인성공","data",loginResponseDto)); //로그인처리
+    }
+
+    // 4. 강제 로그인 처리
+    private Authentication forceLogin(Member kakaoUser) {
+        UserDetails userDetails = new UserDetailsImpl(kakaoUser);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return authentication;
+    }
+
+    // 5. response Header에 JWT 토큰 추가
+    private void kakaoUsersAuthorizationInput(Member kakaoUser, Authentication authentication, HttpServletResponse response) {
+        // response header에 token 추가
+        UserDetailsImpl userDetailsImpl = ((UserDetailsImpl) authentication.getPrincipal());
+        TokenDto token = tokenProvider.generateTokenDto(kakaoUser);//.generateJwtToken(userDetailsImpl);
+        System.out.println(token.getAccessToken());
+        response.addHeader("Authorization", "Bearer" + " " + token.getAccessToken());
+    }
+
+
 }
 
 

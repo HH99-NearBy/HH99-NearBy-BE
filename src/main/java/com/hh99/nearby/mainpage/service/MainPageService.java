@@ -32,6 +32,7 @@ public class MainPageService {
     public ResponseEntity<?> getAllChallenge(long challengeId, long size) {
         List<MainPageResponseDto> allchallengelist = new ArrayList<>();
         List<Challenge> challenges = ChallengeList(challengeId, size);
+
         for (Challenge challenge : challenges) {
             long participatePeople = challenge.getMemberChallengeList().size();
 
