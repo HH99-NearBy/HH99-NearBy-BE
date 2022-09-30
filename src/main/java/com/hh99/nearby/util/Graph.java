@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 
 @Component
 @RequiredArgsConstructor
@@ -24,24 +23,10 @@ public class Graph {
 
     @Scheduled(cron = "0 0 * * * *")
     public void SevenDaysGraph() {
-//        System.out.println("==========");
-//        System.out.println("스케줄러 실행 중");
-//        System.out.println("==========");
-
 
         List<Member> memberList = memberRepository.findAll();
         if (memberList.size() != 0) {
             LocalDate now  = LocalDate.now();
-//            System.out.println("today : " + now);
-//
-//            for(int i=0;i<7;i++){
-//                List<MemberChallenge> list = memberChallengeRepository.findAllByStartDayEquals(now.minusDays(i));
-//                System.out.println("========================"+ now.minusDays(i)+"==========================");
-//                for (MemberChallenge challenge : list) {
-//                    System.out.println("challenge.getStartDay() = " + challenge.getStartDay());
-//                }
-//            }
-
             for (int j = 0; j < memberList.size(); j++) {
 
                 List<Long> sevendaysGraph = new ArrayList<>();
