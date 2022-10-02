@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface WishListRepository extends JpaRepository<WishList,Long> {
 
     Optional<WishList> findByChallengeAndMember(Challenge challenge, Member member);
+
+    Long countAllByMember(Member member);
 }

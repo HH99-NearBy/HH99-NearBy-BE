@@ -87,6 +87,9 @@ public class WishListService {
 
         List<WishList> wishLists = getWishLists(member.get(),pageable);
         List<WishList> wishListSize = getWishLists(member.get());
+
+//        long wishListSize2 = wishListRepository.countAllByMember(member.get());
+
         List<MypageWishList> mypageWishList = new ArrayList<>();
         for (int i = 0; i<wishLists.size(); i++){
             long participatePeople = wishLists.get(i).getChallenge().getMemberChallengeList().size();
@@ -105,6 +108,9 @@ public class WishListService {
 
         }
         double totalPage = Math.ceil((double)wishListSize.size()/(double) size);
+
+//        double totalPage = Math.ceil((double)wishListSize2/(double) size);
+
         MypageWishResponseDto mypageWishResponseDto = MypageWishResponseDto.builder()
                 .totalPage((int)totalPage)
                 .mypageWishList(mypageWishList)
