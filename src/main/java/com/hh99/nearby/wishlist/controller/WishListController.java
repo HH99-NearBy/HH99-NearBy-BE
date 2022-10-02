@@ -1,6 +1,5 @@
 package com.hh99.nearby.wishlist.controller;
 
-import com.hh99.nearby.wishlist.dto.WishListRequestDto;
 import com.hh99.nearby.wishlist.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +23,10 @@ public class WishListController {
     public ResponseEntity<?> deleteWishList(@PathVariable Long id,
                                             @AuthenticationPrincipal UserDetails user){
         return wishListService.deleteWishList(id,user);
+    }
+
+    @GetMapping("/api/mypage/wishlist")
+    public ResponseEntity<?> getWishList(@AuthenticationPrincipal UserDetails user, @RequestParam int pageNum){
+        return wishListService.getWishList(user,pageNum);
     }
 }
