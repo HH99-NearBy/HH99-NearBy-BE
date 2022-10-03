@@ -86,6 +86,9 @@ public class Challenge extends Timestamped{
     @OneToMany(mappedBy="challenge", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MemberChallenge> memberChallengeList;
 
+    @OneToMany(mappedBy="challenge", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WishList> wishLists;
+
     //    public void update(PostRequestDto postRequestDto,Member member){
 //    public void update(PostRequestDto postRequestDto){
 //        this.content = postRequestDto.getContent();
