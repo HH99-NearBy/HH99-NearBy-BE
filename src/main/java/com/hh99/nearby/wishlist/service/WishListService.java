@@ -115,7 +115,7 @@ public class WishListService {
                 .totalPage((int)totalPage)
                 .mypageWishList(mypageWishList)
                 .build();
-        return ResponseEntity.ok().body(Map.of("msg",mypageWishResponseDto));
+        return ResponseEntity.ok().body(Map.of("msg","찜 등록 조회 완료","data",mypageWishResponseDto));
     }
 
     public List<WishList> getWishLists(Member member,Pageable pageable){
