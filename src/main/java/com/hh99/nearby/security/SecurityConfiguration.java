@@ -31,6 +31,10 @@ public class SecurityConfiguration {
     private final AuthenticationEntryPointException authenticationEntryPointException;
     private static final String[] PERMIT_URL_ARRAY = {
             "/api/signup",
+            "/api/email",
+            "/api/nicknamecheck",
+            "/api/emailcheck",
+            "/api/nicknameupdate",
             "/api/login",
             "/favicon.ico",
             "/swagger-ui/index.html",
@@ -43,8 +47,6 @@ public class SecurityConfiguration {
             "/swagger-ui/**",
             "/h2-console/**",
             "/api/kakaologin",
-            "/api/email",
-//            "/api/**",
             "/api/token",
             "/chat/**",
             "/ws/**",
@@ -54,7 +56,9 @@ public class SecurityConfiguration {
             "/api/search",
             "/api/relation",
             "/api/posts/recruit",
-            "/api/posts/close"
+            "/api/posts/close",
+            "/api/challenge/*",
+            "/api/kakaosign"
     };
     @Bean
     public PasswordEncoder passwordEncoder() {

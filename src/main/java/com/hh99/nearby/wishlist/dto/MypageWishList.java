@@ -1,4 +1,4 @@
-package com.hh99.nearby.mypage.dto.response;
+package com.hh99.nearby.wishlist.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.time.LocalTime;
 @Builder
 @AllArgsConstructor
 @Getter
-public class MypageChallengeList {
+public class MypageWishList {
 
     private String title; //첼린지 제목
 
@@ -27,4 +27,5 @@ public class MypageChallengeList {
 
     private Long limitPeople; //인원제한
 
+    private Long participatePeople; //참여인원
 }

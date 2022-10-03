@@ -41,3 +41,6 @@ mail:
     url: https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/2021/06/09/17/3/20646f8a-d76c-47b2-869e-7b9f606bb13d.jpg
 jwt:
   secret: update
+signup:
+  redirect:
+    url: update

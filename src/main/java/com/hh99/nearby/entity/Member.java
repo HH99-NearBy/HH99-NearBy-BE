@@ -80,4 +80,6 @@ public class Member extends Timestamped{
     public void update(List<Long> graph){
         this.graph = graph;
     }
+
+
 }

@@ -32,6 +32,7 @@ public class MainPageService {
     public ResponseEntity<?> getAllChallenge(long challengeId, long size) {
         List<MainPageResponseDto> allchallengelist = new ArrayList<>();
         List<Challenge> challenges = ChallengeList(challengeId, size);
+
         for (Challenge challenge : challenges) {
             long participatePeople = challenge.getMemberChallengeList().size();
 
@@ -46,6 +47,7 @@ public class MainPageService {
                             .endTime(challenge.getEndTime())
                             .limitPeople(challenge.getLimitPeople())
                             .participatePeople(participatePeople)
+                            .nickname(challenge.getWriter().getNickname())
                             .build()
             );
 
@@ -72,6 +74,7 @@ public class MainPageService {
                             .endTime(challenge.getEndTime())
                             .limitPeople(challenge.getLimitPeople())
                             .participatePeople(participatePeople)
+                            .nickname(challenge.getWriter().getNickname())
                             .build()
             );
 
@@ -97,6 +100,7 @@ public class MainPageService {
                             .endTime(challenge.getEndTime())
                             .limitPeople(challenge.getLimitPeople())
                             .participatePeople(participatePeople)
+                            .nickname(challenge.getWriter().getNickname())
                             .build()
             );
 
@@ -108,7 +112,7 @@ public class MainPageService {
     public ResponseEntity<?> joinAllChallenge(UserDetails user) {
         Member member = memberRepository.findByNickname(user.getUsername()).get();
         //참가한 리스트 불러오는
-        List<MemberChallenge> challengeList = JoinChallengeList(member.getNickname());
+        List<MemberChallenge> challengeList = JoinChallengeList(member);
         ArrayList<MainPageResponseDto> mypageChallengeList = new ArrayList<>();
         for (MemberChallenge challenge : challengeList) {
             mypageChallengeList.add(
@@ -122,21 +126,23 @@ public class MainPageService {
                             .endTime(challenge.getChallenge().getEndTime())
                             .limitPeople(challenge.getChallenge().getLimitPeople())
                             .participatePeople((long)challenge.getChallenge().getMemberChallengeList().size())
+                            .nickname(challenge.getChallenge().getWriter().getNickname())
                             .build()
             );
         }
         return ResponseEntity.ok(mypageChallengeList);
     }
 
-    public List<MemberChallenge> JoinChallengeList(String nickname){
+    public List<MemberChallenge> JoinChallengeList(Member member){
         QMemberChallenge memberChallenge = QMemberChallenge.memberChallenge;
+        LocalDateTime now = LocalDateTime.now();
         return jpaQueryFactory
                 .selectFrom(memberChallenge)
                 .where(
-                        nickname.equals("null") ? null : memberChallenge.member.nickname.eq(nickname),
-                        memberChallenge.challenge.endTime.after(LocalDateTime.now())
+                        memberChallenge.member.eq(member),
+                        memberChallenge.challenge.endTime.after(now)
                 )
-                .orderBy(memberChallenge.id.desc())
+                .orderBy(memberChallenge.challenge.id.desc())
                 .fetch();
     }
 

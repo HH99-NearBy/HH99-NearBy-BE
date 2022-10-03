@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @Getter
-public class MypageResponseDto {
+public class MemberPageResponseDto {
 
     //마이페이지 상단
     private String nickname; //닉네임
@@ -27,9 +27,5 @@ public class MypageResponseDto {
     private String totalTime; //사용시간
 
     private List<Long> graph; // 일주일 그래프
-    
-    List<MypageChallengeList> challengeLists; //도전중인 첼린지 리스트
-    
-    List<MypageFinishList> finishLists; //완료한 첼린지 리스트
 
 }

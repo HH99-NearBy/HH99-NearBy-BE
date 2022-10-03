@@ -1,4 +1,4 @@
-package com.hh99.nearby.mainpage.dto;
+package com.hh99.nearby.mypage.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,19 +8,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-
 @Builder
-@Getter
 @AllArgsConstructor
-public class MainPageResponseDto {
-
-    private Long id; //첼린지 아이디
+@Getter
+public class MypageJoinList {
 
     private String title; //첼린지 제목
 
     private String challengeImg; //첼린지이미지 url
 
-    private LocalDate startDay; //시작 날짜
+    private LocalDate startDay; // 시작일자
 
     private LocalTime startTime; //시작 시간
 
@@ -32,5 +29,4 @@ public class MainPageResponseDto {
 
     private Long participatePeople; //참여인원
 
-    private String nickname;
 }

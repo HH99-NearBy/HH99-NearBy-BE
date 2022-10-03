@@ -32,11 +32,11 @@ public class RankPageService {
         if (user != null) {
             pageNum = pageNum - 1;
             Pageable pageable = PageRequest.of(pageNum, size);
-            Slice<Member> allByOrderByPointsDesc = memberRepository.rank(pageable);
+            Slice<Member> allByOrderByMyRankAsc = memberRepository.rank2(pageable);
 
             List<RankPageDto> rankPageDtos = new ArrayList<>();
 
-            for (Member member : allByOrderByPointsDesc) {
+            for (Member member : allByOrderByMyRankAsc) {
                 List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname());
 //                List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
                 rankPageDtos.add(RankPageDto.builder()
@@ -62,9 +62,10 @@ public class RankPageService {
             Optional<Member> member2 = memberRepository.findByNickname(user.getUsername());
 //            List<Long> sevengraph = graph.SevenDaysGraph(member2.get().getNickname());
             List<Long> levelAndPoint = levelCheck.levelAndPoint(member2.get().getNickname());
+            String myRank = member2.get().getMyRank() == 0 ? "---": member2.get().getMyRank()+"등";
             MyRankPageDto myRankPageDto = new MyRankPageDto(
                     member2.get().getId(),
-                    member2.get().getMyRank() + "등",
+                    myRank,
                     member2.get().getProfileImg(),
                     "LV."+levelAndPoint.get(1),
                     member2.get().getNickname(),
@@ -78,11 +79,11 @@ public class RankPageService {
         //로그인 안했을때
         pageNum = pageNum - 1;
         Pageable pageable = PageRequest.of(pageNum, size);
-        Slice<Member> allByOrderByPointsDesc = memberRepository.rank(pageable);
+        Slice<Member> allByOrderByMyRankAsc = memberRepository.rank2(pageable);
 
         List<RankPageDto> rankPageDtos = new ArrayList<>();
 
-        for (Member member : allByOrderByPointsDesc) {
+        for (Member member : allByOrderByMyRankAsc) {
             List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname());
 //            List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
             rankPageDtos.add(RankPageDto.builder()

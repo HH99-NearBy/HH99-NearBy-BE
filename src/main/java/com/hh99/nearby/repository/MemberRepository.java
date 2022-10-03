@@ -2,7 +2,6 @@ package com.hh99.nearby.repository;
 
 
 import com.hh99.nearby.entity.Member;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,11 +14,14 @@ import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
+    Optional<Member> findByEmailAndEmailNotNull(String email);
     Optional<Member> findByEmail(String email);
 
     Optional<Member> findByNickname(String Nickname);
 
     Optional<Member> findById(Long id);
+
+    Optional<Member> findByKakaoId(Long kakaoId);
 
 //    List<Member> findAllByOrderByPointsDesc();
 
@@ -29,8 +31,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query(value = "Select p from Member p order by p.points desc ")
     Slice<Member> rank(Pageable pageable);
 
-    @Query(value = "Select p from Member p order by p.points desc ")
-    Page<Member> rank2(Pageable pageable);
+    @Query(value = "Select p from Member p where p.myRank > 0 order by p.myRank Asc ")
+    Slice<Member> rank2(Pageable pageable);
 
     @Modifying(clearAutomatically = true)
     @Query("update Member m SET m.myRank =:myRank where m.nickname =:nickname")
