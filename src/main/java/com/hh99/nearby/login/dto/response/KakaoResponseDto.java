@@ -1,9 +1,8 @@
 package com.hh99.nearby.login.dto.response;
 
-import com.hh99.nearby.login.dto.request.updateNicknameDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.net.http.HttpHeaders;
 
