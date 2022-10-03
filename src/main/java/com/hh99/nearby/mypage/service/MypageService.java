@@ -13,7 +13,6 @@ import com.hh99.nearby.util.Graph;
 import com.hh99.nearby.util.LevelCheck;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

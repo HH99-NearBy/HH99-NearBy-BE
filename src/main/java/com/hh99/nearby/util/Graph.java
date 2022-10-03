@@ -28,7 +28,6 @@ public class Graph {
         if (memberList.size() != 0) {
             LocalDate now  = LocalDate.now();
             for (int j = 0; j < memberList.size(); j++) {
-
                 List<Long> sevendaysGraph = new ArrayList<>();
                 long oneTime = 0;
                 long twoTime = 0;
