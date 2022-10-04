@@ -92,7 +92,7 @@ public class KakaoLoginService {
                     .profileImg(kakaoUserInfo.getProfileImg())
                     .build();
 
-            return ResponseEntity.ok().body(Map.of("logincheck",false,"msg","가입된 정보가 없습니다.","data",responseDto ));
+            return ResponseEntity.ok().body(Map.of("logincheck",false,"msg","닉네임 설정이 필요합니다.","data",responseDto ));
     }
 
     // 1. "인가 코드"로 "액세스 토큰" 요청
@@ -137,7 +137,6 @@ public class KakaoLoginService {
         HttpEntity<MultiValueMap<String, String>> kakaoUserInfoRequest = new HttpEntity<>(headers);
         RestTemplate rt = new RestTemplate();//서버에게 요청을 보냄
         ResponseEntity<String> response = rt.exchange(
-
                 "https://kapi.kakao.com/v2/user/me",
                 HttpMethod.POST,  //매서드는 포스트타입
                 kakaoUserInfoRequest, // 카카오서버로 보낼 httpEntity

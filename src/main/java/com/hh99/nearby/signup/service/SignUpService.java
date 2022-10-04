@@ -2,6 +2,8 @@ package com.hh99.nearby.signup.service;
 
 
 import com.hh99.nearby.entity.Member;
+import com.hh99.nearby.exception.PrivateException;
+import com.hh99.nearby.exception.ErrorCode;
 import com.hh99.nearby.login.dto.response.LoginResponseDto;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.security.UserDetailsImpl;
@@ -44,24 +46,27 @@ public class SignUpService {
     public ResponseEntity<?> createMember(SignUpRequestDto requestDto) throws MessagingException {
         //email check
         if (null != isPresentMemberByEmail(requestDto.getEmail())) {
-            return ResponseEntity.badRequest().body(Map.of("msg", "Already existing email."));
+//            return ResponseEntity.badRequest().body(Map.of("msg", "Already existing email."));
+            throw new PrivateException(ErrorCode.SIGNUP_ALREADY_EMAIL);
         }
         //nickname check
         if (null != isPresentMemberByNickname(requestDto.getNickname())) {
-            return ResponseEntity.badRequest().body(Map.of("msg", "Already existing nickname."));
+//            return ResponseEntity.badRequest().body(Map.of("msg", "Already existing nickname."));
+            throw new PrivateException(ErrorCode.SIGNUP_ALREADY_NICKNAME);
         }
         if (requestDto.getEmail().isBlank()) {
-            return ResponseEntity.badRequest().body(Map.of("msg", "Please write proper email address to email field."));
+//            return ResponseEntity.badRequest().body(Map.of("msg", "Please write proper email address to email field."));
+            throw new PrivateException(ErrorCode.SIGNUP_EMPTY_EMAIL);
         }
         if (requestDto.getPassword().isBlank()) {
-            return ResponseEntity.badRequest().body(Map.of("msg", "Please write proper password to Password field."));
+//            return ResponseEntity.badRequest().body(Map.of("msg", "Please write proper password to Password field."));
+            throw new PrivateException(ErrorCode.SIGNUP_EMPTY_PASSWORD);
         }
 
         Member member = Member.builder()
                 .email(requestDto.getEmail())
                 .nickname(requestDto.getNickname())
                 .password(passwordEncoder.encode(requestDto.getPassword()))
-//                .password(requestDto.getPassword())
                 .emailCheck(false)
                 .profileImg(requestDto.getProfileImg())
                 .build();
@@ -109,7 +114,8 @@ public class SignUpService {
     public ResponseEntity<?> nicknamecheck(SignUpRequestDto nickname) {
         Optional<Member> member = memberRepository.findByNickname(nickname.getNickname());
         if (member.isPresent()){
-            return ResponseEntity.badRequest().body(Map.of("msg", "닉네임 중복입니다"));
+//            return ResponseEntity.badRequest().body(Map.of("msg", "닉네임 중복입니다"));
+            throw new PrivateException(ErrorCode.SIGNUP_NICKNAME_CHECK);
         }
         return ResponseEntity.ok().body(Map.of("msg", "가입가능한 닉네임입니다."));
     }
@@ -118,7 +124,8 @@ public class SignUpService {
     public ResponseEntity<?> emailCheck(SignUpRequestDto email) {
         Optional<Member> member = memberRepository.findByEmailAndEmailNotNull(email.getEmail());
         if (member.isPresent()){
-            return ResponseEntity.badRequest().body(Map.of("msg", "이메일 중복입니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg", "이메일 중복입니다."));
+            throw new PrivateException(ErrorCode.SIGNUP_EMAIL_CHECK);
         }
         return ResponseEntity.ok().body(Map.of("msg", "가입가능한 이메일입니다."));
     }
@@ -126,9 +133,6 @@ public class SignUpService {
 
 
     public ResponseEntity<?> kakaoSignUp(KakaodSignUpRequestDto kakaodSignUpRequestDto, HttpServletResponse response) {
-
-//        Optional<Member> member = memberRepository.findByKakaoId(kakaodSignUpRequestDto.getKakaoId()); //카카오 아이디로 맴버찾기
-//        member.get().update(kakaodSignUpRequestDto.getNickname()); //닉네임 업데이트
         Member kakaouser = Member.builder()
                 .nickname(kakaodSignUpRequestDto.getNickname())
                 .emailCheck(true)
@@ -137,13 +141,7 @@ public class SignUpService {
                 .build();
         memberRepository.save(kakaouser);
 
-//        Member kakaoUser = Member.builder()
-//                .kakaoId(member.get().getKakaoId())
-//                .nickname(member.get().getNickname())
-//                .profileImg(member.get().getProfileImg())
-//                .build();
         Authentication authentication = forceLogin(kakaouser);
-        // 5. response Header에 JWT 토큰 추가
         kakaoUsersAuthorizationInput(kakaouser, authentication, response);
         List<Long> levelAndPoint = levelCheck.levelAndPoint(kakaouser.getNickname()); // 레벨 계산
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
@@ -168,7 +166,6 @@ public class SignUpService {
         // response header에 token 추가
         UserDetailsImpl userDetailsImpl = ((UserDetailsImpl) authentication.getPrincipal());
         TokenDto token = tokenProvider.generateTokenDto(kakaoUser);//.generateJwtToken(userDetailsImpl);
-        System.out.println(token.getAccessToken());
         response.addHeader("Authorization", "Bearer" + " " + token.getAccessToken());
     }
 
