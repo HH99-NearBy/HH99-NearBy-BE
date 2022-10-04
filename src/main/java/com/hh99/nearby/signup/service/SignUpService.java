@@ -148,6 +148,7 @@ public class SignUpService {
                 .profileImg(kakaouser.getProfileImg())
                 .nickname(kakaouser.getNickname())
                 .level("LV."+levelAndPoint.get(1))
+                .remainingTime((levelAndPoint.get(0)/10 % 70))
                 .totalTime(levelAndPoint.get(0)/10+"분")
                 .build();
         return ResponseEntity.ok().body(Map.of("msg","로그인성공","data",loginResponseDto)); //로그인처리

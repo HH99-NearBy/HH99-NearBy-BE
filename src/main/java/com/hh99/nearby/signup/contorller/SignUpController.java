@@ -47,10 +47,7 @@ public class SignUpController {
 
     @PostMapping("/api/kakaosign")
     public ResponseEntity<?> kakaoSign(@RequestBody KakaodSignUpRequestDto kakaodSignUpRequestDto, HttpServletResponse response){
-        System.out.println("카카오사인업");
-        System.out.println(kakaodSignUpRequestDto.getKakaoId());
-        System.out.println(kakaodSignUpRequestDto.getNickname());
-        System.out.println(kakaodSignUpRequestDto.getProfileImg());
+
         return signUpService.kakaoSignUp(kakaodSignUpRequestDto,response);
     }
 }
