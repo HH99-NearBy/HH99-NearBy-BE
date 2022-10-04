@@ -14,4 +14,5 @@ public class LoginResponseDto {
     private String nickname;
     private String remainingTime;
     private String totalTime;
+
 }
