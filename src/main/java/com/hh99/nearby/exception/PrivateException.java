@@ -8,7 +8,7 @@ public class PrivateException extends RuntimeException {
     private ErrorCode errorCode;
 
     public PrivateException(ErrorCode errorCode) {
-        super(errorCode.getErrorMsg());
+        super(errorCode.name()+" : "+errorCode.getErrorMsg());
         this.errorCode = errorCode;
     }
 }
