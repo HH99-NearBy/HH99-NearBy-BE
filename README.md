@@ -13,7 +13,7 @@
 
 * 2022.08.26 - 2022.10.07
 
-### 🏃‍♂ [쓱관 사이트](https://ssggwan.site)
+### 🏃‍♂ [쓱관 사이트](https://ssggwan.shop)
 
 <hr>
 
@@ -22,7 +22,7 @@
 <hr>
 
 ## 📋 ERD
-    ![](C:\Users\user\Desktop\스크린샷 2022-10-03 오전 5.48.45.png)
+   ![스크린샷 2022-10-03 오전 5.48.45.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1e3b649f-196d-4f18-9664-470230119ccb/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-10-03_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_5.48.45.png)
 <hr>
 
 ## ⚙ 주요 기능
@@ -41,7 +41,7 @@
 <img src="https://img.shields.io/badge/QueryDSL-0769AD?style=for-the-badge&logo=jQuery&logoColor=white">
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
-<img src="https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"> 
+<img src="https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white">
 <img src="https://img.shields.io/badge/RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white">
 <img src="https://img.shields.io/badge/S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white">
 <img src="https://img.shields.io/badge/EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white">
@@ -53,7 +53,7 @@
 |:---:|:------:|:-----:|
 | 오명재 | https://github.com/Oh-Myeongjae  | omjcws@gmail.com   |
 | 정원용 | https://github.com/projectmiluju  | project.miluju@gmail.com  |
-| 노우열 | https://github.com/nohwooyeol  | email: dnfdufdl01@gmail.com  |
+| 노우열 | https://github.com/nohwooyeol  | dnfdufdl01@gmail.com  |
 
 
 
