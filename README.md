@@ -53,7 +53,7 @@
 |:---:|:------:|:-----:|
 | 오명재 | https://github.com/Oh-Myeongjae  | omjcws@gmail.com   |
 | 정원용 | https://github.com/projectmiluju  | project.miluju@gmail.com  |
-| 노우열 | https://github.com/nohwooyeol  | email: dnfdufdl01@gmail.com  |
+| 노우열 | https://github.com/nohwooyeol  | dnfdufdl01@gmail.com  |
 
 
 
