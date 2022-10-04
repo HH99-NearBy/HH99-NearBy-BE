@@ -38,7 +38,6 @@ public class RankPageService {
 
             for (Member member : allByOrderByMyRankAsc) {
                 List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname());
-//                List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
                 rankPageDtos.add(RankPageDto.builder()
                         .id(member.getId())
                         .profileImg(member.getProfileImg())
@@ -85,7 +84,6 @@ public class RankPageService {
 
         for (Member member : allByOrderByMyRankAsc) {
             List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname());
-//            List<Long> sevengraph = graph.SevenDaysGraph(member.getNickname());
             rankPageDtos.add(RankPageDto.builder()
                     .id(member.getId())
                     .profileImg(member.getProfileImg())

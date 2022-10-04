@@ -1,7 +1,9 @@
 package com.hh99.nearby.mypage.service;
 
 
-import com.hh99.nearby.entity.*;
+import com.hh99.nearby.entity.Member;
+import com.hh99.nearby.entity.MemberChallenge;
+import com.hh99.nearby.entity.QMemberChallenge;
 import com.hh99.nearby.mypage.dto.request.MypageRequestDto;
 import com.hh99.nearby.mypage.dto.response.*;
 import com.hh99.nearby.repository.ChallengeRepository;
@@ -13,7 +15,6 @@ import com.hh99.nearby.util.Graph;
 import com.hh99.nearby.util.LevelCheck;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -98,12 +99,7 @@ public class MypageService {
                                 .build()
                 );
         }
-        System.out.println(challengeSize.size());
-        System.out.println((double) challengeSize.size()/size);
         double totalPage =  Math.ceil((double) challengeSize.size()/(double) size);
-        System.out.println(totalPage);
-
-
 
         MypageJoinResponseDto mypageResponseDto = MypageJoinResponseDto.builder()
                 .totalPage((int)totalPage)
@@ -128,11 +124,7 @@ public class MypageService {
                         .endtime(finishChallengeList.get(i).getChallenge().getEndTime()) //엔드타임임
                         .build());
         }
-
-        System.out.println(finishChallengesize.size());
-        System.out.println((double) finishChallengesize.size()/size);
         double totalPage =  Math.ceil((double) finishChallengesize.size()/(double) size);
-        System.out.println(totalPage);
 
         MypageFinishResponseDto mypageFinishResponseDto = MypageFinishResponseDto.builder()
                 .totalPage((int)totalPage)
