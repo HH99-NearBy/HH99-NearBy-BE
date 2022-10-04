@@ -1,16 +1,13 @@
 package com.hh99.nearby.util;
 
 
-import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.entity.MemberChallenge;
 import com.hh99.nearby.repository.MemberChallengeRepository;
-import com.hh99.nearby.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
