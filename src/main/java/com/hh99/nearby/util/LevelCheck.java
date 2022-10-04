@@ -14,7 +14,6 @@ import java.util.List;
 public class LevelCheck {
 
     private final MemberChallengeRepository memberChallengeRepository;
-//    private final MemberRepository memberRepository;
 
     public List<Long> levelAndPoint(String nickname){ // 0번이 포인트  1번이 레벨
         List<Long> levelandpoint = new ArrayList<>();
@@ -28,10 +27,6 @@ public class LevelCheck {
         Long level = level2/70;
         levelandpoint.add(point);
         levelandpoint.add(level);
-
-//        Optional<Member> member = memberRepository.findByNickname(nickname);
-//        long points = 0;
-//        member.get().update(points + point);
 
         return levelandpoint;
     }

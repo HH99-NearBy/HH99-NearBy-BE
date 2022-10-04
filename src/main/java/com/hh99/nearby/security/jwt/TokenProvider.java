@@ -2,6 +2,8 @@ package com.hh99.nearby.security.jwt;
 
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.entity.RefreshToken;
+import com.hh99.nearby.exception.PrivateException;
+import com.hh99.nearby.exception.ErrorCode;
 import com.hh99.nearby.repository.RefreshTokenRepository;
 import com.hh99.nearby.security.UserDetailsImpl;
 import io.jsonwebtoken.*;
@@ -93,16 +95,12 @@ public class TokenProvider {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (SecurityException | MalformedJwtException e) {
-//            log.info("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
             request.setAttribute("exception","유효하지 않는 JWT 서명 입니다.");
         } catch (ExpiredJwtException e) {
-            log.info("Expired JWT token, 만료된 JWT token 입니다.");
             request.setAttribute("exception","만료된 JWT token 입니다.");
         } catch (UnsupportedJwtException e) {
-//            log.info("Unsupported JWT token, 지원되지 않는 JWT 토큰 입니다.");
             request.setAttribute("exception","지원되지 않는 JWT 토큰 입니다.");
         } catch (IllegalArgumentException e) {
-//            log.info("JWT claims is empty, 잘못된 JWT 토큰 입니다.");
             request.setAttribute("exception","잘못된 JWT 토큰 입니다.");
         }
         return false;
@@ -111,7 +109,8 @@ public class TokenProvider {
     public ResponseEntity<?> deleteRefreshToken(Member member) {
         RefreshToken refreshToken = isPresentRefreshToken(member);
         if (null == refreshToken) {
-            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("유효하지 않은 토큰입니다.");
+//            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("유효하지 않은 토큰입니다.");
+            throw new PrivateException(ErrorCode.REFRESHTOKEN_NOT_VALID);
         }
         refreshTokenRepository.delete(refreshToken);
         return ResponseEntity.status(HttpStatus.OK).body("리프레쉬 토큰삭제 성공");
