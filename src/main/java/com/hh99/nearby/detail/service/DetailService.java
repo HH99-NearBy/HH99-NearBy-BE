@@ -4,6 +4,8 @@ import com.hh99.nearby.detail.dto.DetailResponseDto;
 import com.hh99.nearby.entity.Challenge;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.entity.MemberChallenge;
+import com.hh99.nearby.exception.PrivateException;
+import com.hh99.nearby.exception.ErrorCode;
 import com.hh99.nearby.repository.ChallengeRepository;
 import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
@@ -34,7 +36,8 @@ public class DetailService {
     public ResponseEntity<?> detailModal(@PathVariable Long id, UserDetails user) {
         Challenge challenge = isPresentChallenge(id);
         if (challenge == null) {
-            return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 챌린지 번호"));
+//            return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 챌린지 번호"));
+            throw new PrivateException(ErrorCode.DETAIL_CHALLENGE_NOTFOUND);
         }
 
         long participatePeople = challenge.getMemberChallengeList().size();
@@ -76,11 +79,13 @@ public class DetailService {
 
         Challenge challenge = isPresentChallenge(id);
         if (challenge == null) {
-            return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 챌린지 번호"));
+//            return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 챌린지 번호"));
+            throw new PrivateException(ErrorCode.DETAIL_CHALLENGE_NOTFOUND);
         }
         Long participatePeople = memberChallengeRepository.countAllByChallenge(challenge);
         if(participatePeople>=challenge.getLimitPeople()){
-            return ResponseEntity.badRequest().body(Map.of("msg", "더이상 신청할 수 없는 챌린지 입니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg", "더이상 신청할 수 없는 챌린지 입니다."));
+            throw new PrivateException(ErrorCode.DETAIL_LIMITED_CHALLENGE);
         }
         Optional<Member> member = memberRepository.findByNickname(user.getUsername());
 
@@ -94,7 +99,8 @@ public class DetailService {
         memberChallengeRepository.save(memberChallenge);
             return ResponseEntity.ok().body(Map.of("msg", "참여하기 완료"));
         } else {
-            return ResponseEntity.badRequest().body(Map.of("msg", "이미 참여한 챌린지입니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg", "이미 참여한 챌린지입니다."));
+            throw new PrivateException(ErrorCode.DETAIL_ALREADY_JOINED);
         }
     }
     //참여 취소하기
@@ -102,12 +108,14 @@ public class DetailService {
     public ResponseEntity<?> cancelChallenge(@PathVariable Long id, @AuthenticationPrincipal UserDetails user){
         Challenge challenge = isPresentChallenge(id);
         if (challenge == null) {
-            return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 챌린지 번호"));
+//            return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 챌린지 번호"));
+            throw new PrivateException(ErrorCode.DETAIL_CHALLENGE_NOTFOUND);
         }
         Optional<Member> member = memberRepository.findByNickname(user.getUsername());
 
         if (memberChallengeRepository.findByMember_IdAndChallenge_Id(member.get().getId(),id).isEmpty()){
-            return ResponseEntity.badRequest().body(Map.of("msg","참여하지 않으셨습니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg","참여하지 않으셨습니다."));
+            throw new PrivateException(ErrorCode.DETAIL_NOT_JOINED);
         }
         Optional<MemberChallenge> memberChallenge = memberChallengeRepository.findByMember_IdAndChallenge_Id(member.get().getId(),id);
         memberChallengeRepository.delete(memberChallenge.get());

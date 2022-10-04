@@ -1,6 +1,8 @@
 package com.hh99.nearby.security.jwt.service;
 
 import com.hh99.nearby.entity.Member;
+import com.hh99.nearby.exception.PrivateException;
+import com.hh99.nearby.exception.ErrorCode;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.repository.RefreshTokenRepository;
 import com.hh99.nearby.security.dto.ReissueDto;
@@ -35,6 +37,7 @@ public class TokenService {
             response.addHeader("Authorization", "Bearer " + tokenDto.getAccessToken());
             return ResponseEntity.ok().body(Map.of("msg", "토큰재발급 성공"));
         }
-        return ResponseEntity.badRequest().body(Map.of("msg", "재로그인이 필요합니다."));
+//        return ResponseEntity.badRequest().body(Map.of("msg", "재로그인이 필요합니다."));
+        throw new PrivateException(ErrorCode.TOKEN_REISSUE);
     }
 }

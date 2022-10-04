@@ -4,6 +4,8 @@ import com.hh99.nearby.entity.Challenge;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.entity.QWishList;
 import com.hh99.nearby.entity.WishList;
+import com.hh99.nearby.exception.PrivateException;
+import com.hh99.nearby.exception.ErrorCode;
 import com.hh99.nearby.repository.ChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.repository.WishListRepository;
@@ -36,16 +38,19 @@ public class WishListService {
     public ResponseEntity<?> createWishList(@PathVariable Long id, UserDetails user){
         Optional<Challenge> challenge = challengeRepository.findById(id);
         if (challenge.isEmpty()){
-            return ResponseEntity.badRequest().body(Map.of("msg","잘못된 챌린지 번호입니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg","잘못된 챌린지 번호입니다."));
+            throw new PrivateException(ErrorCode.WISH_CHALLENGE_NOTFOUND);
         }
         Optional<Member> member = memberRepository.findByNickname(user.getUsername());
         if (member.isEmpty()){
-            return ResponseEntity.badRequest().body(Map.of("msg","없는 회원입니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg","없는 회원입니다."));
+            throw new PrivateException(ErrorCode.WISH_MEMBER_NOTFOUND);
         }
         Optional<WishList> optionalWishList =
                 wishListRepository.findByChallengeAndMember(challenge.get(),member.get());
         if (optionalWishList.isPresent()){
-            return ResponseEntity.badRequest().body(Map.of("msg","이미 찜 헀습니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg","이미 찜 헀습니다."));
+            throw new PrivateException(ErrorCode.WISH_ALREADY_SELECT);
         }
 
         WishList wishList = WishList.builder()
@@ -61,19 +66,23 @@ public class WishListService {
 
         Optional<Challenge> challenge = challengeRepository.findById(id);
         if (challenge.isEmpty()){
-            return ResponseEntity.badRequest().body(Map.of("msg","잘못된 챌린지 번호입니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg","잘못된 챌린지 번호입니다."));
+            throw new PrivateException(ErrorCode.WISH_CHALLENGE_NOTFOUND);
         }
         Optional<Member> member = memberRepository.findByNickname(user.getUsername());
         if (member.isEmpty()){
-            return ResponseEntity.badRequest().body(Map.of("msg","없는 회원입니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg","없는 회원입니다."));
+            throw new PrivateException(ErrorCode.WISH_MEMBER_NOTFOUND);
         }
         Optional<WishList> wishList =
                 wishListRepository.findByChallengeAndMember(challenge.get(),member.get());
         if (wishList.isEmpty()){
-            return ResponseEntity.badRequest().body(Map.of("msg","찜 하지 않으셨습니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg","찜 하지 않으셨습니다."));
+            throw new PrivateException(ErrorCode.WISH_NOT_SELECT);
         }
         if (!user.getUsername().equals(wishList.get().getMember().getNickname())){
-            return ResponseEntity.badRequest().body(Map.of("msg","일치하는 회원이 아닙니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg","일치하는 회원이 아닙니다."));
+            throw new PrivateException(ErrorCode.WISH_DELETE_FORBIDDEN);
         }
         wishListRepository.delete(wishList.get());
         return ResponseEntity.ok().body(Map.of("msg","찜 등록을 취소하셨습니다."));
@@ -87,9 +96,6 @@ public class WishListService {
 
         List<WishList> wishLists = getWishLists(member.get(),pageable);
         List<WishList> wishListSize = getWishLists(member.get());
-
-//        long wishListSize2 = wishListRepository.countAllByMember(member.get());
-
         List<MypageWishList> mypageWishList = new ArrayList<>();
         for (int i = 0; i<wishLists.size(); i++){
             long participatePeople = wishLists.get(i).getChallenge().getMemberChallengeList().size();
@@ -108,9 +114,6 @@ public class WishListService {
 
         }
         double totalPage = Math.ceil((double)wishListSize.size()/(double) size);
-
-//        double totalPage = Math.ceil((double)wishListSize2/(double) size);
-
         MypageWishResponseDto mypageWishResponseDto = MypageWishResponseDto.builder()
                 .totalPage((int)totalPage)
                 .mypageWishList(mypageWishList)

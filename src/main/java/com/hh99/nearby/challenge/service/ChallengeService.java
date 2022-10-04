@@ -3,6 +3,8 @@ package com.hh99.nearby.challenge.service;
 import com.hh99.nearby.challenge.dto.ChallengeRequestDto;
 import com.hh99.nearby.entity.Challenge;
 import com.hh99.nearby.entity.Member;
+import com.hh99.nearby.exception.PrivateException;
+import com.hh99.nearby.exception.ErrorCode;
 import com.hh99.nearby.repository.ChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -72,10 +74,12 @@ public class ChallengeService {
         Optional<Challenge> challenge = challengeRepository.findById(challenge_id);
 
         if(!challenge.isPresent()){
-            return ResponseEntity.badRequest().body(Map.of("msg","찾을수 없는 챌린지 입니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg","찾을수 없는 챌린지 입니다."));
+            throw new PrivateException(ErrorCode.CHALLENGE_NOTFOUND);
         }
         if(!challenge.get().getWriter().getNickname().equals(member.getNickname())){
-            return ResponseEntity.badRequest().body(Map.of("msg","수정권한이 없는 사용자 입니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg","수정권한이 없는 사용자 입니다."));
+            throw new PrivateException(ErrorCode.CHALLENGE_MODIFY_FORBIDDEN);
         }
         challenge.get().update(challengeRequestDto);
         return ResponseEntity.ok().body(Map.of("msg","챌린지 수정이 완료되었습니다."));
@@ -86,10 +90,12 @@ public class ChallengeService {
         Optional<Challenge> challenge = challengeRepository.findById(challenge_id);
 
         if(!challenge.isPresent()){
-            return ResponseEntity.badRequest().body(Map.of("msg","찾을수 없는 챌린지 입니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg","찾을수 없는 챌린지 입니다."));
+            throw new PrivateException(ErrorCode.CHALLENGE_NOTFOUND);
         }
         if(!challenge.get().getWriter().getNickname().equals(member.getNickname())){
-            return ResponseEntity.badRequest().body(Map.of("msg","삭제권한이 없는 사용자 입니다."));
+//            return ResponseEntity.badRequest().body(Map.of("msg","삭제권한이 없는 사용자 입니다."));
+            throw new PrivateException(ErrorCode.CHALLENGE_DELETE_FORBIDDEN);
         }
         challengeRepository.delete(challenge.get());
         return ResponseEntity.ok().body(Map.of("msg","챌린지 삭제가 완료되었습니다."));
