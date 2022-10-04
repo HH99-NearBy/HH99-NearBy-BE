@@ -57,6 +57,7 @@ jobs:
           spring.mail.username: ${{ secrets.SPRING_MAIL_USERNAME }}
           spring.mail.password: ${{ secrets.SPRING_MAIL_PASSWORD }}
           signup.redirect.url: ${{ secrets.SIGNUP_REDIRECT_URL }}
+          sentry.dsn: ${{ secrets.SENTRY_DSN }}
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
