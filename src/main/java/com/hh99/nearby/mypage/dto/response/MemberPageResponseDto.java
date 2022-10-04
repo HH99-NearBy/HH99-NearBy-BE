@@ -22,7 +22,7 @@ public class MemberPageResponseDto {
 
     private String rank; //등수
 
-    private String remainingTime; //남은시간
+    private Long remainingTime; //남은시간
 
     private String totalTime; //사용시간
 
