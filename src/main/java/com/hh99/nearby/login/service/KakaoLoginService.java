@@ -76,8 +76,8 @@ public class KakaoLoginService {
 
             List<Long> levelAndPoint = levelCheck.levelAndPoint(kakaoUser.getNickname()); // 레벨 계산
             LoginResponseDto loginResponseDto = LoginResponseDto.builder()
-                    .profileImg(kakaoUser.getProfileImg())
-                    .nickname(kakaoUser.getNickname())
+                    .profileImg(member.get().getProfileImg())
+                    .nickname(member.get().getNickname())
                     .level("LV."+levelAndPoint.get(1))
                     .remainingTime((levelAndPoint.get(0)/10 % 70) )
                     .totalTime(levelAndPoint.get(0)/10+"분")
