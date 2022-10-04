@@ -68,7 +68,7 @@ public class MypageService {
                 .profileImg(member.getProfileImg())
                 .level("LV."+levelAndPoint.get(1))
                 .rank(myRank)
-                .remainingTime((minute % 70) + "분")
+                .remainingTime((minute % 70))
                 .totalTime((hour / 60) + "시간" + (minute % 60) + "분")
                 .graph(member.getGraph())
                 .build());
