@@ -44,3 +44,6 @@ jwt:
 signup:
   redirect:
     url: update
+sentry:
+  dsn: update
+  traces-sample-rate: 1.0
