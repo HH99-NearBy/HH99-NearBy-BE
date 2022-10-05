@@ -28,6 +28,8 @@
 ## 📋 ERD
 <img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/ERD.png" alt="ERD" width="650"></img><br/>
 
+<hr>
+
 ## ⚙ 주요 기능
 - 
 - 
@@ -39,7 +41,6 @@
 <hr>
 
 ## 💻 기술정보
-<hr>
 <p align=justify>
 
 <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white">
@@ -59,9 +60,8 @@
 
 </p>
 
-## 💻 Tool
 <hr>
-
+## 💻 Tool
 <p align=justify>
 
 <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=GitHub&logoColor=white">
@@ -74,7 +74,6 @@
 </p>
 
 <hr>
-
 
 ## 👪 팀원 정보
 | 이름  | GitHub | email |
