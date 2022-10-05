@@ -29,8 +29,6 @@
 
 ## 💻 기술정보
 <hr>
-
-
 <p align=justify>
 
 <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white">
@@ -49,8 +47,6 @@
 <img src="https://img.shields.io/badge/GitHub actions-2088FF?style=for-the-badge&logo=GitHub actions&logoColor=white">
 
 </p>
-
-<hr>
 
 ## 💻 Tool
 <hr>
