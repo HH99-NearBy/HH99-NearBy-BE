@@ -1,5 +1,4 @@
-![KakaoTalk_20220929_123723639_01](https://user-images.githubusercontent.com/109066785/193744061-9987f0a4-96b9-4966-b998-d14bc8910c8e.png)
-
+<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/ssggwanmain.png" alt="쓱관메인" width="1000"></img><br/>
 
 # 📢프로젝트 소개
 <hr>
