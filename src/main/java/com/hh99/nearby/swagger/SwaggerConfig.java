@@ -23,8 +23,8 @@ public class SwaggerConfig{
     //스웨거 페이지에 소개될 설명들
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Demo")
-                .description("API EXAMPLE")
+                .title("SSGGWAN")
+                .description("API DOCUMENTATION")
                 .build();
     }
 
