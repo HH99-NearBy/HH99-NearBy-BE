@@ -1,4 +1,4 @@
-<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/ssggwanmain.png" alt="쓱관메인" width="1000"></img><br/>
+<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/ssggwanmain.png" alt="쓱관메인" width="650"></img><br/>
 
 # 📢프로젝트 소개
 <hr>
@@ -17,12 +17,12 @@
 <hr>
 
 ## 📋 서비스 아키텍처
-<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/image%20(2).png" alt="서비스아키텍처" width="1000"></img><br/>
+<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/image%20(2).png" alt="서비스아키텍처" width="650"></img><br/>
 
 <hr>
 
 ## 📋 ERD
-<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/ERD.png" alt="ERD" width="1000"></img><br/>
+<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/ERD.png" alt="ERD" width="650"></img><br/>
 
 ## ⚙ 주요 기능
 <hr>
