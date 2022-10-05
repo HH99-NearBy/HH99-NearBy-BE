@@ -16,8 +16,7 @@
 
 * 2022.08.26 - 2022.10.07
 
-### 🏃‍♂ [쓱관 사이트](https://ssggwan.shop){: target="_blank"}
-<a href="https://ssggwan.shop" target="_blank">쓱관 사이트</a>
+### 🏃‍♂ [쓱관 사이트](https://ssggwan.shop)
 ### 🏃‍ [발표 영상 바로가기](https://ssggwan.shop)
 
 <hr>
@@ -27,8 +26,7 @@
 
 <hr>
 
-## 📋 [API 명세서](https://docs.google.com/spreadsheets/d/19xOpTRAsvlgMVlW9suLVzKvwxeLM8iEIK2s79v3H5-o/edit#gid=644280598)
-## 📋 [Swagger UI](https://ssggwan.site/swagger-ui.html#)
+## 📋 [API 명세서(Swagger UI)](https://ssggwan.site/swagger-ui.html#)
 
 <hr>
 
@@ -39,8 +37,11 @@
 
 ## ⚙ 주요 기능
 - 소셜 로그인(카카오 로그인)
+
 - 화상채팅,실시간 채팅
+
 - 시간마다 업데이트 되는 랭킹 
+
 <hr>
 
 ## 💻 기술정보
