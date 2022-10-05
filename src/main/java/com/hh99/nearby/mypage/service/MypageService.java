@@ -123,6 +123,7 @@ public class MypageService {
                         .startTime(finishChallengeList.get(i).getChallenge().getStartTime()) //시작시간
                         .tagetTime(finishChallengeList.get(i).getChallenge().getTargetTime()) //타켓시간
                         .endtime(finishChallengeList.get(i).getChallenge().getEndTime()) //엔드타임임
+                        .startDay(finishChallengeList.get(i).getStartDay()) //시작일자
                         .build());
         }
         double totalPage =  Math.ceil((double) finishChallengesize.size()/(double) size);
