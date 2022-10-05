@@ -22,8 +22,7 @@
 <hr>
 
 ## 📋 ERD
-   ![스크린샷 2022-10-03 오전 5.48.45.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1e3b649f-196d-4f18-9664-470230119ccb/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-10-03_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_5.48.45.png)
-<hr>
+<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/ERD.png" alt="ERD" width="1000"></img><br/>
 
 ## ⚙ 주요 기능
 <hr>
@@ -33,6 +32,7 @@
 
 
 <p align=center>
+
 <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white">
 <img src="https://img.shields.io/badge/Spring boot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white">
 <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
@@ -45,6 +45,7 @@
 <img src="https://img.shields.io/badge/RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white">
 <img src="https://img.shields.io/badge/S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white">
 <img src="https://img.shields.io/badge/EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white">
+
 </p>
 
 <hr>
