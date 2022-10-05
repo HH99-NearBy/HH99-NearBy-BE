@@ -1,11 +1,15 @@
-<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/ssggwanmain.png" alt="쓱관메인" width="1000"></img><br/>
+<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/ssggwanmain.png" alt="쓱관메인" width="650"></img><br/>
 
 # 📢프로젝트 소개
 <hr>
 
 * 바쁜 현대 사회 속 무언가 도전해보고 싶은데 같이할 사람이 필요한 사람😥
 
-* 새로운 도전을 해보고 싶지만 어떤 걸 할까 고민 되는 사람을 위한 서비스🙌
+* 새로운 도전을 해보고 싶지만 어떤 걸 할까 고민 되는 사람😥
+
+* 다양한 이유로 혼자 무언가 도전해보기 힘들어하는 사람😥
+
+* 현대 사회인을 위해 만든 실시간 화상 챌린지 서비스🙌 
 
 
 ### 📆 프로젝트 기간
@@ -13,29 +17,39 @@
 * 2022.08.26 - 2022.10.07
 
 ### 🏃‍♂ [쓱관 사이트](https://ssggwan.shop)
+### 🏃‍ [발표 영상 바로가기](https://ssggwan.shop)
 
 <hr>
 
 ## 📋 서비스 아키텍처
-<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/image%20(2).png" alt="서비스아키텍처" width="1000"></img><br/>
+<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/image%20(2).png" alt="서비스아키텍처" width="650"></img><br/>
+
+<hr>
+
+## 📋 [API 명세서(Swagger UI)](https://ssggwan.site/swagger-ui.html#)
 
 <hr>
 
 ## 📋 ERD
-<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/ERD.png" alt="ERD" width="1000"></img><br/>
+<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/ERD.png" alt="ERD" width="650"></img><br/>
+
+<hr>
 
 ## ⚙ 주요 기능
+- 소셜 로그인(카카오 로그인)
+
+- 화상채팅,실시간 채팅
+
+- 시간마다 업데이트 되는 랭킹 
+
 <hr>
 
 ## 💻 기술정보
-<hr>
-
-
 <p align=justify>
 
-<img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white">
 <img src="https://img.shields.io/badge/Spring boot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white">
-<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
+<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Gradle&logoColor=white">
+<img src="https://img.shields.io/badge/GRADLE-02303A?style=for-the-badge&logo=Spring Security&logoColor=white">
 <img src="https://img.shields.io/badge/WebRTC-333333?style=for-the-badge&logo=WebRTC&logoColor=white">
 <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white">
 <img src="https://img.shields.io/badge/QueryDSL-0769AD?style=for-the-badge&logo=jQuery&logoColor=white">
@@ -53,8 +67,6 @@
 <hr>
 
 ## 💻 Tool
-<hr>
-
 <p align=justify>
 
 <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=GitHub&logoColor=white">
@@ -68,17 +80,11 @@
 
 <hr>
 
-
 ## 👪 팀원 정보
-| 이름  | GitHub | email |
-|:---:|:------:|:-----:|
-| 오명재 | https://github.com/Oh-Myeongjae  | omjcws@gmail.com   |
-| 정원용 | https://github.com/projectmiluju  | project.miluju@gmail.com  |
-| 노우열 | https://github.com/nohwooyeol  | dnfdufdl01@gmail.com  |
+| Name | 담당 | GitHub | Email |
+|:---:|:------:|:------:|:-----:|
+| 오명재 | 실시간 화상채팅 구현, 첼린지 작성&수정&삭제, 로그인,회원가입 | https://github.com/Oh-Myeongjae  | omjcws@gmail.com   |
+| 정원용 | 랭킹페이지, CI/CD, 상세모달 참가&취소, 첼린지그래프 | https://github.com/projectmiluju  | project.miluju@gmail.com  |
+| 노우열 | 마이페이지, 카카오로그인, 검색기능, 실시간채팅 | https://github.com/nohwooyeol  | dnfdufdl01@gmail.com  |
 
-
-
-
-
-
-
+<hr>
