@@ -21,6 +21,10 @@
 
 <hr>
 
+## 📋 API 명세서(https://docs.google.com/spreadsheets/d/19xOpTRAsvlgMVlW9suLVzKvwxeLM8iEIK2s79v3H5-o/edit#gid=644280598)
+
+<hr>
+
 ## 📋 ERD
 <img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/ERD.png" alt="ERD" width="650"></img><br/>
 
