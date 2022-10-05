@@ -17,6 +17,7 @@
 * 2022.08.26 - 2022.10.07
 
 ### 🏃‍♂ [쓱관 사이트](https://ssggwan.shop){: target="_blank"}
+<a href="https://ssggwan.shop" target="_blank">쓱관 사이트</a>
 ### 🏃‍ [발표 영상 바로가기](https://ssggwan.shop)
 
 <hr>
