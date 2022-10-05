@@ -27,6 +27,7 @@
 <hr>
 
 ## 📋 [API 명세서](https://docs.google.com/spreadsheets/d/19xOpTRAsvlgMVlW9suLVzKvwxeLM8iEIK2s79v3H5-o/edit#gid=644280598)
+## 📋 [Swagger UI](https://ssggwan.site/swagger-ui.html#)
 
 <hr>
 
@@ -78,10 +79,10 @@
 <hr>
 
 ## 👪 팀원 정보
-| 이름  | GitHub | email |
-|:---:|:------:|:-----:|
-| 오명재 | https://github.com/Oh-Myeongjae  | omjcws@gmail.com   |
-| 정원용 | https://github.com/projectmiluju  | project.miluju@gmail.com  |
-| 노우열 | https://github.com/nohwooyeol  | dnfdufdl01@gmail.com  |
+| Name | 담당 | GitHub | Email |
+|:---:|:------:|:------:|:-----:|
+| 오명재 | 실시간 화상채팅 구현, 첼린지 작성&수정&삭제, 로그인,회원가입 | https://github.com/Oh-Myeongjae  | omjcws@gmail.com   |
+| 정원용 | 랭킹페이지, CI/CD, 상세모달 참가&취소, 첼린지그래프 | https://github.com/projectmiluju  | project.miluju@gmail.com  |
+| 노우열 | 마이페이지, 카카오로그인, 검색기능, 실시간채팅 | https://github.com/nohwooyeol  | dnfdufdl01@gmail.com  |
 
 <hr>
