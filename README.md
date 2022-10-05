@@ -21,7 +21,7 @@
 
 <hr>
 
-## 📋 API 명세서(https://docs.google.com/spreadsheets/d/19xOpTRAsvlgMVlW9suLVzKvwxeLM8iEIK2s79v3H5-o/edit#gid=644280598)
+## 📋 [API 명세서](https://docs.google.com/spreadsheets/d/19xOpTRAsvlgMVlW9suLVzKvwxeLM8iEIK2s79v3H5-o/edit#gid=644280598)
 
 <hr>
 
