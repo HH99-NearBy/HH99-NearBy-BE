@@ -18,7 +18,8 @@
 <hr>
 
 ## 📋 서비스 아키텍처
-![image (12)](https://user-images.githubusercontent.com/75843118/193716645-745baa08-997b-4e7a-9ee2-344c3f2dbeda.png)
+<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/image%20(2).png" alt="서비스아키텍처" width="1000"></img><br/>
+
 <hr>
 
 ## 📋 ERD
