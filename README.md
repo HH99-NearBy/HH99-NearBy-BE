@@ -22,7 +22,7 @@
 <hr>
 
 ## 📋 서비스 아키텍처
-<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/image%20(2).png" alt="서비스아키텍처" width="650"></img><br/>
+<img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/Architecture.png" alt="서비스아키텍처" width="650"></img><br/>
 
 <hr>
 
