@@ -1,7 +1,7 @@
 ![KakaoTalk_20220929_123723639_01](https://user-images.githubusercontent.com/109066785/193744061-9987f0a4-96b9-4966-b998-d14bc8910c8e.png)
 
 
-🏃‍♂프로젝트 소개
+# 📢프로젝트 소개
 <hr>
 
 * 바쁜 현대 사회 속 무언가 도전해보고 싶은데 같이할 사람이 필요한 사람😥
@@ -9,99 +9,55 @@
 * 새로운 도전을 해보고 싶지만 어떤 걸 할까 고민 되는 사람을 위한 서비스🙌
 
 
-💻 프로젝트 기간
+### 📆 프로젝트 기간
 
 * 2022.08.26 - 2022.10.07
 
+### 🏃‍♂ [쓱관 사이트](https://ssggwan.shop)
 
+<hr>
 
-🏆 강태훈 [FE리더]
-* 메인페이지 네비게이션
-* 헤더
-* 글로벌 css
-* 메인페이지
-* 랭킹 페이지
-* createPortal을 이용한  챌린지 디테일 모달
-* 챌린징 페이지
-* 실시간 채팅/화상기능
-* 챌린지 카드
-* 챌린지 작성 페이지
-* 챌린지 작성, 수정, 삭제
-* 챌린지 참여, 취소 
-* 챌린지 그래프
-* 챌린지 검색 기능
-* 무한스크롤
-  
-🏆 권용준
-* 로그인,회원가입 페이지 구현
-* 소셜 로그인(카카오) 구현
-* 마이페이지 구현
-* 닉네임,이미지 수정 구현
-
-## WHEN
-
-2022.08.12 ~ 2022.08.18
-
-### WHAT
-
-Web Service '쓱관
-:::좋은습관 개발을 위한 챌린지를 수행할 수 있는 공간을 제공하는 플랫폼 서비스
-
-
-### 주요 기술 스택
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=000000"/>
-<img src="https://img.shields.io/badge/React Query-FF4154?style=flat-square&logo=React Query&logoColor=000000"/>
-<img src="https://img.shields.io/badge/React Router-CA4245?style=flat-square&logo=React Router&logoColor=000000"/>
-<img src="https://img.shields.io/badge/TypeScript-3278C6?style=flat-square&logo=TypeScript&logoColor=ffffff"/>
-<img src="https://img.shields.io/badge/styled-components-DB7093?style=flat-square&logo=styled-components&logoColor=ffffff"/>
-<img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=Axios&logoColor=ffffff"/>
-<img src="https://img.shields.io/badge/WebRTC-333333?style=flat-square&logo=WebRTC&logoColor=ffffff"/>
-<img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=NGINX&logoColor=ffffff"/>
-
-### 서비스 아키텍쳐
-
+## 📋 서비스 아키텍처
 ![image (12)](https://user-images.githubusercontent.com/75843118/193716645-745baa08-997b-4e7a-9ee2-344c3f2dbeda.png)
+<hr>
 
-### 주요기능
+## 📋 ERD
+   ![스크린샷 2022-10-03 오전 5.48.45.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1e3b649f-196d-4f18-9664-470230119ccb/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-10-03_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_5.48.45.png)
+<hr>
 
-- 💻 Infinite Scroll
-- 💻 CreatePotal
-- 💻 Image Upload
-- 💻 Image Resizing(Compression)
-- 💻 LogIn & SignIn
-- 💻 Post CRUD
-- 💻 WebSocket Live Chatting
-- 💻 WebRTC Live Camera Share
+## ⚙ 주요 기능
+<hr>
 
-### Trouble Shooting
-
-* 이미지 프리뷰 업로드 및 리사이징, 서버 전송
-
-* 게시글 이미지(AWS S3) 전송 후 게시글 컨텐츠 전송
-
-* 모달창 구현으로 상세 게시글 불러올 때 랜더링 안되는 현상
-
-* 무한 스크롤 게시글 중복 현상
-
-* 자동 스크롤 시 내역이 중복되어 렌더링 되는 현상/ 레이아웃이 깨지면서 스크롤 자체가 동작하지 않는 현상
-
-* 자동 스크롤이 브라우저마다 동작이 다르거나 아예 동작하지 않는 현상
-
-### 패키지
-
-+ 스타일 적용 : styled-components
-+ s3 연결 : aws-sdk
-+ axios(통신) 설치 : yarn add axios
-+ image resizing : yarn add browser-image-compression
-+ openvidu를 이용한 webRTC 제어 : openvidu-broswer
-+ websocket을 이용한 리얼타임 채팅 : webstomp-client
-+ websocket을 지원하지 않는 브라우저를 위한 크로스 브라우징 : sockJs
-+ react 상의 페이징 처리 : react-router-dom
-+ 챌린지 페이지에서 전체화면 제어 : react-full-screenf
+## 💻 기술정보
+<hr>
 
 
-### git commit rules
 
-파일 생성 ✨add : ~~~ 생성에 대한 커밋
-파일 수정 ✂modify : ~~~ 수정에 대한 커밋
-파일 삭제 🗑delete : ~~~ 삭제에 대한 커밋
+<img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white">
+<img src="https://img.shields.io/badge/Spring boot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white">
+<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
+<img src="https://img.shields.io/badge/WebRTC-333333?style=for-the-badge&logo=WebRTC&logoColor=white">
+<img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white">
+<img src="https://img.shields.io/badge/QueryDSL-0769AD?style=for-the-badge&logo=jQuery&logoColor=white">
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+<img src="https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white">
+<img src="https://img.shields.io/badge/RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white">
+<img src="https://img.shields.io/badge/S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white">
+<img src="https://img.shields.io/badge/EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white">
+
+<hr>
+
+## 👪 팀원 정보
+| 이름  | GitHub | email |
+|:---:|:------:|:-----:|
+| 오명재 | https://github.com/Oh-Myeongjae  | omjcws@gmail.com   |
+| 정원용 | https://github.com/projectmiluju  | project.miluju@gmail.com  |
+| 노우열 | https://github.com/nohwooyeol  | dnfdufdl01@gmail.com  |
+
+
+
+
+
+
+

@@ -21,7 +21,7 @@ public class AuthenticationEntryPointException implements
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().println(
                 new ObjectMapper().writeValueAsString(
-                        new HashMap<>(Map.of("msg", request.getAttribute("exception")))
+                        new HashMap<>(Map.of("errorMsg", request.getAttribute("exception")))
                 )
         );
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

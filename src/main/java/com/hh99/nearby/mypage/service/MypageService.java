@@ -60,6 +60,7 @@ public class MypageService {
             minute += memberChallenge.get(i).getRealTime();
         }
 
+
         String myRank = member.getMyRank() == 0 ? "---": member.getMyRank()+"등";
 
         return ResponseEntity.ok(MemberPageResponseDto.builder()
