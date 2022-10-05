@@ -29,6 +29,13 @@
 <img src="https://github.com/HH99-NearBy/HH99-NearBy-BE/blob/main/Images/ERD.png" alt="ERD" width="650"></img><br/>
 
 ## ⚙ 주요 기능
+- 
+- 
+- 
+- 
+- 
+- 
+- 
 <hr>
 
 ## 💻 기술정보
@@ -76,9 +83,4 @@
 | 정원용 | https://github.com/projectmiluju  | project.miluju@gmail.com  |
 | 노우열 | https://github.com/nohwooyeol  | dnfdufdl01@gmail.com  |
 
-
-
-
-
-
-
+<hr>
