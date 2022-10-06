@@ -2,8 +2,8 @@ package com.hh99.nearby.signup.service;
 
 
 import com.hh99.nearby.entity.Member;
-import com.hh99.nearby.exception.PrivateException;
 import com.hh99.nearby.exception.ErrorCode;
+import com.hh99.nearby.exception.PrivateException;
 import com.hh99.nearby.login.dto.response.LoginResponseDto;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.security.UserDetailsImpl;

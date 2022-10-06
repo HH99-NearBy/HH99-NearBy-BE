@@ -95,12 +95,16 @@ public class TokenProvider {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (SecurityException | MalformedJwtException e) {
+            log.error("유효하지 않는 JWT 서명 입니다.");
             request.setAttribute("exception","유효하지 않는 JWT 서명 입니다.");
         } catch (ExpiredJwtException e) {
+            log.error("만료된 JWT token 입니다.");
             request.setAttribute("exception","만료된 JWT token 입니다.");
         } catch (UnsupportedJwtException e) {
+            log.error("지원되지 않는 JWT 토큰 입니다.");
             request.setAttribute("exception","지원되지 않는 JWT 토큰 입니다.");
         } catch (IllegalArgumentException e) {
+            log.error("유효하지 않는 JWT 서명 입니다.");
             request.setAttribute("exception","잘못된 JWT 토큰 입니다.");
         }
         return false;
