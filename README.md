@@ -17,7 +17,7 @@
 * 2022.08.26 - 2022.10.07
 
 ### 🏃‍♂ [쓱관 사이트](https://ssggwan.shop)
-### 🏃‍ [발표 영상 바로가기](https://ssggwan.shop)
+### 🏃‍ [발표 영상 바로가기](https://www.youtube.com/watch?v=Nt9xPxshbm4)
 
 <hr>
 
@@ -88,3 +88,7 @@
 | 노우열 | 마이페이지, 카카오로그인, 검색기능, 실시간채팅 | https://github.com/nohwooyeol  | dnfdufdl01@gmail.com  |
 
 <hr>
+
+## 💻 [WIKI 바로가기](https://github.com/HH99-NearBy/HH99-NearBy-BE/wiki)
+
+<hr> 
