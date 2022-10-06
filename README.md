@@ -18,6 +18,7 @@
 
 ### 🏃‍♂ [쓱관 사이트](https://ssggwan.shop)
 ### 🏃‍ [발표 영상 바로가기](https://www.youtube.com/watch?v=Nt9xPxshbm4)
+### 🏃‍ [시연 영상 바로가기](https://www.youtube.com/watch?v=KwQJTBUpfkc)
 
 <hr>
 
@@ -36,11 +37,11 @@
 <hr>
 
 ## ⚙ 주요 기능
-- 소셜 로그인(카카오 로그인)
+* 소셜 로그인(카카오 로그인)   
 
-- 화상채팅,실시간 채팅
+* 화상채팅,실시간 채팅   
 
-- 시간마다 업데이트 되는 랭킹 
+* 시간마다 업데이트 되는 랭킹    
 
 <hr>
 
