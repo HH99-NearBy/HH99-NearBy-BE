@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -45,7 +46,7 @@ public class SearchService {
                     .nickname(challenge.getWriter().getNickname())
                     .build());
         }
-        return ResponseEntity.ok(searchResponseDtos);
+        return ResponseEntity.ok().body(Map.of("msg","검색완료","data",searchResponseDtos));
     }
 
     public ResponseEntity<?> relationWord(String word) {
@@ -58,6 +59,6 @@ public class SearchService {
                     .title(challenge.getTitle())
                     .build());
         }
-        return ResponseEntity.ok(wordResponseDtos);
+        return ResponseEntity.ok().body(Map.of("msg","검색 조회중","data",wordResponseDtos));
     }
 }
