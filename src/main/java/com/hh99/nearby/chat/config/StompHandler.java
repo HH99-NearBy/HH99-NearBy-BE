@@ -1,6 +1,6 @@
 package com.hh99.nearby.chat.config;
 
-import com.hh99.nearby.chat.dto.ChatMessage;
+import com.hh99.nearby.chat.dto.request.ChatMessageDto;
 import com.hh99.nearby.entity.Chat;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.entity.MemberChallenge;
@@ -62,8 +62,8 @@ public class StompHandler implements ChannelInterceptor {
                 memberChallenge.get().update(realTime); // 아니면 리얼타임 업데이트
             }
 
-            ChatMessage chatMessage = ChatMessage.builder()
-                    .type(ChatMessage.MessageType.QUIT)
+            ChatMessageDto chatMessage = ChatMessageDto.builder()
+                    .type(ChatMessageDto.MessageType.QUIT)
                     .sender(member.get().getNickname())
                     .message(member.get().getNickname()+"님이 퇴장하였습니다.")
                     .build();
