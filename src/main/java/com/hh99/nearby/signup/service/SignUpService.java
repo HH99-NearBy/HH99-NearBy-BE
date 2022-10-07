@@ -131,6 +131,17 @@ public class SignUpService {
                 .build();
         memberRepository.save(kakaouser);
 
+        List<Long> graph = new ArrayList<>();
+        graph.add(0L);
+        graph.add(0L);
+        graph.add(0L);
+        graph.add(0L);
+        graph.add(0L);
+        graph.add(0L);
+        graph.add(0L);
+
+        kakaouser.update(graph);
+
         Authentication authentication = forceLogin(kakaouser);
         kakaoUsersAuthorizationInput(kakaouser, authentication, response);
         List<Long> levelAndPoint = levelCheck.levelAndPoint(kakaouser.getNickname()); // 레벨 계산
