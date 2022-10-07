@@ -56,7 +56,7 @@ public class MypageService {
 
         String myRank = member.getMyRank() == 0 ? "---": member.getMyRank()+"등";
 
-        return ResponseEntity.ok(MemberPageResponseDto.builder()
+        MemberPageResponseDto memberPageResponseDtoresponseDto = MemberPageResponseDto.builder()
                 .nickname(member.getNickname())
                 .email(member.getEmail())
                 .profileImg(member.getProfileImg())
@@ -65,7 +65,9 @@ public class MypageService {
                 .remainingTime((minute % 70))
                 .totalTime((hour / 60) + "시간" + (minute % 60) + "분")
                 .graph(member.getGraph())
-                .build());
+                .build();
+
+        return ResponseEntity.ok().body(Map.of("msg","맴버 조회완료","data",memberPageResponseDtoresponseDto));
     }
 
 
@@ -98,7 +100,7 @@ public class MypageService {
                 .totalPage((int)totalPage)
                 .mypageJoinList(mypageJoinList)
                 .build();
-       return ResponseEntity.ok(mypageResponseDto);
+        return ResponseEntity.ok().body(Map.of("msg","조회 완료","data",mypageResponseDto));
     }
 
     public ResponseEntity<?> finishChallenge(UserDetails user, int pageNum) { //완료한 리스트
@@ -124,7 +126,7 @@ public class MypageService {
                 .totalPage((int)totalPage)
                 .mypageFinishLists(finishLists)
                 .build();
-        return ResponseEntity.ok(mypageFinishResponseDto);
+        return ResponseEntity.ok().body(Map.of("msg","조회 완료","data",mypageFinishResponseDto));
     }
 
 
