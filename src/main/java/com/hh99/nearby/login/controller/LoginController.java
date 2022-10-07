@@ -35,7 +35,6 @@ public class LoginController {
 
     @PostMapping("/api/kakaologin")
     public ResponseEntity<?> kakaoLogin(@RequestBody KakaocodeDto kakaocode, HttpServletResponse response) throws JsonProcessingException {
-        System.out.println("=============================="+kakaocode+"===============================");
         return kakaoLoginService.kakaoLogin(kakaocode, response);
     }
 

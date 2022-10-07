@@ -7,7 +7,6 @@ import com.hh99.nearby.entity.MemberChallenge;
 import com.hh99.nearby.repository.ChatRepository;
 import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
-import com.hh99.nearby.util.LevelCheck;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -28,23 +27,19 @@ public class StompHandler implements ChannelInterceptor {
     private final MemberChallengeRepository memberChallengeRepository;
 
     private final MemberRepository memberRepository;
-    private final LevelCheck levelCheck;
 
     private final SimpMessageSendingOperations sendingOperations;
 
     public StompHandler(ChatRepository chatRepository,
                         MemberChallengeRepository memberChallengeRepository,
                         MemberRepository memberRepository,
-                        LevelCheck levelCheck,
                         @Lazy SimpMessageSendingOperations sendingOperations)
     {
         this.chatRepository = chatRepository;
         this.memberChallengeRepository = memberChallengeRepository;
         this.memberRepository = memberRepository;
-        this.levelCheck = levelCheck;
         this.sendingOperations = sendingOperations;
     }
-
 
     @Override
     @Transactional
@@ -66,7 +61,7 @@ public class StompHandler implements ChannelInterceptor {
             } else {
                 memberChallenge.get().update(realTime); // 아니면 리얼타임 업데이트
             }
-//            levelCheck.levelAndPoint(member.get().getNickname());
+
             ChatMessage chatMessage = ChatMessage.builder()
                     .type(ChatMessage.MessageType.QUIT)
                     .sender(member.get().getNickname())

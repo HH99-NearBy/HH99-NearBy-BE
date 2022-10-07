@@ -23,8 +23,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByKakaoId(Long kakaoId);
 
-//    List<Member> findAllByOrderByPointsDesc();
-
     @Query(value = "Select p from Member p order by p.points desc ")
     List<Member> rank();
 

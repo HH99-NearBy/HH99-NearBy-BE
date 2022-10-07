@@ -3,7 +3,6 @@ package com.hh99.nearby.exception;
 import lombok.Getter;
 
 @Getter
-
 public class PrivateException extends RuntimeException {
     private ErrorCode errorCode;
 

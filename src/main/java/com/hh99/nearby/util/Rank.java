@@ -15,8 +15,6 @@ import java.util.List;
 public class Rank {
 
     private final MemberRepository memberRepository;
-    private final LevelCheck levelCheck;
-    private final Graph graph;
 
     @Scheduled(cron = "0 0 * * * *")
     public void scheduleRank(){

@@ -22,19 +22,16 @@ public class MypageController {
     public ResponseEntity<?> memberPage(@AuthenticationPrincipal UserDetails user){
         return mypageService.memberPage(user);
     }
-
+    //유저가 참가한 챌린지
     @GetMapping("/joinchallenge")
     public ResponseEntity<?> joinChallenge(@AuthenticationPrincipal UserDetails user, @RequestParam int pageNum){
         return mypageService.joinChallege(user,pageNum);
     }
-
+    //유저가 완료한 챌린지
     @GetMapping("/finishchallenge")
     public ResponseEntity<?> finishChallenge(@AuthenticationPrincipal UserDetails user, @RequestParam int pageNum){
         return mypageService.finishChallenge(user,pageNum);
     }
-
-
-
     //프로필 수정
     @PutMapping("/member")
     public ResponseEntity<?> memberUpdate(@RequestBody MypageRequestDto requestDto, @AuthenticationPrincipal UserDetails user, HttpServletResponse response){

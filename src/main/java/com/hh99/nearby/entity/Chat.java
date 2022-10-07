@@ -30,10 +30,4 @@ public class Chat extends Timestamped {
     
     @Column(nullable = false)
     private Long challengeId; //입장한 첼린지 아이디
-
-
-
-
-
-
 }

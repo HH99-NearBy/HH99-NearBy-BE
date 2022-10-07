@@ -47,7 +47,6 @@ public class SignUpController {
 
     @PostMapping("/api/kakaosign")
     public ResponseEntity<?> kakaoSign(@RequestBody KakaodSignUpRequestDto kakaodSignUpRequestDto, HttpServletResponse response){
-
         return signUpService.kakaoSignUp(kakaodSignUpRequestDto,response);
     }
 }

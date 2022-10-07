@@ -27,7 +27,6 @@ import java.util.Optional;
 public class DetailService {
 
     private final LevelCheck levelCheck;
-
     private final ChallengeRepository challengeRepository;
     private final MemberRepository memberRepository;
     private final MemberChallengeRepository memberChallengeRepository;
@@ -36,10 +35,8 @@ public class DetailService {
     public ResponseEntity<?> detailModal(@PathVariable Long id, UserDetails user) {
         Challenge challenge = isPresentChallenge(id);
         if (challenge == null) {
-//            return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 챌린지 번호"));
             throw new PrivateException(ErrorCode.DETAIL_CHALLENGE_NOTFOUND);
         }
-
         long participatePeople = challenge.getMemberChallengeList().size();
         boolean check = false;
         if(user != null){
@@ -79,12 +76,10 @@ public class DetailService {
 
         Challenge challenge = isPresentChallenge(id);
         if (challenge == null) {
-//            return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 챌린지 번호"));
             throw new PrivateException(ErrorCode.DETAIL_CHALLENGE_NOTFOUND);
         }
         Long participatePeople = memberChallengeRepository.countAllByChallenge(challenge);
         if(participatePeople>=challenge.getLimitPeople()){
-//            return ResponseEntity.badRequest().body(Map.of("msg", "더이상 신청할 수 없는 챌린지 입니다."));
             throw new PrivateException(ErrorCode.DETAIL_LIMITED_CHALLENGE);
         }
         Optional<Member> member = memberRepository.findByNickname(user.getUsername());
@@ -99,7 +94,6 @@ public class DetailService {
         memberChallengeRepository.save(memberChallenge);
             return ResponseEntity.ok().body(Map.of("msg", "참여하기 완료"));
         } else {
-//            return ResponseEntity.badRequest().body(Map.of("msg", "이미 참여한 챌린지입니다."));
             throw new PrivateException(ErrorCode.DETAIL_ALREADY_JOINED);
         }
     }
@@ -108,13 +102,11 @@ public class DetailService {
     public ResponseEntity<?> cancelChallenge(@PathVariable Long id, @AuthenticationPrincipal UserDetails user){
         Challenge challenge = isPresentChallenge(id);
         if (challenge == null) {
-//            return ResponseEntity.badRequest().body(Map.of("msg", "잘못된 챌린지 번호"));
             throw new PrivateException(ErrorCode.DETAIL_CHALLENGE_NOTFOUND);
         }
         Optional<Member> member = memberRepository.findByNickname(user.getUsername());
 
         if (memberChallengeRepository.findByMember_IdAndChallenge_Id(member.get().getId(),id).isEmpty()){
-//            return ResponseEntity.badRequest().body(Map.of("msg","참여하지 않으셨습니다."));
             throw new PrivateException(ErrorCode.DETAIL_NOT_JOINED);
         }
         Optional<MemberChallenge> memberChallenge = memberChallengeRepository.findByMember_IdAndChallenge_Id(member.get().getId(),id);
@@ -122,4 +114,3 @@ public class DetailService {
         return ResponseEntity.ok().body(Map.of("msg", "참여하기 취소 완료"));
     }
 }
-

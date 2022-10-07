@@ -30,6 +30,4 @@ public class LevelCheck {
 
         return levelandpoint;
     }
-
-
 }

@@ -38,18 +38,15 @@ public class WishListService {
     public ResponseEntity<?> createWishList(@PathVariable Long id, UserDetails user){
         Optional<Challenge> challenge = challengeRepository.findById(id);
         if (challenge.isEmpty()){
-//            return ResponseEntity.badRequest().body(Map.of("msg","잘못된 챌린지 번호입니다."));
             throw new PrivateException(ErrorCode.WISH_CHALLENGE_NOTFOUND);
         }
         Optional<Member> member = memberRepository.findByNickname(user.getUsername());
         if (member.isEmpty()){
-//            return ResponseEntity.badRequest().body(Map.of("msg","없는 회원입니다."));
             throw new PrivateException(ErrorCode.WISH_MEMBER_NOTFOUND);
         }
         Optional<WishList> optionalWishList =
                 wishListRepository.findByChallengeAndMember(challenge.get(),member.get());
         if (optionalWishList.isPresent()){
-//            return ResponseEntity.badRequest().body(Map.of("msg","이미 찜 헀습니다."));
             throw new PrivateException(ErrorCode.WISH_ALREADY_SELECT);
         }
 
@@ -66,22 +63,18 @@ public class WishListService {
 
         Optional<Challenge> challenge = challengeRepository.findById(id);
         if (challenge.isEmpty()){
-//            return ResponseEntity.badRequest().body(Map.of("msg","잘못된 챌린지 번호입니다."));
             throw new PrivateException(ErrorCode.WISH_CHALLENGE_NOTFOUND);
         }
         Optional<Member> member = memberRepository.findByNickname(user.getUsername());
         if (member.isEmpty()){
-//            return ResponseEntity.badRequest().body(Map.of("msg","없는 회원입니다."));
             throw new PrivateException(ErrorCode.WISH_MEMBER_NOTFOUND);
         }
         Optional<WishList> wishList =
                 wishListRepository.findByChallengeAndMember(challenge.get(),member.get());
         if (wishList.isEmpty()){
-//            return ResponseEntity.badRequest().body(Map.of("msg","찜 하지 않으셨습니다."));
             throw new PrivateException(ErrorCode.WISH_NOT_SELECT);
         }
         if (!user.getUsername().equals(wishList.get().getMember().getNickname())){
-//            return ResponseEntity.badRequest().body(Map.of("msg","일치하는 회원이 아닙니다."));
             throw new PrivateException(ErrorCode.WISH_DELETE_FORBIDDEN);
         }
         wishListRepository.delete(wishList.get());
@@ -93,7 +86,6 @@ public class WishListService {
         pageNum = pageNum -1;
         int size = 4;
         Pageable pageable = PageRequest.of(pageNum,size);
-
         List<WishList> wishLists = getWishLists(member.get(),pageable);
         List<WishList> wishListSize = getWishLists(member.get());
         List<MypageWishList> mypageWishList = new ArrayList<>();

@@ -19,15 +19,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
-import static com.hh99.nearby.chat.Scheduler.endTimeList;
+import static com.hh99.nearby.chat.service.Scheduler.endTimeList;
 
 @Service
 @RequiredArgsConstructor
 public class ChallengeService {
     private final MemberRepository memberRepository;
     private final ChallengeRepository challengeRepository;
-
-
 
     @Transactional
     public ResponseEntity<?> createChallenge(ChallengeRequestDto challengeRequestDto, UserDetails user) throws ParseException {
@@ -46,7 +44,6 @@ public class ChallengeService {
             endTimeList.add(endTime); // endtimeList에 endtime 저장
             Collections.sort(endTimeList); //endTimeList 정렬
         }
-
 
         String defaultImg = "https://user-images.githubusercontent.com/74406343/188258363-9a049b49-eba3-4518-9674-391d7887c5f8.png";
 
@@ -74,11 +71,9 @@ public class ChallengeService {
         Optional<Challenge> challenge = challengeRepository.findById(challenge_id);
 
         if(!challenge.isPresent()){
-//            return ResponseEntity.badRequest().body(Map.of("msg","찾을수 없는 챌린지 입니다."));
             throw new PrivateException(ErrorCode.CHALLENGE_NOTFOUND);
         }
         if(!challenge.get().getWriter().getNickname().equals(member.getNickname())){
-//            return ResponseEntity.badRequest().body(Map.of("msg","수정권한이 없는 사용자 입니다."));
             throw new PrivateException(ErrorCode.CHALLENGE_MODIFY_FORBIDDEN);
         }
         challenge.get().update(challengeRequestDto);
@@ -90,11 +85,9 @@ public class ChallengeService {
         Optional<Challenge> challenge = challengeRepository.findById(challenge_id);
 
         if(!challenge.isPresent()){
-//            return ResponseEntity.badRequest().body(Map.of("msg","찾을수 없는 챌린지 입니다."));
             throw new PrivateException(ErrorCode.CHALLENGE_NOTFOUND);
         }
         if(!challenge.get().getWriter().getNickname().equals(member.getNickname())){
-//            return ResponseEntity.badRequest().body(Map.of("msg","삭제권한이 없는 사용자 입니다."));
             throw new PrivateException(ErrorCode.CHALLENGE_DELETE_FORBIDDEN);
         }
         challengeRepository.delete(challenge.get());

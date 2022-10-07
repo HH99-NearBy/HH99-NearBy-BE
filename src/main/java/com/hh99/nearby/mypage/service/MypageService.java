@@ -6,12 +6,10 @@ import com.hh99.nearby.entity.MemberChallenge;
 import com.hh99.nearby.entity.QMemberChallenge;
 import com.hh99.nearby.mypage.dto.request.MypageRequestDto;
 import com.hh99.nearby.mypage.dto.response.*;
-import com.hh99.nearby.repository.ChallengeRepository;
 import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
-import com.hh99.nearby.security.jwt.TokenDto;
+import com.hh99.nearby.security.dto.TokenDto;
 import com.hh99.nearby.security.jwt.TokenProvider;
-import com.hh99.nearby.util.Graph;
 import com.hh99.nearby.util.LevelCheck;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -38,10 +36,7 @@ public class MypageService {
 
     private final MemberRepository memberRepository;
 
-    private final ChallengeRepository challengeRepository;
-
     private final MemberChallengeRepository memberChallengeRepository;
-    private final Graph graph;
     private final JPAQueryFactory jpaQueryFactory;
 
     private final  TokenProvider tokenProvider;
@@ -50,7 +45,6 @@ public class MypageService {
     @Transactional
     public ResponseEntity<?> memberPage(@AuthenticationPrincipal UserDetails user) {
         Member member = memberRepository.findByNickname(user.getUsername()).get(); // 맴버 불러오기
-
         List<Long> levelAndPoint = levelCheck.levelAndPoint(member.getNickname()); // 레벨 계산
         List<MemberChallenge> memberChallenge = memberChallengeRepository.findByMember(member);
         Long hour = 0L;
@@ -59,7 +53,6 @@ public class MypageService {
             hour += memberChallenge.get(i).getRealTime();
             minute += memberChallenge.get(i).getRealTime();
         }
-
 
         String myRank = member.getMyRank() == 0 ? "---": member.getMyRank()+"등";
 
@@ -81,7 +74,6 @@ public class MypageService {
         pageNum = pageNum - 1;
         int size = 4;
         Pageable pageable = PageRequest.of(pageNum,size);
-
         List<MemberChallenge> challengeList = joinChallenge(member,pageable);
         List<MemberChallenge> challengeSize = joinChallenge(member);
         List<MypageJoinList> mypageJoinList = new ArrayList<>();
@@ -140,13 +132,10 @@ public class MypageService {
     public ResponseEntity<?> memberUpdate(MypageRequestDto requestDto, @AuthenticationPrincipal UserDetails user, HttpServletResponse response) {
         Optional<Member> member = memberRepository.findByNickname(user.getUsername());
         member.get().update(requestDto);
-
         TokenDto tokenDto = tokenProvider.generateTokenDto(member.get());
         response.addHeader("Authorization", "Bearer " + tokenDto.getAccessToken());
-
         return ResponseEntity.ok(Map.of("msg", "프로필 수정 완료!"));
     }
-
 
     public List<MemberChallenge> finishChallenge(Member member, Pageable pageable) { // 페이징처리를 위한 메서드
         QMemberChallenge memberChallenge = QMemberChallenge.memberChallenge;
@@ -162,6 +151,7 @@ public class MypageService {
                 .limit(pageable.getPageSize())
                 .fetch();
     }
+
     public List<MemberChallenge> finishChallenge(Member member) { // 사이즈를 가져오기 위한 메서드
         QMemberChallenge memberChallenge = QMemberChallenge.memberChallenge;
         LocalDateTime now = LocalDateTime.now();
@@ -174,7 +164,6 @@ public class MypageService {
                 .orderBy(memberChallenge.challenge.id.desc())
                 .fetch();
     }
-
 
     public List<MemberChallenge> joinChallenge(Member member, Pageable pageable) { // 페이징처리를 위한 메서드
         QMemberChallenge memberChallenge = QMemberChallenge.memberChallenge;
@@ -203,7 +192,4 @@ public class MypageService {
                 .orderBy(memberChallenge.challenge.id.desc())
                 .fetch();
     }
-
-
-
 }
