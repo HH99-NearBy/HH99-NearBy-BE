@@ -45,7 +45,6 @@ public class SearchService {
                     .nickname(challenge.getWriter().getNickname())
                     .build());
         }
-
         return ResponseEntity.ok(searchResponseDtos);
     }
 

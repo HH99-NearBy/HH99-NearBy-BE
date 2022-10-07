@@ -6,6 +6,7 @@ import com.hh99.nearby.exception.PrivateException;
 import com.hh99.nearby.exception.ErrorCode;
 import com.hh99.nearby.repository.RefreshTokenRepository;
 import com.hh99.nearby.security.UserDetailsImpl;
+import com.hh99.nearby.security.dto.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

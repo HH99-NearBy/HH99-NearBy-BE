@@ -15,19 +15,18 @@ import java.text.ParseException;
 public class ChallengeController {
     private final ChallengeService challengeService;
 
-    @PostMapping("/api/challenge")
+    @PostMapping("/api/challenge") // 챌린지 생성
     public ResponseEntity<?> createChallenge(@RequestBody ChallengeRequestDto challengeRequestDto, @AuthenticationPrincipal UserDetails user) throws ParseException {
        return challengeService.createChallenge(challengeRequestDto, user);
     }
 
-    @PutMapping("/api/challenge/{challenge_id}")
+    @PutMapping("/api/challenge/{challenge_id}") // 챌린지 수정
     public ResponseEntity<?> updateChallenge(@PathVariable Long challenge_id, @RequestBody ChallengeRequestDto challengeRequestDto, @AuthenticationPrincipal UserDetails user){
         return challengeService.updateChallenge(challenge_id,challengeRequestDto, user);
     }
 
-    @DeleteMapping("/api/challenge/{challenge_id}")
+    @DeleteMapping("/api/challenge/{challenge_id}") // 챌린지 삭제
     public ResponseEntity<?> deleteChallenge(@PathVariable Long challenge_id, @AuthenticationPrincipal UserDetails user){
         return challengeService.deleteChallenge(challenge_id, user);
     }
-
 }

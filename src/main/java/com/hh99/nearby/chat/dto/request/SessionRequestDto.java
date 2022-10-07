@@ -1,4 +1,4 @@
-package com.hh99.nearby.chat.dto;
+package com.hh99.nearby.chat.dto.request;
 
 
 import lombok.AllArgsConstructor;

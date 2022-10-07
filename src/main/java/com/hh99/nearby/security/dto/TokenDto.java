@@ -1,4 +1,4 @@
-package com.hh99.nearby.security.jwt;
+package com.hh99.nearby.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

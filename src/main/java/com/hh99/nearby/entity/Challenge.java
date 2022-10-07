@@ -88,24 +88,4 @@ public class Challenge extends Timestamped{
 
     @OneToMany(mappedBy="challenge", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WishList> wishLists;
-
-    //    public void update(PostRequestDto postRequestDto,Member member){
-//    public void update(PostRequestDto postRequestDto){
-//        this.content = postRequestDto.getContent();
-////        this.member = member;
-//    }
-
-//    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Likes> postLikeList;
-//
-//    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Hashtags> hashtagsList;
-//
-//    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Image> imageList;
-//
-//    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Comment> commentList;
-
-
 }
