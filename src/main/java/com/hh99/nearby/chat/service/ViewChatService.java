@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
-@RequiredArgsConstructor
 public class ViewChatService {
     private OpenVidu openVidu;
 
@@ -37,7 +36,6 @@ public class ViewChatService {
         ConnectionProperties connectionProperties = new ConnectionProperties.Builder().type(ConnectionType.WEBRTC).data(serverData).role(role).build();
 
         JSONObject responseJson = new JSONObject();
-
         if (this.mapSessions.get(sessionName) != null) {
             try {
                 String token = this.mapSessions.get(sessionName).createConnection(connectionProperties).getToken();
@@ -62,7 +60,6 @@ public class ViewChatService {
             this.mapSessionNamesTokens.put(sessionName, new ConcurrentHashMap<>());
             this.mapSessionNamesTokens.get(sessionName).put(token, role);
             responseJson.put(0, token);
-
             return ResponseEntity.ok().body(Map.of("msg", "토큰발급 성공", "data", responseJson));
         } catch (Exception e) {
             return getErrorResponse(e);
