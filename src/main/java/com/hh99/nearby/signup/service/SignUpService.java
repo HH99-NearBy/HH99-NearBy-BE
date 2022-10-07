@@ -2,12 +2,12 @@ package com.hh99.nearby.signup.service;
 
 
 import com.hh99.nearby.entity.Member;
-import com.hh99.nearby.exception.PrivateException;
 import com.hh99.nearby.exception.ErrorCode;
+import com.hh99.nearby.exception.PrivateException;
 import com.hh99.nearby.login.dto.response.LoginResponseDto;
 import com.hh99.nearby.repository.MemberRepository;
 import com.hh99.nearby.security.UserDetailsImpl;
-import com.hh99.nearby.security.jwt.TokenDto;
+import com.hh99.nearby.security.dto.TokenDto;
 import com.hh99.nearby.security.jwt.TokenProvider;
 import com.hh99.nearby.signup.dto.request.KakaodSignUpRequestDto;
 import com.hh99.nearby.signup.dto.request.SignUpRequestDto;
@@ -39,27 +39,21 @@ public class SignUpService {
     private final LevelCheck levelCheck;
     private final TokenProvider tokenProvider;
 
-
-
     //회원가입
     @Transactional
     public ResponseEntity<?> createMember(SignUpRequestDto requestDto) throws MessagingException {
         //email check
         if (null != isPresentMemberByEmail(requestDto.getEmail())) {
-//            return ResponseEntity.badRequest().body(Map.of("msg", "Already existing email."));
             throw new PrivateException(ErrorCode.SIGNUP_ALREADY_EMAIL);
         }
         //nickname check
         if (null != isPresentMemberByNickname(requestDto.getNickname())) {
-//            return ResponseEntity.badRequest().body(Map.of("msg", "Already existing nickname."));
             throw new PrivateException(ErrorCode.SIGNUP_ALREADY_NICKNAME);
         }
         if (requestDto.getEmail().isBlank()) {
-//            return ResponseEntity.badRequest().body(Map.of("msg", "Please write proper email address to email field."));
             throw new PrivateException(ErrorCode.SIGNUP_EMPTY_EMAIL);
         }
         if (requestDto.getPassword().isBlank()) {
-//            return ResponseEntity.badRequest().body(Map.of("msg", "Please write proper password to Password field."));
             throw new PrivateException(ErrorCode.SIGNUP_EMPTY_PASSWORD);
         }
 
@@ -85,7 +79,7 @@ public class SignUpService {
 
         member.update(graph);
 
-        return ResponseEntity.ok().body(Map.of("msg", "Successfully sign up."));
+        return ResponseEntity.ok().body(Map.of("msg", "회원가입 완료"));
     }
 
     @Transactional(readOnly = true)
@@ -114,7 +108,6 @@ public class SignUpService {
     public ResponseEntity<?> nicknamecheck(SignUpRequestDto nickname) {
         Optional<Member> member = memberRepository.findByNickname(nickname.getNickname());
         if (member.isPresent()){
-//            return ResponseEntity.badRequest().body(Map.of("msg", "닉네임 중복입니다"));
             throw new PrivateException(ErrorCode.SIGNUP_NICKNAME_CHECK);
         }
         return ResponseEntity.ok().body(Map.of("msg", "가입가능한 닉네임입니다."));
@@ -124,13 +117,10 @@ public class SignUpService {
     public ResponseEntity<?> emailCheck(SignUpRequestDto email) {
         Optional<Member> member = memberRepository.findByEmailAndEmailNotNull(email.getEmail());
         if (member.isPresent()){
-//            return ResponseEntity.badRequest().body(Map.of("msg", "이메일 중복입니다."));
             throw new PrivateException(ErrorCode.SIGNUP_EMAIL_CHECK);
         }
         return ResponseEntity.ok().body(Map.of("msg", "가입가능한 이메일입니다."));
     }
-
-
 
     public ResponseEntity<?> kakaoSignUp(KakaodSignUpRequestDto kakaodSignUpRequestDto, HttpServletResponse response) {
         Member kakaouser = Member.builder()
@@ -169,8 +159,6 @@ public class SignUpService {
         TokenDto token = tokenProvider.generateTokenDto(kakaoUser);//.generateJwtToken(userDetailsImpl);
         response.addHeader("Authorization", "Bearer" + " " + token.getAccessToken());
     }
-
-
 }
 
 

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Builder
 @Getter
@@ -35,7 +34,5 @@ public class MemberChallenge extends Timestamped{
     private LocalDate startDay; //챌리지 시작 시간
     public void update(Long realtime){
         this.realTime = realtime;
-
     }
-
 }

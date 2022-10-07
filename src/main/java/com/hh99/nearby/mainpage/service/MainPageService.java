@@ -2,8 +2,6 @@ package com.hh99.nearby.mainpage.service;
 
 import com.hh99.nearby.entity.*;
 import com.hh99.nearby.mainpage.dto.MainPageResponseDto;
-import com.hh99.nearby.repository.ChallengeRepository;
-import com.hh99.nearby.repository.MemberChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +21,6 @@ import java.util.Map;
 public class MainPageService {
 
     private final MemberRepository memberRepository;
-
-    private final MemberChallengeRepository memberChallengeRepository;
-
-    private final ChallengeRepository challengeRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
     public ResponseEntity<?> getAllChallenge(long challengeId, long size) {
@@ -50,9 +44,7 @@ public class MainPageService {
                             .nickname(challenge.getWriter().getNickname())
                             .build()
             );
-
         }
-
         return ResponseEntity.ok(allchallengelist);
     }
 
@@ -60,7 +52,6 @@ public class MainPageService {
         List<MainPageResponseDto> allchallengelist = new ArrayList<>();
         List<Challenge> challenges = RecruitChallengeList(challengeId, size);
         for (Challenge challenge : challenges) {
-
             long participatePeople = challenge.getMemberChallengeList().size();
 
             allchallengelist.add(
@@ -86,7 +77,6 @@ public class MainPageService {
         List<MainPageResponseDto> allchallengelist = new ArrayList<>();
         List<Challenge> challenges = CloseChallengeList(challengeId, size);
         for (Challenge challenge : challenges) {
-
             long participatePeople = challenge.getMemberChallengeList().size();
 
             allchallengelist.add(
@@ -103,7 +93,6 @@ public class MainPageService {
                             .nickname(challenge.getWriter().getNickname())
                             .build()
             );
-
         }
         return ResponseEntity.ok().body(Map.of("msg","조회 완료","data",allchallengelist));
     }
@@ -114,6 +103,7 @@ public class MainPageService {
         //참가한 리스트 불러오는
         List<MemberChallenge> challengeList = JoinChallengeList(member);
         ArrayList<MainPageResponseDto> mypageChallengeList = new ArrayList<>();
+
         for (MemberChallenge challenge : challengeList) {
             mypageChallengeList.add(
                     MainPageResponseDto.builder()

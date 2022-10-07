@@ -10,7 +10,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class JwtSecurityConfiguration
         extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-
     private final String SECRET_KEY;
     private final TokenProvider tokenProvider;
     private final UserDetailsServiceImpl userDetailsService;

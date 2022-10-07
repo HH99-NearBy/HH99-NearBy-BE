@@ -17,7 +17,6 @@ public class ChatConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-
         registry.enableSimpleBroker("/sub"); // ※pub/sub으로 변경할것
         //topic은 한명이 message를 보내면 해당 토픽을 구독하고있는 n명에게 메시지를 뿌릴떄 사용
         //queue은 한명이 message를 보내면 발행한 한명에게 정보를 보내는경우
@@ -36,6 +35,4 @@ public class ChatConfig implements WebSocketMessageBrokerConfigurer {
     public void configureClientInboundChannel(ChannelRegistration registration) {
         registration.interceptors(stompHandler);
     }
-
-
 }
