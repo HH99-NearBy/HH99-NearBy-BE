@@ -45,7 +45,7 @@ public class MainPageService {
                             .build()
             );
         }
-        return ResponseEntity.ok(allchallengelist);
+        return ResponseEntity.ok().body(Map.of("msg","전체 리스트 조회 완료","data",allchallengelist));
     }
 
     public ResponseEntity<?> getAllRecruitChallenge(long challengeId, long size){
@@ -120,7 +120,7 @@ public class MainPageService {
                             .build()
             );
         }
-        return ResponseEntity.ok(mypageChallengeList);
+        return ResponseEntity.ok().body(Map.of("msg","조회 완료","data",mypageChallengeList));
     }
 
     public List<MemberChallenge> JoinChallengeList(Member member){
